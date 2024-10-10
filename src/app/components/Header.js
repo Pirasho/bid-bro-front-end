@@ -8,10 +8,10 @@ export default function Header() {
             {/* Small purple navbar */}
             <div className="bg-purple-800 text-white py-2">
                 <div className="container mx-auto px-4">
-                    <nav className="flex space-x-4 justify-center">
-                        <Link href="/home" className="font-semibold">Home</Link>
-                        <Link href="/about" className="font-semibold">About</Link>
-                        <Link href="/contact" className="font-semibold">Contact</Link>
+                    <nav className="flex space-x-4 justify-center" style={{ color: '#301934' }}>
+                        <Link href="/home" className="font-semibold">BidBroo@gmail.com</Link>
+                        {/* <Link href="/about" className="font-semibold">About</Link>
+                        <Link href="/contact" className="font-semibold">Contact</Link> */}
                     </nav>
                 </div>
             </div>
@@ -32,7 +32,7 @@ export default function Header() {
                         <h1 className="text-2xl font-bold"><Link href="/">Hello! Admin</Link></h1>
                     </div>
                     <nav className="flex space-x-4 items-center">
-                        <Link href="/admin" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
+                        <Link href="/adminfro" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
                             <HomeIcon className="w-6 h-6"/>
                             <span>Dashboard</span>
                         </Link>
@@ -48,10 +48,10 @@ export default function Header() {
                             <UsersIcon className="w-6 h-6"/>
                             <span>Customers</span>
                         </Link>
-                        <Link href="/pages/cards" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
+                        {/* <Link href="/pages/cards" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
                             <ChartBarIcon className="w-6 h-6"/>
                             <span>Analysis</span>
-                        </Link>
+                        </Link> */}
                         <Link href="/pages/changepass" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
                             <CogIcon className="w-6 h-6"/>
                             <span>Settings</span>
@@ -60,11 +60,11 @@ export default function Header() {
                             <CreditCardIcon className="w-6 h-6"/>
                             <span>Payments</span>
                         </Link>
-                        <input
+                        {/* <input
                             type="text"
                             placeholder="Search..."
                             className="px-4 py-2 border rounded-lg"
-                        />
+                        /> */}
                     </nav>
                 </div>
             </header>

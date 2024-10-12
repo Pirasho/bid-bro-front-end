@@ -1,6 +1,6 @@
 "use client";
 import { useState } from 'react';
-import Header from "../../components/Header";
+// import Header from "../../components/Header";
 
 const RegisterCustomer = ({ children }) => {
   const [name, setName] = useState('');
@@ -51,7 +51,7 @@ const RegisterCustomer = ({ children }) => {
 
   return (
     <>
-    <Header />
+    {/* <Header /> */}
     <div>{children}</div>
     <div className="flex h-screen">
       <div className="w-1/2">

@@ -1,73 +1,60 @@
-import Link from "next/link";
-import Image from 'next/image';
-import { HomeIcon, ShoppingCartIcon, UserGroupIcon, UsersIcon, ChartBarIcon, CogIcon, CreditCardIcon } from '@heroicons/react/outline';
+"use client";
+import React, { useEffect, useState } from "react";
+import retrievePayments from "./api";
+import Header from "../components/Header";
 
-export default function Header() {
+export default function PaymentDetails() {
+    const [paymentDetails, setPaymentDetails] = useState([]);
+
+    useEffect(() => {
+        retrievePayments().then((data) => {
+            console.log(data);
+            setPaymentDetails(data.data);
+        })
+        .catch((error) => { 
+            console.error(error);
+        });
+    }, []);
+
     return (
         <>
-            {/* Small purple navbar */}
-            <div className="bg-purple-800 text-white py-2">
-                <div className="container mx-auto px-4">
-                    <nav className="flex space-x-4 justify-center" style={{ color: '#301934' }}>
-                        <Link href="/home" className="font-semibold">BidBroo@gmail.com</Link>
-                        {/* <Link href="/about" className="font-semibold">About</Link>
-                        <Link href="/contact" className="font-semibold">Contact</Link> */}
-                    </nav>
+      <Header />
+        <div className="container mx-auto mt-5 p-6">
+            <div className="bg-white shadow-md rounded-lg overflow-hidden">
+                <div className="px-6 py-4">
+                    <h1 className="font-bold text-2xl mb-4">Payment Details</h1>
+                    <div className="overflow-x-auto">
+                        <table className="min-w-full bg-white text-center">
+                            <thead>
+                                <tr>
+                                    <th className="py-2 px-4 border-b-2 border-gray-200">ORDER NO</th>
+                                    <th className="py-2 px-4 border-b-2 border-gray-200">DATE</th>
+                                    <th className="py-2 px-4 border-b-2 border-gray-200">ITEM</th>
+                                    <th className="py-2 px-4 border-b-2 border-gray-200">TYPE</th>
+                                    <th className="py-2 px-4 border-b-2 border-gray-200">STATUS</th>
+                                    <th className="py-2 px-4 border-b-2 border-gray-200">AMOUNT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {paymentDetails.map((payment, index) => (
+                                    <tr key={index}>
+                                        <td className="py-2 px-4 border-b border-gray-200">{payment.payment_id}</td>
+                                        <td className="py-2 px-4 border-b border-gray-200">{payment.date}</td>
+                                        <td className="py-2 px-4 border-b border-gray-200">{payment.description}</td>
+                                        <td className="py-2 px-4 border-b border-gray-200">{payment.payment_method.method}</td>
+                                        <td className="py-2 px-4 border-b border-gray-200">{payment.status}</td>
+                                        <td className="py-2 px-4 border-b border-gray-200">Rs. {payment.amount.toFixed(2)}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
-            {/* Main header */}
-            <header className="bg-white shadow-lg">
-                <div className="container mx-auto px-4 py-6 flex flex-col">
-                    <div className="flex items-center space-x-4 mb-4">
-                        <div className="w-20 h-20 bg-gray-200 rounded-md relative">
-                            <Image
-                                src="/images/logo.png"
-                                alt="Logo"
-                                layout="fill"
-                                objectFit="cover"
-                                className="rounded-md"
-                            />
-                        </div>
-                        <h1 className="text-2xl font-bold"><Link href="/">Hello! Admin</Link></h1>
-                    </div>
-                    <nav className="flex space-x-4 items-center">
-                        <Link href="/adminfro" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <HomeIcon className="w-6 h-6"/>
-                            <span>Dashboard</span>
-                        </Link>
-                        <Link href="/products" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <ShoppingCartIcon className="w-6 h-6"/>
-                            <span>Product</span>
-                        </Link>
-                        <Link href="/sellers" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <UserGroupIcon className="w-6 h-6"/>
-                            <span>Sellers</span>
-                        </Link>
-                        <Link href="/customers" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <UsersIcon className="w-6 h-6"/>
-                            <span>Customers</span>
-                        </Link>
-                        {/* <Link href="/pages/cards" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <ChartBarIcon className="w-6 h-6"/>
-                            <span>Analysis</span>
-                        </Link> */}
-                        <Link href="/pages/changepass" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <CogIcon className="w-6 h-6"/>
-                            <span>Settings</span>
-                        </Link>
-                        <Link href="/payments" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <CreditCardIcon className="w-6 h-6"/>
-                            <span>Payments</span>
-                        </Link>
-                        {/* <input
-                            type="text"
-                            placeholder="Search..."
-                            className="px-4 py-2 border rounded-lg"
-                        /> */}
-                    </nav>
-                </div>
-            </header>
+            <footer className="bg-gray-900 text-white text-center py-4">
+        <p>&copy; 2024 Electro Bid Hub. All rights reserved.</p>
+      </footer>
+        </div>
         </>
     );
-}
+};

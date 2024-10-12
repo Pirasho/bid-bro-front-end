@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 const RegistrationModal = ({ isOpen, onClose, onSwitchToSignIn }) => {
   const [registrationDetails, setRegistrationDetails] = useState({
@@ -19,58 +20,72 @@ const RegistrationModal = ({ isOpen, onClose, onSwitchToSignIn }) => {
     setRegistrationDetails((prev) => ({ ...prev, [name]: value }));
   };
 
+  const validateForm = () => {
+    const { phone, password, confirmPassword } = registrationDetails;
+
+    if (Object.values(registrationDetails).some((x) => x === "")) {
+      alert("Please fill in all the fields.");
+      return false;
+    }
+    if (!/^\d{10}$/.test(phone)) {
+      alert("Please enter a valid 10-digit phone number.");
+      return false;
+    }
+    if (password !== confirmPassword) {
+      alert("Passwords do not match.");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (validateForm()) {
+      try {
+        const response = await fetch('http://localhost:5000/api/register', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(registrationDetails),
+        });
 
-    // Perform validation and submit the form
-    try {
-      const response = await fetch('http://localhost:5000/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(registrationDetails),
-      });
+        if (!response.ok) {
+          const errorData = await response.json(); 
+          throw new Error(errorData.message || 'Registration failed');
+        }
 
-      // Handle non-200 responses
-      if (!response.ok) {
-        const errorData = await response.json(); // Parse error response if available
-        throw new Error(errorData.message || 'Registration failed');
+        alert('Registration successful!');
+        onClose(); 
+      } catch (error) {
+        console.error('Error:', error.message);
+        alert(`Registration failed: ${error.message}`);
       }
-
-      const result = await response.json();
-      alert('Registration successful!');
-      onClose(); // Close the modal after successful registration
-    } catch (error) {
-      console.error('Error:', error.message);
-      alert(`Registration failed: ${error.message}`);
     }
   };
 
-//   if (!isOpen) return null; // Ensure the modal renders only when `isOpen` is true
-
   const handleBackgroundClick = (e) => {
     if (e.target === e.currentTarget) {
-      onClose(); // Close modal when clicking outside the modal content
+      onClose(); 
     }
   };
 
   useEffect(() => {
     const handleEscape = (e) => {
       if (e.key === 'Escape' && isOpen) {
-        onClose(); // Close the modal when 'Escape' key is pressed
+        onClose(); 
       }
     };
 
-    // if (isOpen) {
-    //   document.addEventListener('keydown', handleEscape);
-    // }
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+    }
 
-    // Cleanup the event listener when the modal is closed or unmounted
     return () => {
       document.removeEventListener('keydown', handleEscape);
     };
-  }, [onClose]); // Ensure `onClose` and `isOpen` are part of the dependency array
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
@@ -79,50 +94,41 @@ const RegistrationModal = ({ isOpen, onClose, onSwitchToSignIn }) => {
         <button onClick={onClose} className="absolute top-2 right-2 text-gray-500">X</button>
         <h2 className="text-2xl font-bold mb-4">Register</h2>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label htmlFor="email" className="block text-sm font-medium">Email</label>
-
-            
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={registrationDetails.email}
-              onChange={handleInputChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              required
-            />
-          </div>
-
-          <div className="mb-4">
-            <label htmlFor="password" className="block text-sm font-medium">Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              value={registrationDetails.password}
-              onChange={handleInputChange}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
-              required
-            />
-          </div>
-
+          {[{ label: "Name", type: "text", id: "name" },
+            { label: "Email", type: "email", id: "email" },
+            { label: "Phone", type: "text", id: "phone" },
+            { label: "Address", type: "text", id: "address" },
+            { label: "City", type: "text", id: "city" },
+            { label: "Zip Code", type: "text", id: "zip" },
+            { label: "Password", type: "password", id: "password" },
+            { label: "Re-enter Password", type: "password", id: "confirmPassword" }]
+            .map(({ label, type, id }) => (
+              <div key={id} className="form-group mb-4">
+                <label htmlFor={id} className="block text-sm font-medium text-black">{label}</label>
+                <input
+                  type={type}
+                  id={id}
+                  name={id}
+                  value={registrationDetails[id]}
+                  onChange={handleInputChange}
+                  className="form-control block w-full bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 rounded-3xl shadow-xl border border-gray-300"
+                  required
+                />
+              </div>
+            ))}
           <button
             type="submit"
-            className="bg-blue-500 text-white py-2 px-4 rounded-lg w-full"
-            disabled={!registrationDetails.email || !registrationDetails.password} // Disable button when fields are empty
-          >
+            className="bg-blue-500 text-white py-2 px-4 rounded-lg w-full">
             Register
           </button>
         </form>
 
-        {/* Prompt to sign in */}
-        <p className="mt-4 text-sm text-center">
-          Already have an account?{' '}
-          <button onClick={onSwitchToSignIn} className="text-blue-500 underline">
-            Sign In
-          </button>
-        </p>
+        <div className="flex justify-between items-center mt-4">
+          <div>Already have an account?</div>
+          <Link href="/pages/abc/signin" className="text-primary">
+            <span className="font-bold text-purple-900">Log In</span>
+          </Link>
+        </div>
       </div>
     </div>
   );

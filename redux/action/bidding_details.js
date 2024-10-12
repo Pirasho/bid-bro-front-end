@@ -2,19 +2,58 @@ import HttpInterceptor from "../../services/HttpInterceptor.js";
 
 const http = new HttpInterceptor();
 
-export const GetAuctionDetails = (callback) => {
+export const GetAuctionDetails = (id, callback) => {
+  const endpoint = `${process.env.api_base_url}/auction/get/${id}`;
+  try {
+      http
+          .get(endpoint)
+          .then((response) => {
+              if (typeof callback === "function") {
+                  callback(response);
+              } else {
+                  console.error("Callback is not a function");
+              }
+          })
+          .catch((error) => {
+              if (typeof callback === "function") {
+                  callback(error.response);
+              } else {
+                  console.error("Callback is not a function");
+              }
+          });
+  } catch (error) {
+      if (typeof callback === "function") {
+          callback(error.response);
+      } else {
+          console.error("Callback is not a function");
+      }
+  }
+};
+export const GetAuctionFullDetails = (callback) => {
   const endpoint = `${process.env.api_base_url}/auction/get`;
   try {
-    http
-      .get(endpoint)
-      .then((response) => {
-        callback(response);
-      })
-      .catch((error) => {
-        callback(error.response);
-      });
+      http
+          .get(endpoint)
+          .then((response) => {
+              if (typeof callback === "function") {
+                  callback(response);
+              } else {
+                  console.error("Callback is not a function");
+              }
+          })
+          .catch((error) => {
+              if (typeof callback === "function") {
+                  callback(error.response);
+              } else {
+                  console.error("Callback is not a function");
+              }
+          });
   } catch (error) {
-    callback(error.response);
+      if (typeof callback === "function") {
+          callback(error.response);
+      } else {
+          console.error("Callback is not a function");
+      }
   }
 };
 

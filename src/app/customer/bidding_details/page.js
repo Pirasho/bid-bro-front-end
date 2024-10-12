@@ -1,11 +1,14 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { GetAuctionDetails, GetSellerbids } from '../../../../redux/action/bidding_details';
+import {  GetAuctionFullDetails, GetSellerbids } from '../../../../redux/action/bidding_details';
 import { useRouter } from 'next/navigation';
-import Footer from '@/app/widgets/footer/footer';
-import Navbar from '@/app/widgets/navbar/navbar';
-import Chatbot from '@/app/widgets/chatbot/page';
+import Navbar from '../../widgets/navbar/navbar';
+import Chatbot from '../../widgets/chatbot/page';
+import Footer from '../../widgets/footer/footer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 
 function Pages() {
   const router = useRouter();
@@ -13,7 +16,7 @@ function Pages() {
   const [sellerBids, setSellerBids] = useState([]);
 
   useEffect(() => {
-    GetAuctionDetails((response) => {
+    GetAuctionFullDetails((response) => {
       if (response.status === 200) {
         const auctions = response.data;
         if (auctions.length > 0) {
@@ -37,9 +40,9 @@ function Pages() {
 
   return (
     <div className='h-full w-full'>
-      <Navbar />
+      <Navbar/>
       <div className='p-24 flex flex-col md:flex-row'>
-        <Chatbot />
+        <Chatbot/>
         <div className='flex flex-col w-full md:w-1/3 gap-8 items-center'>
           <div className='text-3xl font-bold'>{auction.productName}</div>
           <Image
@@ -73,7 +76,7 @@ function Pages() {
                 <div className='text-2xl font-bold'>SELLER BIDDING LIST</div>
                 <div className='text-primary'>Sellers with 4+ ratings are 80% more likely to win a bid.</div>
               </div>
-              <button type="button" className="btn p-2 btn-primary rounded-3xl">Cancel</button>
+              {/* <button type="button" className="btn p-2 btn-primary rounded-3xl">Cancel</button> */}
             </div>
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
               {sellerBids.map((bid, index) => (
@@ -88,14 +91,15 @@ function Pages() {
                     <div>You save:</div>
                     <div className='font-bold'>Rs.{bid.saving}</div>
                   </div>
-                  <button className='btn p-2 btn-primary' onClick={() => router.push("/customer/place_order")}>Accept</button>
+                  <div className=' d-flex justify-center mt-2'>  <button className='btn p-2 btn-primary' onClick={() => router.push("/customer/place_order")}>Show Bid Details</button></div>
+                
                 </div>
               ))}
             </div>
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 }

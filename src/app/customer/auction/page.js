@@ -156,8 +156,10 @@
 
 "use client"
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { AddAuctionMethod } from '../../../../redux/action/auction'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 const AuctionModal = ({ setShowModal, product }) => {
     const [isButtonDisabled, setIsButtonDisabled] = useState(false);
@@ -168,11 +170,18 @@ const AuctionModal = ({ setShowModal, product }) => {
     const [count, setCount] = useState(1);
     const [sucess, setsucess] = useState("");
     const [errormsg, seterrormsg] = useState("");
+    const [userId, setuserId] = useState('');
     const [error, seterror] = useState({
         price: false,
         description: false
     });
     console.log("Product details", product);
+
+ useEffect(()=>{
+    const storedUserDetails = localStorage.getItem('userDetails');
+    const userDetails = JSON.parse(storedUserDetails);
+    setuserId(userDetails.id);
+ },[])
 
     const handleButtonClick = () => {
         seterror({
@@ -194,15 +203,26 @@ const AuctionModal = ({ setShowModal, product }) => {
             productName: product.name, // Access product name here directly if it's not an array
             expectedPrice: formData.price,
             noOfUnits: count,
-            description: formData.description
+            description: formData.description,
+            customerId:userId,
         };
-
         AddAuctionMethod(data, (res) => {
             if (res?.status >= 200 && res?.status < 300) {
                 setsucess("Successfully added");
-                setIsButtonDisabled(true); 
+                setIsButtonDisabled(true);
+
+                // Reset success message after 3 seconds
+                setTimeout(() => {
+                    setsucess("");
+                    setIsButtonDisabled(false);
+                }, 3000);
             } else {
                 seterrormsg("Failed to add auction");
+
+                // Reset error message after 3 seconds
+                setTimeout(() => {
+                    seterrormsg("");
+                }, 3000);
             }
         });
     };
@@ -233,6 +253,8 @@ const AuctionModal = ({ setShowModal, product }) => {
                         &times;
                     </button>
                 </div>
+                {sucess && <div className="alert  alert-success p-1">{sucess}</div>}
+                {errormsg && <div className="alert alert-danger p-1">{errormsg}</div>}
 
                 <div className="flex flex-col md:flex-row gap-8">
                     {Array.isArray(product) && product.length > 0 ? (
@@ -311,8 +333,7 @@ const AuctionModal = ({ setShowModal, product }) => {
                                 Start Auction
                             </button>
                         </div>
-                        <div className='text-green-500'>{sucess}</div>
-                        <div className='text-red-500'>{errormsg}</div>
+                   
                     </div>
                 </div>
             </div>

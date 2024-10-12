@@ -1,13 +1,13 @@
 "use client"
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Navbar from '@/app/widgets/navbar/navbar';
 import AuctionModal from '../../auction/page'; // Adjust the path as needed
 import GetAllProduct from '../../auction/page'; // Adjust the path as needed
 import { useParams, useRouter } from 'next/navigation';
-import Footer from '@/app/widgets/footer/footer';
-import Chatbot from '@/app/widgets/chatbot/page';
 import { GetProductDetails } from '../../../../../redux/action/product';
+import Navbar from '../../../widgets/navbar/navbar';
+import Footer from '../../../widgets/footer/footer';
+import Chatbot from '../../../widgets/chatbot/page';
 
 function Pages() {
   const [showModal, setShowModal] = useState(false);
@@ -41,10 +41,10 @@ const handleClick = () => {
 
   return (
     <div className='h-full w-full' >
-      <Navbar />
+      <Navbar/>
       {product && (
-        <div className='p-20 mt-28 flex'>
-          <Chatbot />
+        <div className='p-20  flex'>
+          <Chatbot/>
           <div className='flex flex-col w-1/3 gap-5 items-center'>
             <div className='text-3xl font-bold'>{product.name}</div>
             <div className='flex shadow-xl rounded-3xl '>
@@ -98,7 +98,7 @@ const handleClick = () => {
         </div>
       )}
       {showModal && <AuctionModal showModal={showModal} setShowModal={setShowModal} product={product}/>}
-      <Footer />
+      <Footer/>
     </div>
   );
 }

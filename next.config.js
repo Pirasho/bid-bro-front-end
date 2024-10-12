@@ -4,10 +4,10 @@ module.exports = {
     },
     images: {
         domains: [
-          'res.cloudinary.com'
+          'res.cloudinary.com','localhost'
         ],
+        
+        
     },
-    experimental: {
-      esmExternals: false
-    }
+   
   }

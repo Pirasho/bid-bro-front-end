@@ -1,12 +1,15 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Navbar from '@/app/widgets/navbar/navbar';
-import Footer from '@/app/widgets/footer/footer';
-import Chatbot from '@/app/widgets/chatbot/page';
+
 import { GetSellerbids } from '../../../../redux/action/bidding_details';
 import { useRouter } from 'next/navigation';
 import { StarIcon } from '@heroicons/react/solid';
+import Navbar from '../../widgets/navbar/navbar';
+import Chatbot from '../../widgets/chatbot/page';
+import Footer from '../../widgets/footer/footer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 
 
 function Pages() {
@@ -43,9 +46,9 @@ function Pages() {
 
   return (
     <div className=''>
-      <Navbar />
+      <Navbar/>
       <div className='p-2' style={{ position: '' }} >
-        <Chatbot />
+        <Chatbot/>
         <div className='font-bold fs-2 text-3xl ml-12 mt-3 ms-3'>iPhone 12</div>
 
         <div className=' row p-8'>
@@ -235,7 +238,7 @@ function Pages() {
           </div>
         </div>
       </div>
-      <Footer />
+      <Footer/>
 
     </div>
   )

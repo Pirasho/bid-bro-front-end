@@ -1,15 +1,16 @@
 import React from 'react';
 import Image from 'next/image';
-import Navbar from '@/app/widgets/navbar/navbar';
-import Footer from '@/app/widgets/footer/footer';
-import Chatbot from '@/app/widgets/chatbot/page';
+import Chatbot from '../../widgets/chatbot/page';
+import Navbar from '../../widgets/navbar/navbar';
+import Footer from '../../widgets/footer/footer';
+
 
 function Pages() {
     return (
         <div className='h-full w-full' >
-            <Navbar />
+            <Navbar/>
             <div className='flex flex-col  pt-10 gap-5'>
-        <Chatbot />
+        <Chatbot/>
 
                 <div className=' rounded-3xl gap-5 flex flex-col m-3 p-5'>
                     <div className='text-2xl  font-bold '>About Us</div>
@@ -80,7 +81,7 @@ function Pages() {
                     </div>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
 
         </div>
     );

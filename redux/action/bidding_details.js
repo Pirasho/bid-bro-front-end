@@ -59,7 +59,34 @@ export const GetAuctionFullDetails = (id,callback) => {
 };
 
 export const GetSellerbids = (id,callback) => {
-  const endpoint = `${process.env.api_base_url}/sellerbid/getauctionseller/${id}`;
+  const endpoint = `${process.env.api_base_url}/sellerbid/auction/${id}`;
+  try {
+    http
+        .get(endpoint)
+        .then((response) => {
+            if (typeof callback === "function") {
+                callback(response);
+            } else {
+                console.error("Callback is not a function");
+            }
+        })
+        .catch((error) => {
+            if (typeof callback === "function") {
+                callback(error.response);
+            } else {
+                console.error("Callback is not a function");
+            }
+        });
+} catch (error) {
+    if (typeof callback === "function") {
+        callback(error.response);
+    } else {
+        console.error("Callback is not a function");
+    }
+}
+};
+export const GetSellerbidsById = (seller_id,callback) => {
+  const endpoint = `${process.env.api_base_url}/sellerbid/auction/seller/${seller_id}`;
   try {
     http
         .get(endpoint)

@@ -175,6 +175,16 @@ function Pages() {
                                     />
                                 </div>
                                 <div className="form-group">
+                                    <label>email</label>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        className="form-control"
+                                        value={formData.email || ''}
+                                        onChange={handleInputChange}
+                                    />
+                                </div>
+                                <div className="form-group">
                                     <label>Address</label>
                                     <input
                                         type="text"

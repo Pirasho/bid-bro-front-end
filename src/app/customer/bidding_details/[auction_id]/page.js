@@ -117,7 +117,7 @@ function Pages() {
                     <div className='font-bold'>Rs.{bid.saving}</div>
                   </div>
                   <div className='d-flex justify-center mt-2'>
-                    <button className='btn p-2 btn-primary' onClick={() => router.push(`/customer/place_order/${auction_id}/${bid.sellerid}`)}>
+                    <button className='btn p-2 btn-primary' onClick={() => router.push(`/customer/place_order/${auction_id}/${bid._id}`)}>
                       Show Bid Details
                     </button>
                   </div>

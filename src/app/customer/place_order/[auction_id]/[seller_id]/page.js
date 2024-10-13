@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 
-import { GetSellerbids } from '../../../../../../redux/action/bidding_details';
-import { useRouter } from 'next/navigation';
+import { GetSellerbids, GetSellerbidsById } from '../../../../../../redux/action/bidding_details';
+import { useParams, useRouter } from 'next/navigation';
 import { StarIcon } from '@heroicons/react/solid';
 import Navbar from '../../../../widgets/navbar/navbar';
 import Chatbot from '../../../../widgets/chatbot/page';
@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import '../../../../../../public/styles.css'
 
 
 function Pages() {
@@ -24,19 +25,8 @@ function Pages() {
   
   const { auction_id,seller_id } = useParams();
 
-
-  // useEffect(() => {
-  //   GetSellerbids((response) => {
-  //     if (response.status === 200) {
-  //       setSellerBids(response.data); // Assuming response.data is an array of seller bids
-  //     } else {
-  //       console.error("Failed to fetch seller bids", response);
-  //     }
-  //   });
-  // }, []);
-
   useEffect(() => {
-    GetSellerbids((response) => {
+    GetSellerbidsById(seller_id,(response) => {
       if (response.status === 200) {
         const sellerBids = response.data;
         if (sellerBids.length > 0) {
@@ -52,8 +42,8 @@ function Pages() {
     
     <div className=''>
       <Navbar/>
-      <div className=' btn  btn-primary ms-4' onClick={() => router.push("/customer/bidnotification/auction_id")}>
-        <FontAwesomeIcon icon={faChevronLeft} /> Back
+      <div className=' btn  btn-primary ms-4' onClick={() => router.push(`/customer/bidding_details//${auction_id}`)}>
+        <FontAwesomeIcon icon={faChevronLeft}/> Back
         </div>
       <div className='p-2' style={{ position: '' }} >
         <Chatbot/>
@@ -74,11 +64,25 @@ function Pages() {
               <div className='grid grid-cols-1  gap-6'>
                 {/* {sellerBids.map((bid, index) => ( */}
                 <div className='bg-light p-4 rounded-3xl shadow'>
-                  <div className='font-bold text-lg mb-2'>Price Details</div>
+                  <div className='font-bold text-lg mb-2 heading-bar'>Price Details</div>
+                  <div className='flex justify-between mt-4'>
+                    <div>SellerName :</div>
+                    <div className='font-bold'>{sellerBids.sellerName}</div>
+                  </div>
+
+                  <div className='flex justify-between mt-2'>
+                    <div>MRP :</div>
+                    <div className='font-bold'>{sellerBids.mrp}</div>
+                  </div>
                   <div className='flex justify-between mt-2'>
 
                     <div>Bid Price :</div>
                     <div className='font-bold'>{sellerBids.bidprice}</div>
+                  </div>
+                  <div className='flex justify-between mt-2'>
+
+                    <div>City :</div>
+                    <div className='font-bold'>{sellerBids.city}</div>
                   </div>
                   <div className='flex justify-between mt-2'>
                     <div>Delivery Charge :</div>
@@ -96,7 +100,7 @@ function Pages() {
                     <div>Special note :</div>
                     <div className='font-bold'>{sellerBids.specialnote}</div>
                   </div>
-                  <button className='btn p-2 rounded-full border-dark rounded-pill btn-primary'>
+                  <button className='btn p-2 rounded-full border-dark rounded-pill btn-primary mt-2'>
                     Accept Bid
                   </button>
                 </div>

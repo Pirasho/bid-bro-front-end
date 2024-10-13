@@ -22,6 +22,8 @@ function HomePage() {
         GetProductDetails((response) => {
            
             if (response.status === 200) {
+                console.log(response.data);
+                
                 setProduct(response.data);
             } else {
                 console.error("Failed to fetch products", response);

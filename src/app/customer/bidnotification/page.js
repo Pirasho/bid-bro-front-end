@@ -23,11 +23,11 @@ function Pages() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const userId = await getUserId(); // Wait for userId to be retrieved
+                const userId = await getUserId(); 
                 if (userId) {
                     GetAuctionDetails(userId, (response) => {
                         if (response.status === 200) {
-                            setAuction(response.data); // Set the auction data
+                            setAuction(response.data);
                         } else {
                             console.error("Failed to fetch seller bids", response);
                         }
@@ -38,12 +38,12 @@ function Pages() {
             }
         };
 
-        fetchData(); // Call the async function
+        fetchData(); 
     }, [userId]);
     const getUserId = () => {
         const storedUserDetails = localStorage.getItem('userDetails');
         const userDetails = JSON.parse(storedUserDetails);
-        return userDetails?.id; // Return the userId from localStorage
+        return userDetails?.id; 
     };
 
     return (
@@ -60,12 +60,13 @@ function Pages() {
                             <div className='col-12 col-md-6 col-lg-4  mb-4'>
 
                             <div key={index} className="p-5 d-flex flex-column align-items-center justify-center bg-white rounded-3xl shadow-xl w-72" style={{ borderBottom: '6px solid  #8006be' }}>
+                            <div className='text-2xl font-bold'>{auct._id}</div>
                                 <div className='text-2xl font-bold'>{auct.productName}</div>
                                 <div className='flex justify-start gap-2'>
                                     <div className='font-bold'>Expected Price :</div>
                                     <div>{auct.expectedPrice}</div>
                                 </div>
-                                <button className='btn p-2 btn-primary' onClick={() => router.push("/customer/bidding_details")}>
+                                <button className='btn p-2 btn-primary' onClick={() => router.push(`/customer/bidding_details/${auct._id}`)}>
                                     Show bids
                                 </button>
                             </div>

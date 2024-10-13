@@ -29,8 +29,9 @@ export const GetAuctionDetails = (id, callback) => {
       }
   }
 };
-export const GetAuctionFullDetails = (callback) => {
-  const endpoint = `${process.env.api_base_url}/auction/get`;
+
+export const GetAuctionFullDetails = (id,callback) => {
+  const endpoint = `${process.env.api_base_url}/auction/id/${id}`;
   try {
       http
           .get(endpoint)
@@ -57,20 +58,32 @@ export const GetAuctionFullDetails = (callback) => {
   }
 };
 
-export const GetSellerbids = (callback) => {
-  const endpoint = `${process.env.api_base_url}/sellerbid/get`;
+export const GetSellerbids = (id,callback) => {
+  const endpoint = `${process.env.api_base_url}/sellerbid/getauctionseller/${id}`;
   try {
     http
-      .get(endpoint)
-      .then((response) => {
-        callback(response);
-      })
-      .catch((error) => {
+        .get(endpoint)
+        .then((response) => {
+            if (typeof callback === "function") {
+                callback(response);
+            } else {
+                console.error("Callback is not a function");
+            }
+        })
+        .catch((error) => {
+            if (typeof callback === "function") {
+                callback(error.response);
+            } else {
+                console.error("Callback is not a function");
+            }
+        });
+} catch (error) {
+    if (typeof callback === "function") {
         callback(error.response);
-      });
-  } catch (error) {
-    callback(error.response);
-  }
+    } else {
+        console.error("Callback is not a function");
+    }
+}
 };
 
 export const AddSellerbids = (data,callback) => {

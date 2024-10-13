@@ -17,8 +17,8 @@ export default function Registration() {
     phone: "",
     address: "",
     city: "",
-    country: "Sri Lanka",
-    zip: "12",
+    country: "",
+    zip: "",
     password: "",
     confirmPassword: "",
     profileimage:{}
@@ -55,7 +55,12 @@ export default function Registration() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
     if (validateForm()) {
+      if (images.length === 0) {
+        setError('Please add your profile image.');
+        return;
+      }
       setDetails((prev) => ({ ...prev, profileimage: images[0] ? images[0].data_url : null }));
       try {
       
@@ -210,6 +215,7 @@ export default function Registration() {
                       />
                     </div>
                   </div>
+                  
 
                   {/* Address and City */}
                   <div className="row mb-1">
@@ -235,6 +241,35 @@ export default function Registration() {
                         name="city"
                         placeholder="Enter your city"
                         value={details.city}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </div>
+                  </div>
+                  {/* Email and Phone */}
+                  <div className="row mb-1">
+                    <div className="col-md-6">
+                      <label htmlFor="country" className="form-label fs-4">Country</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="country"
+                        name="country"
+                        placeholder="Enter your country"
+                        value={details.country}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </div>
+                    <div className="col-md-6">
+                      <label htmlFor="zip" className="form-label fs-4">Zip_Code</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="zip"
+                        name="zip"
+                        placeholder="Enter your Zipcode"
+                        value={details.zip}
                         onChange={handleInputChange}
                         required
                       />

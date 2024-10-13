@@ -117,7 +117,7 @@ export default function SignIn() {
 
                   <div className=" mt-4 text-center">
                     <div>Don't have an account?
-                      <Link href="/customer/register" className="text-primary">
+                      <Link href="/auth/register" className="text-primary">
                         <span className="font-bold text-purple-900">Register</span>
                       </Link>
                     </div>

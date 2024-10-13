@@ -128,3 +128,20 @@ export const AddSellerbids = (data,callback) => {
     callback(error.response);
   }
 };
+
+export const AcceptSellerbids = (data, callback) => {
+  const endpoint = `${process.env.api_base_url}/sellerbid/post`; // Define the endpoint
+
+  try {
+    http
+      .post(endpoint, data) // Send a POST request
+      .then((response) => {
+        callback(null, response); // Call the callback with the response if successful
+      })
+      .catch((error) => {
+        callback(error.response ? error.response : error); // Call the callback with the error if failed
+      });
+  } catch (error) {
+    callback(error); // Call the callback with any unexpected errors
+  }
+};

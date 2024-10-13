@@ -60,7 +60,6 @@ function Pages() {
                             <div className='col-12 col-md-6 col-lg-4  mb-4'>
 
                             <div key={index} className="p-5 d-flex flex-column align-items-center justify-center bg-white rounded-3xl shadow-xl w-72" style={{ borderBottom: '6px solid  #8006be' }}>
-                            <div className='text-2xl font-bold'>{auct._id}</div>
                                 <div className='text-2xl font-bold'>{auct.productName}</div>
                                 <div className='flex justify-start gap-2'>
                                     <div className='font-bold'>Expected Price :</div>

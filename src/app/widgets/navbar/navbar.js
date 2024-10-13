@@ -152,8 +152,8 @@ const Navbar = () => {
                     Profile
                   </Link>
                 </li>
-                <li>
-                  <Link href="/customer/signin"
+                <li onClick={()=>{localStorage.removeItem('userDetails');}}>
+                  <Link href="/auth/signin"
                     className="block px-4 py-2 text-sm hover:bg-[#8006be] transition-all duration-300 rounded-md p-1">
                     Sign out
                   </Link>

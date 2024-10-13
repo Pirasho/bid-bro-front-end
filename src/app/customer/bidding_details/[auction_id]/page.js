@@ -11,6 +11,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { useRouter } from 'next/navigation';
+import NoResult from '../../../components/NoResult';
 
 
 function Pages() {
@@ -103,8 +104,10 @@ function Pages() {
                 <div className='text-primary'>Sellers with 4+ ratings are 80% more likely to win a bid.</div>
               </div>
             </div>
+            {sellerBids.length===0 ? <NoResult title='NO SELLER BIDDING Yet!'/>:
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6'>
-              {sellerBids.map((bid, index) => (
+              {
+              sellerBids.map((bid, index) => (
                 <div key={index} className='bg-light p-4 rounded-3xl shadow' style={{ borderBottom: '6px solid #8006be' }}>
                   <div className='font-bold text-lg mb-2'>{bid.sellerName}</div>
                   <div className='font-bold text-lg'>Rs.{bid.bidprice}</div>
@@ -123,7 +126,8 @@ function Pages() {
                   </div>
                 </div>
               ))}
-            </div>
+              
+            </div>}
           </div>
         </div>
       </div>

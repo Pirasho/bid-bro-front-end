@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { GetSellerbidsById } from '../../../../../../redux/action/bidding_details';
+import { AcceptSellerbids, GetSellerbidsById } from '../../../../../../redux/action/bidding_details';
 import { useParams, useRouter } from 'next/navigation';
 import { StarIcon } from '@heroicons/react/solid';
 import Navbar from '../../../../widgets/navbar/navbar';
@@ -17,17 +17,21 @@ function Pages() {
   const reviews = { href: '#', average: 4 };
   const classNames = (...classes) => classes.filter(Boolean).join(' ');
   const [sellerBids, setSellerBids] = useState({});
-  const [showModal, setShowModal] = useState(false); // Modal visibility state
+  const [showModal, setShowModal] = useState(false);
+  const [userId, setuserId] = useState('');
   const router = useRouter();
   
   const { auction_id, seller_id } = useParams();
 
   useEffect(() => {
+    const storedUserDetails = localStorage.getItem('userDetails');
+        const userDetails = JSON.parse(storedUserDetails);
+        setuserId(userDetails.id)
     GetSellerbidsById(seller_id, (response) => {
       if (response.status === 200) {
         const sellerBids = response.data;
         if (sellerBids.length > 0) {
-          setSellerBids(sellerBids[sellerBids.length - 1]); // Get the latest auction
+          setSellerBids(sellerBids[sellerBids.length - 1]);
         }
       } else {
         console.error("Failed to fetch seller bids", response);
@@ -36,7 +40,7 @@ function Pages() {
   }, []);
 
   const handleAcceptBid = () => {
-    AcceptSellerbids(seller_id, (response) => {
+    AcceptSellerbids({ customer_id:userId},seller_id, (response) => {
       if (response.status === 200) {
         const sellerBids = response.data;
         if (sellerBids.length > 0) {
@@ -53,7 +57,7 @@ function Pages() {
   return (
     <div className=''>
       <Navbar />
-      <div className='btn btn-primary ms-4' onClick={() => router.push(`/customer/bidding_details//${auction_id}`)}>
+      <div className='btn btn-primary ms-4' onClick={() => router.push(`/customer/bidding_details/${auction_id}`)}>
         <FontAwesomeIcon icon={faChevronLeft} /> Back
       </div>
       <div className='p-2'>

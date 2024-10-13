@@ -129,12 +129,12 @@ export const AddSellerbids = (data,callback) => {
   }
 };
 
-export const AcceptSellerbids = (data, callback) => {
-  const endpoint = `${process.env.api_base_url}/sellerbid/post`; // Define the endpoint
+export const AcceptSellerbids = (data,id, callback) => {
+  const endpoint = `${process.env.api_base_url}/sellerbid/auction/seller/status/${id}`; // Define the endpoint
 
   try {
     http
-      .post(endpoint, data) // Send a POST request
+      .put(endpoint, data) // Send a POST request
       .then((response) => {
         callback(null, response); // Call the callback with the response if successful
       })
@@ -144,4 +144,60 @@ export const AcceptSellerbids = (data, callback) => {
   } catch (error) {
     callback(error); // Call the callback with any unexpected errors
   }
+};
+
+export const getOrderHistory = (id, callback) => {
+  const endpoint = `${process.env.api_base_url}/sellerbid/orderhistory/${id}`;
+  try {
+    http
+        .get(endpoint)
+        .then((response) => {
+            if (typeof callback === "function") {
+                callback(response);
+            } else {
+                console.error("Callback is not a function");
+            }
+        })
+        .catch((error) => {
+            if (typeof callback === "function") {
+                callback(error.response);
+            } else {
+                console.error("Callback is not a function");
+            }
+        });
+} catch (error) {
+    if (typeof callback === "function") {
+        callback(error.response);
+    } else {
+        console.error("Callback is not a function");
+    }
+}
+};
+
+export const getOrderHistoryOne = (id, callback) => {
+  const endpoint = `${process.env.api_base_url}/sellerbid/orderhistoryone/${id}`;
+  try {
+    http
+        .get(endpoint)
+        .then((response) => {
+            if (typeof callback === "function") {
+                callback(response);
+            } else {
+                console.error("Callback is not a function");
+            }
+        })
+        .catch((error) => {
+            if (typeof callback === "function") {
+                callback(error.response);
+            } else {
+                console.error("Callback is not a function");
+            }
+        });
+} catch (error) {
+    if (typeof callback === "function") {
+        callback(error.response);
+    } else {
+        console.error("Callback is not a function");
+    }
+}
 };

@@ -9,6 +9,8 @@ import { GetProductDetails } from '../../../../redux/action/product';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '../../../../public/styles.css';
+import NoResult from '../../components/NoResult.js'
+import { Commet } from 'react-loading-indicators';
 
 function HomePage() {
     const router = useRouter();
@@ -38,6 +40,7 @@ function HomePage() {
         return matchesCategory && matchesSearch;
     });
     const categories = ['All', 'Phone', 'Laptop', 'Other'];
+  
 
     return (
         <div className=''>
@@ -66,26 +69,31 @@ function HomePage() {
                             className="px-4 py-2 border rounded-lg w-full md:w-1/3"
                         />
                     </div>
-                    { !isLoading  ? <div className="grid grid-cols-1 md:grid-cols-4 m-9 gap-4">
-                        {filteredProducts.map((pro, index) => (
-                            <div key={pro._id} className=" card flex flex-col items-center justify-center border p-4 ">
-                                 <h2 className="text-xl font-bold">{pro.name}</h2>
-                                <Image src="/images/product_1.webp" alt={pro.name} width={200} height={200} />
-                                <p className="text-black-500 font-bold">{pro.category}</p>
-                                <p className="text-red-500 font-bold">MRP : {pro.price}</p>
-                                <button
-                                    className='btn btn-primary text-white font-bold  rounded w-1/2 py-2'
-                                    onClick={() => router.push(`/customer/product_details/${pro._id}`)}
-                                >
-                                    BiD
-                                </button>
-                            </div>
-                        ))}
-                    </div>:    <div className="load">
-                    <div class="rings">Loading
-  <span></span>
-</div>
-                    </div>}
+                    {!isLoading ? (
+    filteredProducts.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-4 m-9 gap-4">
+            {filteredProducts.map((pro) => (
+                <div key={pro._id} className="card flex flex-col items-center justify-center border p-4">
+                    <h2 className="text-xl font-bold">{pro.name}</h2>
+                    <Image src="/images/product_1.webp" alt={pro.name} width={200} height={200} />
+                    <p className="text-black-500 font-bold">{pro.category}</p>
+                    <p className="text-red-500 font-bold">MRP : {pro.price}</p>
+                    <button
+                        className='btn btn-primary text-white font-bold rounded w-1/2 py-2'
+                        onClick={() => router.push(`/customer/product_details/${pro._id}`)}
+                    >
+                        BiD
+                    </button>
+                </div>
+            ))}
+        </div>
+    ) : (
+      <NoResult/>
+    )
+) : (
+    <div className=' d-flex justify-center  align-items-center w-full p-5 m-5'>  <Commet color="#7231cc" size="medium" text="" textColor="" /></div>
+)}
+
                    
                 </div>
             </div>

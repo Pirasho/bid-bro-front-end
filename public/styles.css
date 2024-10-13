@@ -173,3 +173,15 @@ rings{
   position: relative;
   z-index: 2; 
 }
+
+.step-circle{
+  width: 20px;
+  height: 20px;
+  border: 5px solid var(--primary-color);
+}
+
+.step-line {
+  width: 100px;
+  height: 4px;
+  background-color: var(--primary-color);
+}

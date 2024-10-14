@@ -2,10 +2,11 @@ import React from 'react';
 // import Header from '../header/page';
 // import Footer from '../footer/page';
 
+
 const NotificationBar = ({ notifications, onViewMore }) => {
   return (
     <div className="fixed top-0 right-0 m-4 bg-white shadow-lg rounded-lg p-4 w-80">
-      <h2 className="text-lg font-bold mb-2">Notifications</h2>
+      <h2 className="text-lg font-bold mb-2 heading-bar">Notifications</h2>
       {notifications.length > 0 ? (
         notifications.map(notification => (
           <div key={notification.id} className="flex items-center mb-4 border-b pb-2">

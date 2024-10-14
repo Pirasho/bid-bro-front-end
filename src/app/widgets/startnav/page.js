@@ -78,8 +78,8 @@ const Startnav = () => {
                 <span>AboutUs</span>
               </Link>
               <div className="flex items-center space-x-4 ml-auto">
-                <button className='btn btn-primary' onClick={() => router.push("/customer/register")}>Sing-Up</button>
-                <button className='btn btn-primary' onClick={() => router.push("/customer/signin")}>Log-in</button>
+                <button className='btn p-2 btn-primary' onClick={() => router.push("/customer/register")}>Sing-Up</button>
+                <button className='btn p-2 btn-primary' onClick={() => router.push("/customer/signin")}>Log-in</button>
               </div>
             </div>
             <nav className="flex space-x-4 items-center   justify-between">

@@ -2,9 +2,9 @@
 "use client";
 import React, { useState } from 'react';
 import Image from 'next/image';
-import Navbar from '@/app/widgets/navbar/navbar';
-import Footer from '@/app/widgets/footer/footer';
-import Chatbot from '@/app/widgets/chatbot/page';
+import Navbar from '../../widgets/navbar/navbar.js'; 
+import Footer from '../../widgets/footer/footer.js';
+import Chatbot from '../../widgets/chatbot/page.js';
 
 const sampleProfile = {
   profilePicture: '/images/1.jpg',
@@ -31,11 +31,11 @@ const ProfileEditPage = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar/>
       <div className="flex justify-center items-center p-6">
-      <Chatbot />
+      <Chatbot/>
 
-        <div className="bg-[#d7d1e6] p-6 rounded-lg shadow-lg flex w-full max-w-2xl">
+        <div className="bg-[#ffffff] p-6 rounded-3xl shadow-lg flex w-full max-w-2xl">
 
           <div className="w-1/3 pr-6 flex items-center justify-center">
             <Image
@@ -105,7 +105,7 @@ const ProfileEditPage = () => {
               </div>
               <button
                 type="submit"
-                className="btn btn-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                className="btn btn-primary text-white px-4 py-2 p-2 rounded-lg"
               >
                 Save Changes
               </button>
@@ -122,7 +122,7 @@ const ProfileEditPage = () => {
           />
         </div>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 };

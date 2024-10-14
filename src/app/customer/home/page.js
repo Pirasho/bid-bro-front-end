@@ -1,83 +1,181 @@
 "use client";
-import { useEffect, useState } from 'react';
-// import { getCategories, getBrands, getTrendingProducts } from './api';
-import Navbar from '../../widgets/navbar/navbar';
-import Footer from '@/app/widgets/footer/footer';
-import Carousel from "@/app/widgets/carosel/carousel";
-import Chatbot from '@/app/widgets/chatbot/page';
+import Navbar from '../../widgets/navbar/navbar.js';
+import Footer from '../../widgets/footer/footer.js';
+import Image from 'next/image';
+import Chatbot from '../../widgets/chatbot/page';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { GetProductDetails } from '../../../../redux/action/product';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+import '../../../../public/styles.css';
+import NoResult from '../../components/NoResult.js'
+import { Commet } from 'react-loading-indicators';
 
-export default function Home() {
-  const [categories, setCategories] = useState([
-    { name: 'Smartphone', image: '/images/iphone.jpg' },
-    { name: 'Audio Devices', image: '/images/audio devices.jpg' },
-    { name: 'Laptops', image: '/images/laptops.jpg' },
-    { name: 'Tabs', image: '/images/iphone.jpg' },
-    { name: 'Wearable Devices', image: '/images/iphone.jpg' }
-  ]);
+function HomePage() {
+    const router = useRouter();
+    const [product, setProduct] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState('All');
+    const [searchTerm, setSearchTerm] = useState(""); // State for search term
+    const [isLoading, setisLoading] = useState(false);
 
-  const [brands, setBrands] = useState([
-    { name: 'Apple', image: '/images/apple.jpg' },
-    { name: 'Samsung', image: '/images/samsung.webp' },
-    { name: 'Sony', image: '/images/sony.jpg' },
-    { name: 'Sony', image: '/images/sony.jpg' },
-    { name: 'Sony', image: '/images/sony.jpg' }
-  ]);
+    useEffect(() => {
+        setisLoading(true);   
+        GetProductDetails((response) => {
+           
+            if (response.status === 200) {
+                console.log(response.data);
+                
+                setProduct(response.data);
+            } else {
+                console.error("Failed to fetch products", response);
+            }
+            setisLoading(false);
+        });
+       
+    }, []);
+    const filteredProducts = product.filter((pro) => {
+        const matchesCategory = selectedCategory === 'All' || pro.category === selectedCategory;
+        const matchesSearch = pro.name.toLowerCase().includes(searchTerm.toLowerCase()); // Check if name matches search term
+        return matchesCategory && matchesSearch;
+    });
+    const categories = ['All', 'Phone', 'Laptop', 'Other'];
+  
 
-  const [trendingProducts, setTrendingProducts] = useState([
-    { name: 'Product 1', image: '/images/iphone15.webp' },
-    { name: 'Product 2', image: '/images/samsungs24.webp' },
-    { name: 'Product 3', image: '/images/sony1vi.webp' },
-    { name: 'Product 3', image: '/images/sony1vi.webp' },
-    { name: 'Product 3', image: '/images/sony1vi.webp' }
-  ]);
-
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        setCategories(await getCategories());
-        setBrands(await getBrands());
-        setTrendingProducts(await getTrendingProducts());
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    }
-
-    // fetchData();
-  }, []);
-
-
-  const renderSection = (title, items, itemClass, scroll = false, imageClass = "rounded") => (
-    <section className="my-5">
-      <h2 className="text-2xl font-bold mb-4">{title}</h2>
-      <div className={`flex gap-6 ${scroll ? 'overflow-x-auto' : 'flex-wrap'}`}>
-        {items.map((item, index) => (
-          <div key={index} className="text-center">
-            <div className={`${itemClass} w-52`}>
-              <img className={`w-full h-48 object-cover ${imageClass}`} src={item.image} alt={item.name} />
-              <h4 className="mt-2 text-lg font-semibold">{item.name}</h4>
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-  );
-
-  return (
-    <div className='h-full w-full' >
-      <Navbar />
-      <div className=" flex flex-col justify-center container mx-auto p-4">
-      <Chatbot />
-
-        <h2 className="text-2xl font-bold mb-4 text-center">Our Portfolio</h2>
-        <div className=' justify-center items-center '>
-          <Carousel images={['/images/portfolio1.webp', '/images/portfolio2.jpg', '/images/portfolio1.webp']} />
-
-          {renderSection('Explore Categories', categories, 'category-item', true, 'rounded-full')}
-          {renderSection('Brands', brands, 'brand-item')}
-          {renderSection('Trending Products', trendingProducts, 'product-item')}
+    return (
+        <div className=''>
+            <Navbar />
+            <Chatbot />
+            <div className="container mx-auto">
+                <div className="py-8">    
+                    <div className="flex space-x-4 mb-8">
+                        {categories.map((category) => (
+                            <button
+                                key={category}
+                                className={`px-4 py-2 rounded-lg ${selectedCategory === category ? 'text-white' : 'bg-gray-200 text-black'}`}
+                                style={selectedCategory === category ? { backgroundColor: '#8006be' } : {}}
+                                onClick={() => setSelectedCategory(category)}
+                            >
+                                {category}
+                            </button>
+                        ))}
+                    </div>
+                    <div className="mb-4">
+                        <input
+                            type="text"
+                            placeholder="Search product by name..."
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            className="px-4 py-2 border rounded-lg w-full md:w-1/3"
+                        />
+                    </div>
+                    {!isLoading ? (
+    filteredProducts.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-4 m-9 gap-4">
+            {filteredProducts.map((pro) => (
+                <div key={pro._id} className="card flex flex-col items-center justify-center border p-4">
+                    <h2 className="text-xl font-bold">{pro.name}</h2>
+                    <Image src="/images/product_1.webp" alt={pro.name} width={200} height={200} />
+                    <p className="text-black-500 font-bold">{pro.category}</p>
+                    <p className="text-red-500 font-bold">MRP : {pro.price}</p>
+                    <button
+                        className='btn btn-primary text-white font-bold rounded w-1/2 py-2'
+                        onClick={() => router.push(`/customer/product_details/${pro._id}`)}
+                    >
+                        BiD
+                    </button>
+                </div>
+            ))}
         </div>
-      </div>
-      <Footer />
-    </div>
-  );
+    ) : (
+      <NoResult/>
+    )
+) : (
+    <div className=' d-flex justify-center  align-items-center w-full p-5 m-5'>  <Commet color="#7231cc" size="medium" text="" textColor="" /></div>
+)}
+
+                   
+                </div>
+            </div>
+            <Footer />
+        </div>
+    );
 }
+
+export default HomePage;
+
+
+// "use client";
+// import Navbar from '../../widgets/navbar/navbar';
+// import Footer from '@/app/widgets/footer/footer';
+// import Image from 'next/image';
+// import Chatbot from '../../widgets/chatbot/page';
+// import React, { useEffect, useState } from 'react';
+// import { useRouter } from 'next/navigation';
+// import { GetProductDetails } from '../../../../redux/action/product';
+
+// function HomePage() {
+//     const router = useRouter();
+//     const [product, setProduct] = useState([]);
+//     const [selectedCategory, setSelectedCategory] = useState('All');
+    
+//     useEffect(() => {
+//         GetProductDetails((response) => {
+//             if (response.status === 200) {
+//                 setProduct(response.data);
+//             } else {
+//                 console.error("Failed to fetch products", response);
+//             }
+//         });
+//     }, []);
+//     const filteredProducts = product.filter((pro) => {
+//         if (selectedCategory === 'All') {
+//             return true;
+//         }
+//         return pro.category === selectedCategory;
+//     });
+//     const categories = ['All', 'Phone', 'Laptop', 'Other'];
+
+//     return (
+//         <div className=''>
+//             <Navbar />
+//             <Chatbot />
+//             <div className="container mx-auto">
+//                 <div className="py-8">
+//                     <h2 className="text-2xl font-bold mb-4">Product Categories</h2>
+//                     <div className="flex space-x-4 mb-8">
+//                         {categories.map((category) => (
+//                            <button
+//                            key={category}
+//                            className={`px-4 py-2 rounded-lg ${selectedCategory === category ? 'text-white' : 'bg-gray-200 text-black'}`}
+//                            style={selectedCategory === category ? { backgroundColor: '#8006be' } : {}}
+//                            onClick={() => setSelectedCategory(category)}
+//                          >
+//                            {category}
+//                          </button>
+//                         ))}
+//                     </div>
+//                     <div className="grid grid-cols-1 md:grid-cols-4 m-9 gap-4">
+//                         {filteredProducts.map((pro, index) => (
+//                             <div key={pro._id} className="flex flex-col items-center justify-center border p-4">
+//                                 <Image src="/images/product_1.webp" alt={pro.name} width={200} height={200} />
+//                                 <h2 className="text-xl font-bold">{pro.name}</h2>
+//                                 <p className="text-black-500 font-bold">{pro.category}</p>
+//                                 <p className="text-red-500 font-bold">MRP : {pro.price}</p>
+//                                 <button
+//                                     className='btn p-2 btn-primary text-white font-bold py-2 px-4 rounded'
+//                                     onClick={() => router.push(`/customer/product_details/${pro._id}`)}
+//                                 >
+//                                     BiD
+//                                 </button>
+//                             </div>
+//                         ))}
+//                     </div>
+//                 </div>
+//             </div>
+//             <Footer />
+//         </div>
+//     );
+// }
+
+// export default HomePage;

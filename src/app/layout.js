@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         {/* Metadata and additional head elements */}
+        <Script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js" />
       </head>
       <body className={inter.className}>
         {children}

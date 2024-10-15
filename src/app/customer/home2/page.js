@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { GetProductDetails } from '../../../../redux/action/product';
 
-function HomePage() {
+function HomePage2() {
     const router = useRouter();
     const [product, setProduct] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('All');
@@ -90,4 +90,4 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+export default HomePage2;

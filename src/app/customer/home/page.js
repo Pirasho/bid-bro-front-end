@@ -15,7 +15,7 @@ function HomePage() {
 
     useEffect(() => {
         GetProductDetails((response) => {
-            if (response.status === 200) {
+            if (response.status === 201) {
                 setProduct(response.data);
             } else {
                 console.error("Failed to fetch products", response);

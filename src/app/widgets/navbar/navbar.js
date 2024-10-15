@@ -82,12 +82,7 @@ const Navbar = () => {
                   <BellIcon className="w-6 h-6" />
                   <span>Notification</span>
                 </Link>
-                <Link
-                  href="/customer/trackingorder"
-                  className="flex items-center space-x-2 mt-4  lg:mt-0 transition-all no-underline hover:bg-[#8006be] duration-300 hover:text-white rounded-md p-1">
-                  <ShoppingCartIcon className="w-6 h-6" />
-                  <span>Tracking Order</span>
-                </Link>
+
                 <Link
                   href="/customer/aboutus"
                   className="flex items-center space-x-2 mt-4  lg:mt-0 transition-all no-underline hover:bg-[#8006be] duration-300 hover:text-white rounded-md p-1">
@@ -122,14 +117,13 @@ const Navbar = () => {
               <span className="sr-only">Open user menu</span>
               <div className='flex justify-between items-center'>
                 <div className='flex space-x-4' style={{
-                  width: '70px',
-                  height: '70px',
+                  width: '60px',
+                  height: '60px',
                   borderRadius: '50%',
-                  border: '3px solid #8006be',
                   overflow: 'hidden',
                 }}>
                   <Image
-                    src="/images/profile.jpg"
+                    src="http://localhost:5002/uploads/suthu17@gmail.com-profile.png"
                     alt="Profile"
                     width={80}
                     height={80}
@@ -152,8 +146,8 @@ const Navbar = () => {
                     Profile
                   </Link>
                 </li>
-                <li>
-                  <Link href="/customer/signin"
+                <li onClick={()=>{localStorage.removeItem('userDetails');}}>
+                  <Link href="/auth/signin"
                     className="block px-4 py-2 text-sm hover:bg-[#8006be] transition-all duration-300 rounded-md p-1">
                     Sign out
                   </Link>

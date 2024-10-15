@@ -2,9 +2,9 @@
 "use client";
 import React, { useState } from 'react';
 import Image from 'next/image';
-import Navbar from '@/app/widgets/navbar/navbar';
-import Footer from '@/app/widgets/footer/footer';
-import Chatbot from '@/app/widgets/chatbot/page';
+import Navbar from '../../widgets/navbar/navbar.js'; 
+import Footer from '../../widgets/footer/footer.js';
+import Chatbot from '../../widgets/chatbot/page.js';
 
 const sampleProfile = {
   profilePicture: '/images/1.jpg',
@@ -31,9 +31,9 @@ const ProfileEditPage = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar/>
       <div className="flex justify-center items-center p-6">
-      <Chatbot />
+      <Chatbot/>
 
         <div className="bg-[#ffffff] p-6 rounded-3xl shadow-lg flex w-full max-w-2xl">
 
@@ -122,7 +122,7 @@ const ProfileEditPage = () => {
           />
         </div>
       </div>
-      <Footer />
+      <Footer/>
     </div>
   );
 };

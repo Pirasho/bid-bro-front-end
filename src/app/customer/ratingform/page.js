@@ -1,9 +1,10 @@
 "use client";
 import React, {  useState } from 'react';
-import Chatbot from '@/app/widgets/chatbot/page';
-import Navbar from '../../widgets/navbar/navbar';
-import Footer from '@/app/widgets/footer/footer';
+
 import { AddReviewrate } from '../../../../redux/action/ratingform';
+import Navbar from '../../widgets/navbar/navbar';
+import Chatbot from '../../widgets/chatbot/page';
+import Footer from '../../widgets/footer/footer';
 
 const RatingForm = () => {
     // Correctly initialize rating with a numeric value
@@ -40,9 +41,9 @@ const RatingForm = () => {
 
     return (
         <div className='h-full w-full'>
-            <Navbar />
+            <Navbar/>
             <div className='flex flex-col pt-5 gap-5'>
-                <Chatbot />
+                <Chatbot/>
                 <div className='rounded-3xl gap-5 flex flex-col m-3 p-5'>
                     <div className='text-3xl font-bold'>Please leave your review and rating</div>
                     <div className="p-24 bg-white rounded-3xl shadow-xl" style={{ borderBottom: '6px solid #8006be' }}>
@@ -80,7 +81,7 @@ const RatingForm = () => {
                     </div>
                 </div>
             </div>
-            <Footer />
+            <Footer/>
         </div>
     );
 }

@@ -15,7 +15,7 @@ function Pages() {
     return classes.filter(Boolean).join(' ')
   }
   const [sellerBids, setSellerBids] = useState({});
-  const router = useRouter();
+  const router = useRouter()
 
 
   // useEffect(() => {
@@ -40,6 +40,10 @@ function Pages() {
       }
     });
   }, []);
+
+  const handleAcceptBid = () => {
+    router.push('/customer/checkout');
+  }
 
   return (
     <div className=''>
@@ -85,7 +89,7 @@ function Pages() {
                     <div>Special note :</div>
                     <div className='font-bold'>{sellerBids.specialnote}</div>
                   </div>
-                  <button className='btn p-2 rounded-full border-dark rounded-pill btn-primary'>
+                  <button className='btn p-2 rounded-full border-dark rounded-pill btn-primary' onClick={handleAcceptBid}>
                     Accept Bid
                   </button>
                 </div>

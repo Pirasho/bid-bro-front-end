@@ -1,13 +1,19 @@
 "use client";
 
 import Navbar from '../../widgets/navbar/navbar';
-import Footer from '@/app/widgets/footer/footer';
-import Image from 'next/image';
+// import Footer from '@/app/widgets/footer/footer';
 import Chatbot from '../../widgets/chatbot/page';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { GetProductDetails } from '../../../../redux/action/product';
+import axios from 'axios';
+// import { GetProductDetails } from '../../../../../redux/action/product';
 
+import { GetProductDetails } from '../../../../redux/action/product'; // Import API function
+
+
+// export const GetProductDetails = () => {
+//     return axios.get('http://localhost:5000/api/products');  // Return the axios promise
+//   };
 function HomePage2() {
     const router = useRouter();
     const [product, setProduct] = useState([]);
@@ -15,19 +21,27 @@ function HomePage2() {
     const [searchTerm, setSearchTerm] = useState(""); // State for search term
 
     useEffect(() => {
-        GetProductDetails((response) => {
-            console.log(response); // Log the response to see its structure
-            // if (response.status === 200) { // Check if the response has status 200
-            //     setProduct(response.data);
-            // } else {
-            //     console.error("Failed to fetch products", response);
-            // }
-        });
+        // Fetch product details from the API
+        GetProductDetails
+            ((response) => {
+                console.log(response); // Log the response to see its structure
+                if (response.status === 200) {
+                    setProduct(response.data);
+                }
+                 else {
+                    console.error("Failed to fetch products", response);
+                }
+            })
+            // .catch((error) => {
+            //     console.error("Error fetching product details", error);
+            // })
+            ;
     }, []);
 
+    // Filter products based on selected category and search term
     const filteredProducts = product.filter((pro) => {
         const matchesCategory = selectedCategory === 'All' || pro.category === selectedCategory;
-        const matchesSearch = pro.name.toLowerCase().includes(searchTerm.toLowerCase()); // Check if name matches search term
+        const matchesSearch = pro.name.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesCategory && matchesSearch;
     });
 
@@ -39,6 +53,7 @@ function HomePage2() {
             <Chatbot />
             <div className="container mx-auto">
                 <div className="py-8">
+                    {/* Category buttons */}
                     <div className="flex space-x-4 mb-8">
                         {categories.map((category) => (
                             <button
@@ -51,6 +66,8 @@ function HomePage2() {
                             </button>
                         ))}
                     </div>
+
+                    {/* Search bar */}
                     <div className="mb-4">
                         <input
                             type="text"
@@ -60,32 +77,35 @@ function HomePage2() {
                             className="px-4 py-2 border rounded-lg w-full md:w-1/3"
                         />
                     </div>
+
+                    {/* Product grid */}
                     <div className="grid grid-cols-1 md:grid-cols-4 m-9 gap-4">
-                        {filteredProducts.map((pro) => (
-                            <div key={pro._id} className="flex flex-col items-center justify-center border p-4">
-                                <Image
-                                    src="/images/product_1.webp"
-                                    alt={pro.name}
-                                    width={200}
-                                    height={200}
-                                    sizes="(max-width: 768px) 50vw, 25vw" // Adjust sizes according to your layout
-                                    className="object-cover" // Add any additional classes for styling
-                                />
-                                <h2 className="text-xl font-bold">{pro.name}</h2>
-                                <p className="text-black-500 font-bold">{pro.category}</p>
-                                <p className="text-red-500 font-bold">MRP: {pro.price}</p>
-                                <button
-                                    className='btn p-2 btn-primary text-white font-bold py-2 px-4 rounded'
-                                    onClick={() => router.push(`/customer/product_details/${pro._id}`)}
-                                >
-                                    BiD
-                                </button>
+                        {filteredProducts.map((pro, index) => (
+                            <div key={index} className="flex flex-col items-center justify-center border p-4">
+                                {pro.image && (
+                                    <img
+                                        src={pro.image.startsWith("http") ? pro.image : `http://localhost:5000/${pro.image}`}
+                                        alt={pro.name}
+                                        className="w-full h-64 object-cover"
+                                    />
+                                )}
+                                <div className="p-4">
+                                    <h2 className="text-xl font-bold">{pro.name}</h2>
+                                    <p className="text-black-500 font-bold">{pro.category}</p>
+                                    <p className="text-red-500 font-bold">MRP: {pro.price}</p>
+                                    <button
+                                        className="btn p-2 bg-purple-500 text-white font-bold py-2 px-4 rounded"
+                                        onClick={() => router.push(`/customer/product_details/${pro._id}`)}
+                                    >
+                                        BiD
+                                    </button>
+                                </div>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 }

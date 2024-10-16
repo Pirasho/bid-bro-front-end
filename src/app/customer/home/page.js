@@ -1,6 +1,6 @@
 "use client";
 import Navbar from '../../widgets/navbar/navbar';
-import Footer from '@/app/widgets/footer/footer';
+// import Footer from '@/app/widgets/footer/footer';
 import Image from 'next/image';
 import Chatbot from '../../widgets/chatbot/page';
 import React, { useEffect, useState } from 'react';
@@ -15,7 +15,7 @@ function HomePage() {
 
     useEffect(() => {
         GetProductDetails((response) => {
-            if (response.status === 201) {
+            if (response.status === 200) {
                 setProduct(response.data);
             } else {
                 console.error("Failed to fetch products", response);
@@ -74,7 +74,7 @@ function HomePage() {
                     </div>
                 </div>
             </div>
-            <Footer />
+            {/* <Footer /> */}
         </div>
     );
 }

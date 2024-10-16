@@ -135,60 +135,6 @@ export default function AddProduct() {
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
-            <form onSubmit={handleSubmit} className="flex flex-col gap-3">
-                <input
-                    onChange={(e) => setName(e.target.value)}
-                    value={name}
-                    className="input input-bordered input-accent w-full max-w-xs"
-                    type="text"
-                    placeholder="Product Name"
-                />
-                {/* <input
-                    onChange={(e) => setImage(e.target.value)}
-                    value={image}
-                    className="input input-bordered input-accent w-full max-w-xs"
-                    type="text"
-                    placeholder="Choose an image"
-                /> */}
-                <input
-                    onChange={(e) => setImage(e.target.files[0])} // Capture the selected file
-                    className="input input-bordered input-accent w-full max-w-xs"
-                    type="file"
-                    accept="image/*"
-                />
-
-                <input
-                    onChange={(e) => setPrice(e.target.value)}
-                    value={price}
-                    className="input input-bordered input-accent w-full max-w-xs"
-                    type="number"
-                    placeholder="1"
-                />
-                <select
-                    onChange={(e) => setCategory(e.target.value)}
-                    value={category}
-                    className="select select-bordered select-accent w-full max-w-xs"
-                >
-                    <option value="" disabled hidden></option>
-                    <option value="Laptop">Laptop</option>
-                    <option value="Phone">Phone</option>
-                </select>
-                <textarea
-                    onChange={(e) => setDescription(e.target.value)}
-                    value={description}
-                    className="textarea textarea-bordered textarea-accent w-full max-w-xs"
-                    placeholder="Product Description"
-                />
-                <button
-                    type="submit"
-                    className="btn btn-primary w-full max-w-xs"
-                >
-                    Add Product
-                </button>
-            </form>
-=======
->>>>>>> f810004542fd54b5fad5693de602e844abcd8d59
         </div>
     );
 }

@@ -11,6 +11,7 @@ const getCustomers = async () => {
             throw new Error("Failed to fetch customers");
         }
         const data = await res.json();
+        console.log(data);
         return data;
     } catch (error) {
         console.log("Error loading customers: ", error);

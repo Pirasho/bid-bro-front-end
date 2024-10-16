@@ -60,8 +60,7 @@ const [preview, setPreview] = useState(null); // Store the image preview URL
                     type="text"
                     placeholder="Choose an image"
                 /> */}
-
-<input
+                <input
                     onChange={(e) => setImage(e.target.files[0])} // Capture the selected file
                     className="input input-bordered input-accent w-full max-w-xs"
                     type="file"

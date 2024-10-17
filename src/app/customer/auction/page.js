@@ -21,11 +21,20 @@ const AuctionModal = ({ setShowModal, product }) => {
     });
     console.log("Product details", product);
 
- useEffect(()=>{
-    const storedUserDetails = localStorage.getItem('userDetails');
-    const userDetails = JSON.parse(storedUserDetails);
-    setuserId(userDetails.id);
- },[])
+    useEffect(() => {
+        const storedUserDetails = localStorage.getItem('userDetails');
+        
+        // Check if storedUserDetails is not null
+        if (storedUserDetails) {
+          const userDetails = JSON.parse(storedUserDetails);
+          
+          // Check if userDetails contains the 'id' property
+          if (userDetails && userDetails.id) {
+            setuserId(userDetails.id);  // Set the userId only if it's available
+          }
+        }
+      }, []);
+      
 
     const handleButtonClick = () => {
         seterror({
@@ -106,8 +115,12 @@ const AuctionModal = ({ setShowModal, product }) => {
                             <div key={index} className="flex flex-col w-full md:w-1/3 gap-8 align-items-center">
                                 <div className="text-3xl font-bold">{pro.name}</div>
                                 <div className="flex w-150 h-270">
-                                    <Image
-                                        src="/images/product_1.webp"
+                                <Image
+                            src={
+                              product.image.startsWith("http")
+                                ? product.image
+                                : `http://localhost:5000/${product.image}`
+                            }
                                         alt="gg"
                                         width={350}
                                         height={900}

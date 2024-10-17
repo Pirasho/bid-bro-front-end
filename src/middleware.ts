@@ -15,10 +15,10 @@ export async function middleware(request: NextRequest) {
 
   // if (pathname.startsWith('/customer')) {
   //   if (!authenticated) { // Redirect if there is no token (user not authenticated)
-  //     // return NextResponse.redirect(new URL('/auth/signin', request.url));
+  //     return NextResponse.redirect(new URL('/auth/signin', request.url));
   //   }
   // }
 
-  // // Allow the request to proceed
+  // Allow the request to proceed
   return NextResponse.next();
 }

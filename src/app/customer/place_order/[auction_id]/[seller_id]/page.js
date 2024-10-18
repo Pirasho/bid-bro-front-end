@@ -67,8 +67,12 @@ function Pages() {
           <div className='flex'>
             <div className='w-5/12 flex flex-col gap-5 m-2'>
               <div className='col-5'>
-                <Image
-                  src="/images/2.png"
+              <Image
+                            src={
+                              product.image.startsWith("http")
+                                ? product.image
+                                : `http://localhost:5000/${product.image}`
+                            }
                   alt="Profile Photo"
                   width={250}
                   height={160}

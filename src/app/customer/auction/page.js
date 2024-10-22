@@ -23,18 +23,18 @@ const AuctionModal = ({ setShowModal, product }) => {
 
     useEffect(() => {
         const storedUserDetails = localStorage.getItem('userDetails');
-        
+
         // Check if storedUserDetails is not null
         if (storedUserDetails) {
-          const userDetails = JSON.parse(storedUserDetails);
-          
-          // Check if userDetails contains the 'id' property
-          if (userDetails && userDetails.id) {
-            setuserId(userDetails.id);  // Set the userId only if it's available
-          }
+            const userDetails = JSON.parse(storedUserDetails);
+
+            // Check if userDetails contains the 'id' property
+            if (userDetails && userDetails.id) {
+                setuserId(userDetails.id);  // Set the userId only if it's available
+            }
         }
-      }, []);
-      
+    }, []);
+
 
     const handleButtonClick = () => {
         seterror({
@@ -53,11 +53,11 @@ const AuctionModal = ({ setShowModal, product }) => {
         }
 
         const data = {
-            productName: product.name, 
+            productName: product.name,
             expectedPrice: formData.price,
             noOfUnits: count,
             description: formData.description,
-            customerId:userId,
+            customerId: userId,
         };
         AddAuctionMethod(data, (res) => {
             if (res?.status >= 200 && res?.status < 300) {
@@ -115,12 +115,12 @@ const AuctionModal = ({ setShowModal, product }) => {
                             <div key={index} className="flex flex-col w-full md:w-1/3 gap-8 align-items-center">
                                 <div className="text-3xl font-bold">{pro.name}</div>
                                 <div className="flex w-150 h-270">
-                                <Image
-                            src={
-                              product.image.startsWith("http")
-                                ? product.image
-                                : `http://localhost:5000/${product.image}`
-                            }
+                                    <Image
+                                        src={
+                                            product.image.startsWith("http")
+                                                ? product.image
+                                                : `http://localhost:5000/${product.image}`
+                                        }
                                         alt="gg"
                                         width={350}
                                         height={900}
@@ -134,7 +134,11 @@ const AuctionModal = ({ setShowModal, product }) => {
                             <div className="text-3xl font-bold">{product?.name || "No Product Found"}</div>
                             <div className="flex w-150 h-270">
                                 <Image
-                                    src="/images/product_1.webp"
+                                    src={
+                                        product.image.startsWith("http")
+                                            ? product.image
+                                            : `http://localhost:5000/${product.image}`
+                                    }
                                     alt="gg"
                                     width={350}
                                     height={900}
@@ -190,7 +194,7 @@ const AuctionModal = ({ setShowModal, product }) => {
                                 Start Auction
                             </button>
                         </div>
-                   
+
                     </div>
                 </div>
             </div>

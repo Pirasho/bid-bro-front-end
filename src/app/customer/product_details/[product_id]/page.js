@@ -24,7 +24,7 @@ const handleClick = () => {
 
   useEffect(() => {
     GetProductDetails((response) => {
-      if (response.status === 200) {
+      if (response && response.status === 200) {
         const products = response.data;
         const filteredProduct = products.find(pro => pro._id === product_id);
         if (filteredProduct) {
@@ -37,6 +37,16 @@ const handleClick = () => {
       }
     });
   }, [product_id]);
+
+//   ((response) => {
+//     console.log("Full response:", response); // Log the response to see its structure
+//     if ( response && response.status === 200) {
+//         setProduct(response.data);
+//     }
+//      else {
+//         console.error("Unexpected response or status code:", response);
+//     }
+// })
 
 
   return (

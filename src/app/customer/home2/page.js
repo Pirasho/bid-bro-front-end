@@ -23,15 +23,15 @@ function HomePage2() {
     useEffect(() => {
         // Fetch product details from the API
         GetProductDetails
-            ((response) => {
-                console.log(response); // Log the response to see its structure
-                if (response.status === 200) {
-                    setProduct(response.data);
-                }
-                 else {
-                    console.error("Failed to fetch products", response);
-                }
-            })
+        ((response) => {
+            console.log("Full response:", response); // Log the response to see its structure
+            if ( response && response.status === 200) {
+                setProduct(response.data);
+            }
+             else {
+                console.error("Unexpected response or status code:", response);
+            }
+        })
             // .catch((error) => {
             //     console.error("Error fetching product details", error);
             // })

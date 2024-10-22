@@ -1,6 +1,8 @@
 import Link from "next/link";
 import Image from 'next/image';
-import { HomeIcon, ShoppingCartIcon, UserGroupIcon, UsersIcon, ChartBarIcon, CogIcon, CreditCardIcon } from '@heroicons/react/outline';
+import { HomeIcon, ShoppingCartIcon, UserGroupIcon, UsersIcon, CogIcon, CreditCardIcon } from '@heroicons/react/outline';
+import { FaBell, FaBars, FaSearch } from 'react-icons/fa'; // FontAwesome Icons
+import { MdSubscriptions } from 'react-icons/md'; // Material Icons
 
 export default function Header() {
     return (
@@ -10,16 +12,15 @@ export default function Header() {
                 <div className="container mx-auto px-4">
                     <nav className="flex space-x-4 justify-center" style={{ color: '#301934' }}>
                         <Link href="/home" className="font-semibold">BidBroo@gmail.com</Link>
-                        {/* <Link href="/about" className="font-semibold">About</Link>
-                        <Link href="/contact" className="font-semibold">Contact</Link> */}
                     </nav>
                 </div>
             </div>
 
             {/* Main header */}
             <header className="bg-white shadow-lg">
-                <div className="container mx-auto px-4 py-6 flex flex-col">
-                    <div className="flex items-center space-x-4 mb-4">
+                <div className="container mx-auto px-4 py-6 flex flex-col md:flex-row items-center justify-between">
+                    {/* Logo and Title */}
+                    <div className="flex items-center space-x-4 mb-4 md:mb-0">
                         <div className="w-20 h-20 bg-gray-200 rounded-md relative">
                             <Image
                                 src="/images/logo.png"
@@ -31,41 +32,56 @@ export default function Header() {
                         </div>
                         <h1 className="text-2xl font-bold"><Link href="/">Hello! Admin</Link></h1>
                     </div>
+
+                    {/* Navigation Links */}
                     <nav className="flex space-x-4 items-center">
                         <Link href="/adminfro" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <HomeIcon className="w-6 h-6"/>
+                            <HomeIcon className="w-6 h-6" />
                             <span>Dashboard</span>
                         </Link>
                         <Link href="/products" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <ShoppingCartIcon className="w-6 h-6"/>
+                            <ShoppingCartIcon className="w-6 h-6" />
                             <span>Product</span>
                         </Link>
                         <Link href="/sellers" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <UserGroupIcon className="w-6 h-6"/>
+                            <UserGroupIcon className="w-6 h-6" />
                             <span>Sellers</span>
                         </Link>
                         <Link href="/customers" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <UsersIcon className="w-6 h-6"/>
+                            <UsersIcon className="w-6 h-6" />
                             <span>Customers</span>
                         </Link>
-                        {/* <Link href="/pages/cards" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <ChartBarIcon className="w-6 h-6"/>
-                            <span>Analysis</span>
-                        </Link> */}
                         <Link href="/pages/changepass" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <CogIcon className="w-6 h-6"/>
+                            <CogIcon className="w-6 h-6" />
                             <span>Settings</span>
                         </Link>
                         <Link href="/payments" className="text-purple-800 font-bold text-lg flex items-center space-x-2">
-                            <CreditCardIcon className="w-6 h-6"/>
+                            <CreditCardIcon className="w-6 h-6" />
                             <span>Payments</span>
                         </Link>
-                        {/* <input
-                            type="text"
-                            placeholder="Search..."
-                            className="px-4 py-2 border rounded-lg"
-                        /> */}
                     </nav>
+
+                    {/* Icons and Search Bar */}
+                    <div className="flex items-center space-x-4">
+                        {/* Notification Icon */}
+                        <FaBell className="text-purple-800 w-6 h-6 cursor-pointer" title="Notifications" />
+                        
+                        {/* Subscription Icon */}
+                        <MdSubscriptions className="text-purple-800 w-6 h-6 cursor-pointer" title="Subscriptions" />
+                        
+                        {/* Hamburger Menu (Three-line icon) */}
+                        <FaBars className="text-purple-800 w-6 h-6 cursor-pointer md:hidden" title="Menu" />
+
+                        {/* Search Bar */}
+                        <div className="relative">
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                className="px-4 py-2 border rounded-lg w-64"
+                            />
+                            <FaSearch className="absolute right-3 top-3 text-gray-500" />
+                        </div>
+                    </div>
                 </div>
             </header>
         </>

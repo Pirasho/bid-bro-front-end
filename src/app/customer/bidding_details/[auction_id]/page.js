@@ -20,7 +20,9 @@ function Pages() {
   const [auction, setAuction] = useState({});
   const [sellerBids, setSellerBids] = useState([]);
 
+  
   useEffect(() => {
+    console.log('Product Image URL:', auction.productImage);
 
  
     console.log('auction_id'+auction_id);
@@ -31,7 +33,7 @@ function Pages() {
         if (userId && auction_id) {
           GetAuctionFullDetails(auction_id, (response) => {
             if (response.status === 200) {
-              setAuction(response.data);
+              setAuction('Auction Data:',response.data);
             } else {
               console.error("Failed to fetch auction details", response);
             }

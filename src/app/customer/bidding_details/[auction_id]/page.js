@@ -74,11 +74,12 @@ function Pages() {
           <div className='text-3xl font-bold'>{auction.productName}</div>
           
             <Image
-            src={
-              product.image.startsWith("http")
-                ? product.image
-                : `http://localhost:5000/${product.image}`
-            } // Replace with dynamic image if available
+            // src={
+            //   product.image.startsWith("http")
+            //     ? product.image
+            //     : `http://localhost:5000/${product.image}`
+            // } // Replace with dynamic image if available
+
             alt={auction.productName}
             width={250}
             height={250}

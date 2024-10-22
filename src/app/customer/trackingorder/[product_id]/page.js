@@ -63,13 +63,18 @@ function Pages() {
                 {/* Product Details */}
                 <div className='flex flex-col w-full md:w-1/3 gap-8 items-center'>
                     <div className='text-3xl font-bold'>{sellerBids.auctionDetails?.productName}</div>
-                    <Image
-                        src="/images/iphone.jpg"
-                        alt="iPhone"
-                        width={250}
-                        height={250}
-                        className='bg-purple-50 rounded-3xl p-2.5'
-                    />
+                     <Image
+                            src={
+                                sellerBids.auctionDetails?.productImage && sellerBids.auctionDetails?.productImage.startsWith("http")
+                                ? sellerBids.auctionDetails?.productImage
+                                : `http://localhost:5000/${sellerBids.auctionDetails?.productImage}`
+                            }
+                            alt={sellerBids.auctionDetails?.productImage || "Product Image"}
+                            width={80}
+                            height={80}
+                            className="rounded-lg"
+                            objectFit="cover"
+                          />
                 </div>
                 {/* Bidding Details */}
                 <div className='flex flex-col w-full md:w-2/3 pt-10'>

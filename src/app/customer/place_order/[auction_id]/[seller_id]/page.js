@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { AcceptSellerbids, GetSellerbidsById } from '../../../../../../redux/action/bidding_details';
+import { GetReviewrate } from '../../../../../../redux/action/ratingform';
 import { useParams, useRouter } from 'next/navigation';
 import { StarIcon } from '@heroicons/react/solid';
 import Navbar from '../../../../widgets/navbar/navbar';
@@ -12,27 +13,30 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import '../../../../../../public/styles.css';
-import {CheckoutParams, CurrencyType, Customer, PayhereCheckout} from '@payhere-js-sdk/client';
+import { CheckoutParams, CurrencyType, Customer, PayhereCheckout } from '@payhere-js-sdk/client';
 import axios from 'axios';
 import { Payhere, AccountCategory } from '@payhere-js-sdk/client';
+
 
 function Pages() {
   const reviews = { href: '#', average: 4 };
   const classNames = (...classes) => classes.filter(Boolean).join(' ');
   const [sellerBids, setSellerBids] = useState({});
   const [showModal, setShowModal] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [userId, setuserId] = useState('');
-  const [pay,setPay]=useState(false)
+  const [pay, setPay] = useState(false)
   const router = useRouter();
+  const [review, setReview] = useState([]);
 
   Payhere.init(1227920, AccountCategory.SANDBOX);
-  
+
   const { auction_id, seller_id } = useParams();
 
   useEffect(() => {
     const storedUserDetails = localStorage.getItem('userDetails');
-        const userDetails = JSON.parse(storedUserDetails);
-        setuserId(userDetails.id)
+    const userDetails = JSON.parse(storedUserDetails);
+    setuserId(userDetails.id)
     GetSellerbidsById(seller_id, (response) => {
       if (response.status === 200) {
         const sellerBids = response.data;
@@ -44,6 +48,32 @@ function Pages() {
       }
     });
   }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        
+          setLoading(true); // Set loading to true before fetching data
+          GetReviewrate( (response) => {
+            if (response.status === 200) {
+              setReview(response.data);
+            } else {
+              console.error("Failed to fetch seller bids", response);
+            }
+          });
+      } catch (error) {
+        console.error("Error fetching auction details", error);
+      } finally {
+        setLoading(false); // Set loading to false after fetching data
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    console.log("review"+review)
+  }, [review]);
+  
 
   const handleAcceptBid = () => {
     // AcceptSellerbids({ customer_id:userId},seller_id, (response) => {
@@ -60,11 +90,11 @@ function Pages() {
     // setShowModal(false); 
 
     setPay(true)
-    
+
   };
 
-  useEffect(()=>{
-    if(!pay){
+  useEffect(() => {
+    if (!pay) {
       return
     }
     let data = {}
@@ -72,21 +102,21 @@ function Pages() {
     data.orderId = parseInt(Math.random() * 10000000000000000)
     console.log(data)
     axios.post(`${process.env.api_base_url}/pay/payment-hah`, data)
-        .then((res) => {
-            console.log(res)
-            if (res.data) {
-                checkout(res.data, data.amount, data.orderId)
-            }
-        }).catch((err) => {
+      .then((res) => {
+        console.log(res)
+        if (res.data) {
+          checkout(res.data, data.amount, data.orderId)
+        }
+      }).catch((err) => {
         console.log(err)
-    }).finally(() => {
+      }).finally(() => {
         // setFormSubmitted(false)
         // dispatch(toggleLoader(false))
-        setShowModal(false); 
+        setShowModal(false);
         setPay(false)
 
-    })
-  },[pay])
+      })
+  }, [pay])
 
   const customerAttributes = {
     first_name: 'John',
@@ -96,9 +126,9 @@ function Pages() {
     address: 'No. 50, Highlevel Road',
     city: 'Panadura',
     country: 'Sri Lanka',
-};
+  };
 
-const checkoutAttributes = {
+  const checkoutAttributes = {
     returnUrl: 'http://localhost:3000/return',
     cancelUrl: 'http://localhost:3000/cancel',
     notifyUrl: 'http://localhost:8080/notify',
@@ -107,37 +137,37 @@ const checkoutAttributes = {
     currency: CurrencyType.LKR,
     amount: 4500,
     hash: '244AF1A277D35648F129A09ED315B346',
-};
-function onPayhereCheckoutError(errorMsg) {
-  alert(errorMsg);
-}
-async function checkout(hash, amount, orderId) {
-  // using async await
+  };
+  function onPayhereCheckoutError(errorMsg) {
+    alert(errorMsg);
+  }
+  async function checkout(hash, amount, orderId) {
+    // using async await
 
-  console.log(hash);
-  console.log(amount);
-  console.log(orderId);
-  
-  try {
+    console.log(hash);
+    console.log(amount);
+    console.log(orderId);
+
+    try {
       const customer = new Customer(customerAttributes);
 
       const checkoutData = new CheckoutParams({
-          returnUrl: 'http://localhost:3000',
-          cancelUrl: 'http://localhost:3000',
-          notifyUrl: 'http://localhost:3000',
-          order_id: orderId,
-          itemTitle: 'Fees',
-          currency: CurrencyType.LKR,
-          amount: 4500,
-          hash: hash,
+        returnUrl: 'http://localhost:3000',
+        cancelUrl: 'http://localhost:3000',
+        notifyUrl: 'http://localhost:3000',
+        order_id: orderId,
+        itemTitle: 'Fees',
+        currency: CurrencyType.LKR,
+        amount: 4500,
+        hash: hash,
       });
 
       const checkout = new PayhereCheckout(customer, checkoutData, onPayhereCheckoutError);
       checkout.start();
-  } catch (err) {
+    } catch (err) {
       console.log(err);
+    }
   }
-}
   return (
     <div className=''>
       <Navbar />
@@ -151,12 +181,12 @@ async function checkout(hash, amount, orderId) {
           <div className='flex'>
             <div className='w-5/12 flex flex-col gap-5 m-2'>
               <div className='col-5'>
-              <Image
-                            // src={
-                            //   product.image.startsWith("http")
-                            //     ? product.image
-                            //     : `http://localhost:5000/${product.image}`
-                            // }
+                <Image
+                  // src={
+                  //   product.image.startsWith("http")
+                  //     ? product.image
+                  //     : `http://localhost:5000/${product.image}`
+                  // }
                   alt="Profile Photo"
                   width={250}
                   height={160}
@@ -243,14 +273,23 @@ async function checkout(hash, amount, orderId) {
                   </div>
                 </div>
                 <hr />
-                <div>
-                  <div>
-                    is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.
-                    The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English.
-                    Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy.
-                    Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-                  </div>
-                </div>
+                {(
+                  review.map((revi, index) => (
+                    <div key={index} className='col-12 col-md-6 col-lg-4 mb-4'>
+                      <div className="p-5 d-flex flex-column align-items-center justify-center bg-white rounded-3xl shadow-xl w-72" style={{ borderBottom: '6px solid #8006be' }}>
+                        <div className='text-2xl font-bold'>{revi.rating}</div>
+                        <div className='flex justify-start gap-2'>
+                          <div className='font-bold'>  Description :</div>
+                          <div>{revi.description}</div>
+                        </div>
+                        <div className='flex justify-start gap-2'>
+                          <div className='font-bold'>  Name :</div>
+                          <div>{revi.name}</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                )}
               </div>
             </div>
           </div>

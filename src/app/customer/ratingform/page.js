@@ -1,7 +1,5 @@
 "use client";
 import React, {  useState } from 'react';
-
-import { AddReviewrate } from '../../../../redux/action/ratingform';
 import Navbar from '../../widgets/navbar/navbar';
 import Chatbot from '../../widgets/chatbot/page';
 import Footer from '../../widgets/footer/footer';
@@ -13,6 +11,7 @@ const RatingForm = () => {
     const [formData, setFormData] = useState({
         name: '',
         description: '',
+        rating: '',
     });
     const [successMessage, setSuccessMessage] = useState('');
 

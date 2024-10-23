@@ -12,9 +12,7 @@ import { BsJournalCheck } from "react-icons/bs";
 export default function Sidebar() {
     return (
         <div style={{ backgroundColor: 'rgb(44, 1, 44)' }} className="w-64 font-serif flex flex-col justify-between">
-
             <div>
-
                 <div className="flex items-center space-x-2 mb-2 p-3" style={{ backgroundColor: '#031520' }}>
                     <Image src={dp} alt="" className="w-12 h-12 rounded-full border-2 border-[white]" />
                     <div>
@@ -22,9 +20,7 @@ export default function Sidebar() {
                         <p className="text-sm text-gray-600">CDD-Marketing</p>
                     </div>
                 </div>
-
                 <nav className="space-y-2 p-2 pl-6">
-
                     <Link href={'/sellerDashboard/home'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300">
                         <AiFillDingtalkCircle size={22} className="mr-2" />
                         My Bids
@@ -49,11 +45,8 @@ export default function Sidebar() {
                         <BsJournalCheck size={21} className="mr-2" />
                         Sales Reports
                     </Link>
-
                 </nav>
-                
             </div>
-
         </div>
     );
 }

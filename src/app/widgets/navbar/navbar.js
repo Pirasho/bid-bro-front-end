@@ -90,7 +90,7 @@ const Navbar = () => {
             </div>
           </Link>
           <h1 className="text-2xl text-[#180533] font-bold italic">
-            Welcome,Broo
+            Welcome,
           </h1>
         </div>
         <div className="flex items-center sm:mr-2 relative"></div>

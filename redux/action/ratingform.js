@@ -13,7 +13,6 @@ export const GetReviewrate = (callback) => {
       .catch((error) => {
         callback(error.response);
       });
-      
   } catch (error) {
     callback(error.response);
   }

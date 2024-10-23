@@ -8,7 +8,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import ImageUploading from 'react-images-uploading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
-import { toast,ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 export default function Registration() {
   const [details, setDetails] = useState({
@@ -21,7 +21,7 @@ export default function Registration() {
     zip: "",
     password: "",
     confirmPassword: "",
-    profileimage:{}
+    profileimage: ''
   });
   const [images, setImages] = useState([]);
   const [error, setError] = useState("");
@@ -30,8 +30,9 @@ export default function Registration() {
   const onChange = (imageList, addUpdateIndex) => {
     setImages(imageList);
   };
-  useEffect(()=>{console.log(images);
-  },[images])
+  useEffect(() => {
+    console.log(images);
+  }, [images])
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -61,16 +62,27 @@ export default function Registration() {
         setError('Please add your profile image.');
         return;
       }
-      setDetails((prev) => ({ ...prev, profileimage: images[0] ? images[0].data_url : null }));
+     
+      const data = {
+        name: details.name,
+        email: details.email,
+        phone: details.phone,
+        address: details.address,
+        city: details.city,
+        country: details.country,
+        zip: details.zip,
+        password: details.password,
+        confirmPassword: details.confirmPassword,
+        profileimage: images[0] ? images[0].data_url : null 
+      }
       try {
-      
-        
+
         const response = await fetch('http://localhost:5002/api/register', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(details),
+          body: JSON.stringify(data),
         });
 
         if (!response.ok) {
@@ -78,7 +90,7 @@ export default function Registration() {
         }
 
         const result = await response.json();
-        console.log('Registration Successful:', result);
+        // console.log('Registration Successful:', result);
         toast.success('Registration Successful');
         window.location.href = '/auth/signin';
       } catch (error) {
@@ -90,7 +102,7 @@ export default function Registration() {
 
   return (
     <div className="d-flex justify-content-center align-items-center">
-       <ToastContainer />
+      <ToastContainer />
       <div className="container md:p-5">
         <div className="row justify-content-center">
           <div className="col-md-6">
@@ -215,7 +227,7 @@ export default function Registration() {
                       />
                     </div>
                   </div>
-                  
+
 
                   {/* Address and City */}
                   <div className="row mb-1">

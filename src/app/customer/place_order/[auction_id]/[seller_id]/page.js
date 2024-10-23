@@ -12,6 +12,9 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import '../../../../../../public/styles.css';
+import {CheckoutParams, CurrencyType, Customer, PayhereCheckout} from '@payhere-js-sdk/client';
+import axios from 'axios';
+import { Payhere, AccountCategory } from '@payhere-js-sdk/client';
 
 function Pages() {
   const reviews = { href: '#', average: 4 };
@@ -19,7 +22,10 @@ function Pages() {
   const [sellerBids, setSellerBids] = useState({});
   const [showModal, setShowModal] = useState(false);
   const [userId, setuserId] = useState('');
+  const [pay,setPay]=useState(false)
   const router = useRouter();
+
+  Payhere.init(1227920, AccountCategory.SANDBOX);
   
   const { auction_id, seller_id } = useParams();
 
@@ -40,20 +46,98 @@ function Pages() {
   }, []);
 
   const handleAcceptBid = () => {
-    AcceptSellerbids({ customer_id:userId},seller_id, (response) => {
-      if (response.status === 200) {
-        const sellerBids = response.data;
-        if (sellerBids.length > 0) {
-          setSellerBids(sellerBids[sellerBids.length - 1]); // Get the latest auction
-        }
-      } else {
-        console.error("Failed to fetch seller bids", response);
-      }
-    });
-    console.log('Bid accepted:', sellerBids);
-    setShowModal(false); 
+    // AcceptSellerbids({ customer_id:userId},seller_id, (response) => {
+    //   if (response.status === 200) {
+    //     const sellerBids = response.data;
+    //     if (sellerBids.length > 0) {
+    //       setSellerBids(sellerBids[sellerBids.length - 1]); // Get the latest auction
+    //     }
+    //   } else {
+    //     console.error("Failed to fetch seller bids", response);
+    //   }
+    // });
+    // console.log('Bid accepted:', sellerBids);
+    // setShowModal(false); 
+
+    setPay(true)
+    
   };
 
+  useEffect(()=>{
+    if(!pay){
+      return
+    }
+    let data = {}
+    data.amount = sellerBids.total
+    data.orderId = parseInt(Math.random() * 10000000000000000)
+    console.log(data)
+    axios.post(`${process.env.api_base_url}/pay/payment-hah`, data)
+        .then((res) => {
+            console.log(res)
+            if (res.data) {
+                checkout(res.data, data.amount, data.orderId)
+            }
+        }).catch((err) => {
+        console.log(err)
+    }).finally(() => {
+        // setFormSubmitted(false)
+        // dispatch(toggleLoader(false))
+        setShowModal(false); 
+        setPay(false)
+
+    })
+  },[pay])
+
+  const customerAttributes = {
+    first_name: 'John',
+    last_name: 'Doe',
+    phone: '+94771234567',
+    email: 'john@johndoe.com',
+    address: 'No. 50, Highlevel Road',
+    city: 'Panadura',
+    country: 'Sri Lanka',
+};
+
+const checkoutAttributes = {
+    returnUrl: 'http://localhost:3000/return',
+    cancelUrl: 'http://localhost:3000/cancel',
+    notifyUrl: 'http://localhost:8080/notify',
+    order_id: 100,
+    itemTitle: 'Demo Item',
+    currency: CurrencyType.LKR,
+    amount: 4500,
+    hash: '244AF1A277D35648F129A09ED315B346',
+};
+function onPayhereCheckoutError(errorMsg) {
+  alert(errorMsg);
+}
+async function checkout(hash, amount, orderId) {
+  // using async await
+
+  console.log(hash);
+  console.log(amount);
+  console.log(orderId);
+  
+  try {
+      const customer = new Customer(customerAttributes);
+
+      const checkoutData = new CheckoutParams({
+          returnUrl: 'http://localhost:3000',
+          cancelUrl: 'http://localhost:3000',
+          notifyUrl: 'http://localhost:3000',
+          order_id: orderId,
+          itemTitle: 'Fees',
+          currency: CurrencyType.LKR,
+          amount: 4500,
+          hash: hash,
+      });
+
+      const checkout = new PayhereCheckout(customer, checkoutData, onPayhereCheckoutError);
+      checkout.start();
+  } catch (err) {
+      console.log(err);
+  }
+}
   return (
     <div className=''>
       <Navbar />
@@ -67,8 +151,12 @@ function Pages() {
           <div className='flex'>
             <div className='w-5/12 flex flex-col gap-5 m-2'>
               <div className='col-5'>
-                <Image
-                  src="/images/2.png"
+              <Image
+                            // src={
+                            //   product.image.startsWith("http")
+                            //     ? product.image
+                            //     : `http://localhost:5000/${product.image}`
+                            // }
                   alt="Profile Photo"
                   width={250}
                   height={160}

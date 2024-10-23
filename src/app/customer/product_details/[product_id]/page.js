@@ -24,7 +24,7 @@ const handleClick = () => {
 
   useEffect(() => {
     GetProductDetails((response) => {
-      if (response.status === 200) {
+      if (response && response.status === 200) {
         const products = response.data;
         const filteredProduct = products.find(pro => pro._id === product_id);
         if (filteredProduct) {
@@ -38,6 +38,16 @@ const handleClick = () => {
     });
   }, [product_id]);
 
+//   ((response) => {
+//     console.log("Full response:", response); // Log the response to see its structure
+//     if ( response && response.status === 200) {
+//         setProduct(response.data);
+//     }
+//      else {
+//         console.error("Unexpected response or status code:", response);
+//     }
+// })
+
 
   return (
     <div className='h-full w-full' >
@@ -48,8 +58,12 @@ const handleClick = () => {
           <div className='flex flex-col w-1/3 gap-5 items-center'>
             <div className='text-3xl font-bold'>{product.name}</div>
             <div className='flex shadow-xl rounded-3xl '>
-              <Image
-                src="/images/product_1.webp"
+            <Image
+                            src={
+                              product.image.startsWith("http")
+                                ? product.image
+                                : `http://localhost:5000/${product.image}`
+                            }
                 alt={product.name}
                 width={350}
                 height={350}

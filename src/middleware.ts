@@ -13,11 +13,11 @@ export async function middleware(request: NextRequest) {
   const authenticated = isAuthenticated();
   console.log('Authenticated: ' + authenticated);
 
-  if (pathname.startsWith('/customer')) {
-    if (!authenticated) { // Redirect if there is no token (user not authenticated)
-      return NextResponse.redirect(new URL('/auth/signin', request.url));
-    }
-  }
+  // if (pathname.startsWith('/customer')) {
+  //   if (!authenticated) { // Redirect if there is no token (user not authenticated)
+  //     return NextResponse.redirect(new URL('/auth/signin', request.url));
+  //   }
+  // }
 
   // Allow the request to proceed
   return NextResponse.next();

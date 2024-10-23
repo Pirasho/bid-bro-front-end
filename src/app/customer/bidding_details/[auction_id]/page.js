@@ -20,7 +20,9 @@ function Pages() {
   const [auction, setAuction] = useState({});
   const [sellerBids, setSellerBids] = useState([]);
 
+  
   useEffect(() => {
+    console.log('Product Image URL:', auction.productImage);
 
  
     console.log('auction_id'+auction_id);
@@ -31,7 +33,7 @@ function Pages() {
         if (userId && auction_id) {
           GetAuctionFullDetails(auction_id, (response) => {
             if (response.status === 200) {
-              setAuction(response.data);
+              setAuction('Auction Data:',response.data);
             } else {
               console.error("Failed to fetch auction details", response);
             }
@@ -72,8 +74,14 @@ function Pages() {
         <div className='flex flex-col w-full md:w-1/3 gap-8 items-center'>
         
           <div className='text-3xl font-bold'>{auction.productName}</div>
-          <Image
-            src="/images/iphone.jpg" // Replace with dynamic image if available
+          
+            <Image
+            // src={
+            //   product.image.startsWith("http")
+            //     ? product.image
+            //     : `http://localhost:5000/${product.image}`
+            // } // Replace with dynamic image if available
+
             alt={auction.productName}
             width={250}
             height={250}

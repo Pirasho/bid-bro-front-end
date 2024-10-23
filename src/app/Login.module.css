@@ -1,0 +1,104 @@
+/* styles/Login.module.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body, html {
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .loginContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #3B4371, #F3904F);
+  }
+  
+  .loginBox {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    width: 350px;
+    max-width: 100%;
+    text-align: center;
+  }
+  
+  .avatar {
+    margin-bottom: 20px;
+  }
+  
+  .avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+  }
+  
+  .inputGroup {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .inputGroup label {
+    font-size: 14px;
+    color: #fff;
+  }
+  
+  .inputGroup input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: none;
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+  }
+  
+  .inputGroup input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .rememberMe input {
+    margin-right: 5px;
+  }
+  
+  .forgotPassword {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+  }
+  
+  .forgotPassword:hover {
+    color: #fff;
+  }
+  
+  .loginBtn {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .loginBtn:hover {
+    background: linear-gradient(135deg, #667eea, #5a3da0);
+  }
+  

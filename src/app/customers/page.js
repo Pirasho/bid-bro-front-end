@@ -11,6 +11,7 @@ const getCustomers = async () => {
             throw new Error("Failed to fetch customers");
         }
         const data = await res.json();
+        console.log(data);
         return data;
     } catch (error) {
         console.log("Error loading customers: ", error);
@@ -45,64 +46,65 @@ export default function CustomerList({ children }) {
 
     return (
         <>
-    <Header />
-    <div>{children}</div>
-        <div className="overflow-x-auto">
-            <div className="flex justify-between items-center">
-                <h1 className="font-bold py-10 text-2xl">Customers Details</h1>
-            </div>
-            <div className="text-right">
-                <input
-                    type="text"
-                    placeholder="Search..."
-                    className="px-4 py-2 border rounded-lg"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-            </div>
+            <Header />
+            <div>{children}</div>
+            <div className="overflow-x-auto p-5">
+                <div className="flex justify-between items-center mb-6">
+                    <h1 className="font-bold text-2xl">Customers Details</h1>
+                    <div className="text-right">
+                        <input
+                            type="text"
+                            placeholder="Search..."
+                            className="px-4 py-2 border rounded-lg shadow focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+                </div>
 
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Reg No</th>
-                        <th>Name</th>
-                        <th>Telephone</th>
-                        <th>Email</th>
-                        <th>Address</th>
-                        <th>NIC</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {filteredCustomers.length > 0 ? (
-                        filteredCustomers.map((customer, index) => (
-                            <tr key={customer._id}>
-                                <td>{index + 1}</td>
-                                <td>{customer.name}</td>
-                                <td>{customer.telephone}</td>
-                                <td>{customer.email}</td>
-                                <td>{customer.address}</td>
-                                <td>{customer.nic}</td>
-                                <td>
-                                    {/* Replace with your block button implementation */}
-                                    <button className="btn btn-danger">Block</button>
+                <table className="table-auto w-full border border-gray-300">
+                    <thead>
+                        <tr className="bg-gray-100 text-gray-700">
+                            <th className="px-4 py-2 border">Reg No</th>
+                            <th className="px-4 py-2 border">Name</th>
+                            <th className="px-4 py-2 border">Telephone</th>
+                            <th className="px-4 py-2 border">Email</th>
+                            <th className="px-4 py-2 border">Address</th>
+                            <th className="px-4 py-2 border">NIC</th>
+                            <th className="px-4 py-2 border">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredCustomers.length > 0 ? (
+                            filteredCustomers.map((customer, index) => (
+                                <tr key={customer._id} className="hover:bg-gray-50">
+                                    <td className="px-4 py-2 border">{index + 1}</td>
+                                    <td className="px-4 py-2 border">{customer.name}</td>
+                                    <td className="px-4 py-2 border">{customer.telephone}</td>
+                                    <td className="px-4 py-2 border">{customer.email}</td>
+                                    <td className="px-4 py-2 border">{customer.address}</td>
+                                    <td className="px-4 py-2 border">{customer.nic}</td>
+                                    <td className="px-4 py-2 border">
+                                        <button className="px-4 py-2 bg-purple-900 text-white font-bold rounded shadow hover:bg-grey-700 transition duration-200">
+                                            Block
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        ) : (
+                            <tr>
+                                <td colSpan="7" className="text-center py-4 text-gray-500">
+                                    No customers found.
                                 </td>
                             </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan="7" className="text-center">
-                                No customers found.
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
-            {/* Footer */}
-      <footer className="bg-gray-900 text-white text-center py-4">
-        <p>&copy; 2024 Electro Bid Hub. All rights reserved.</p>
-      </footer>
-        </div>
+                        )}
+                    </tbody>
+                </table>
+                {/* Footer */}
+                <footer className="bg-gray-900 text-white text-center py-4 mt-6">
+                    <p>&copy; 2024 Electro Bid Hub. All rights reserved.</p>
+                </footer>
+            </div>
         </>
     );
 }

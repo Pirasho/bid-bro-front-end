@@ -124,12 +124,12 @@ const RegistrationModal = ({ isOpen, onClose, onSwitchToSignIn }) => {
         </form>
 
         <div className="flex justify-between items-center mt-4">
-          <div>Already have an account?</div>
-          <Link href="/pages/abc/signin" className="text-primary">
-            <span className="font-bold text-purple-900">Log In</span>
-          </Link>
-        </div>
-      </div>
+  <div>Already have an account?</div>
+  <Link href="/components/SignInModal1" className="text-primary">
+    <span className="font-bold text-purple-900">Log In</span>
+  </Link>
+</div>
+</div>
     </div>
   );
 };

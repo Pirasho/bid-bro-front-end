@@ -34,9 +34,9 @@ const Dashboard = () => {
         label: 'Customer Registrations',
         data: [300, 500, 800, 600, 1000, 1200], // Example data for customer registrations
         fill: false,
-        backgroundColor: 'rgba(153, 102, 255, 0.4)',
-        borderColor: 'rgba(153, 102, 255, 1)',
-        borderWidth: 2,
+        backgroundColor: 'rgba(160, 102, 255, 0.4)',
+        borderColor: 'rgba(160, 102, 255, 1)',
+        borderWidth: 3,
       },
     ],
   };
@@ -87,21 +87,21 @@ const Dashboard = () => {
             <FaUsers className="text-purple-800 text-3xl" />
             <div>
               <h2 className="text-xl font-semibold">Total Customers</h2>
-              <p className="text-2xl font-bold">1,250</p>
+              <p className="text-2xl font-bold">30</p>
             </div>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
             <FaChartLine className="text-purple-800 text-3xl" />
             <div>
               <h2 className="text-xl font-semibold">Total Sellers</h2>
-              <p className="text-2xl font-bold">3000</p>
+              <p className="text-2xl font-bold">5</p>
             </div>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-md flex items-center space-x-4">
             <FaDollarSign className="text-purple-800 text-3xl" />
             <div>
               <h2 className="text-xl font-semibold">Total Profit</h2>
-              <p className="text-2xl font-bold">$25,000</p>
+              <p className="text-2xl font-bold">10, 00RS</p>
             </div>
           </div>
         </div>

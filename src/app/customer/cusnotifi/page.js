@@ -4,8 +4,8 @@
 import React, { useState } from 'react';
 // import NotificationBar from '../../../components/NotificationBar';
 import { BellIcon } from '@heroicons/react/outline'; // Import notification icon from Heroicons
-import Footer from '@/app/widgets/footer/footer';
-import Navbar from '@/app/widgets/navbar/navbar';
+// import Footer from '@/app/widgets/footer/footer';
+// import Navbar from '@/app/widgets/navbar/navbar';
 
 const sampleNotifications = [
   {
@@ -51,7 +51,7 @@ const SellerNotificationPage = () => {
 
   return (
     <div className="relative min-h-screen flex flex-col">
-      <Navbar  />
+      {/* <Navbar  /> */}
       <main className="pt-16 flex-grow flex">
         <div className="w-1/5 p-4">
           {/* <NotificationBar notifications={sampleNotifications} onViewMore={handleViewMore} /> */}
@@ -108,7 +108,7 @@ const SellerNotificationPage = () => {
           )}
         </div>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

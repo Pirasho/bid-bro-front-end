@@ -74,32 +74,19 @@ function Pages() {
         <div className='flex flex-col w-full md:w-1/3 gap-8 items-center'>
         
           <div className='text-3xl font-bold'>{auction.productName}</div>
-          {/* {auction.productImage ? ( */}
-          <Image
-  src={
-    auction.productImage && auction.productImage.startsWith("http")
-      ? auction.productImage
-      : auction.productImage
-        ? `http://localhost:5000/${auction.productImage}`
-        : '/path/to/default/logo.png' // Fallback image if productImage is undefined
-  }
-  alt={auction.productName || 'Product Image'}
-  width={256}
-  height={256}
-  // onError={(e) => { e.target.onerror = null; e.target.src="/path/to/default/logo.png"; }} // Default image
-/>
-
           
-        
- {/* <Image
-//   src="/Images/logo.png" // Image should be in the public folder
-//   alt="Logo"
-//   width={256} // Specify width
-//   height={256} // Specify height
-// /> */}
+            <Image
+            // src={
+            //   product.image.startsWith("http")
+            //     ? product.image
+            //     : `http://localhost:5000/${product.image}`
+            // } // Replace with dynamic image if available
 
-
-
+            alt={auction.productName}
+            width={250}
+            height={250}
+            className='rounded-3xl p-2.5'
+          />
         </div>
         <div className='flex flex-col w-full md:w-2/3 pt-10'>
           <div className='rounded-3xl flex flex-col m-3 p-5'>

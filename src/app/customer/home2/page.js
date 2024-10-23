@@ -1,19 +1,17 @@
 "use client";
 
 import Navbar from '../../widgets/navbar/navbar';
-// import Footer from '@/app/widgets/footer/footer';
+import Footer from '../../widgets/footer/footer';
 import Chatbot from '../../widgets/chatbot/page';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-// import { GetProductDetails } from '../../../../../redux/action/product';
+
 
 import { GetProductDetails } from '../../../../redux/action/product'; // Import API function
 
 
-// export const GetProductDetails = () => {
-//     return axios.get('http://localhost:5000/api/products');  // Return the axios promise
-//   };
+
 function HomePage2() {
     const router = useRouter();
     const [product, setProduct] = useState([]);
@@ -23,15 +21,15 @@ function HomePage2() {
     useEffect(() => {
         // Fetch product details from the API
         GetProductDetails
-            ((response) => {
-                console.log(response); // Log the response to see its structure
-                if (response.status === 200) {
-                    setProduct(response.data);
-                }
-                 else {
-                    console.error("Failed to fetch products", response);
-                }
-            })
+        ((response) => {
+            console.log("Full response:", response); // Log the response to see its structure
+            if ( response && response.status === 200) {
+                setProduct(response.data);
+            }
+             else {
+                console.error("Unexpected response or status code:", response);
+            }
+        })
             // .catch((error) => {
             //     console.error("Error fetching product details", error);
             // })
@@ -105,7 +103,7 @@ function HomePage2() {
                     </div>
                 </div>
             </div>
-            {/* <Footer /> */}
+            <Footer />
         </div>
     );
 }

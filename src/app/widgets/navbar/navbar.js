@@ -6,9 +6,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { HomeIcon, ShoppingCartIcon, UserGroupIcon, SupportIcon, LogoutIcon, HeartIcon, BellIcon, UserIcon } from '@heroicons/react/outline';
 
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [userDetails, setUserDetails] = useState({});
   const userMenuRef = useRef(null);
 
   const toggleMenu = () => {
@@ -18,6 +20,26 @@ const Navbar = () => {
   const toggleUserMenu = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
   };
+
+  useEffect(() => {
+    const fetchUserDetails = async () => {
+      const storedUserDetails = localStorage.getItem('userDetails');
+      const parsedDetails = JSON.parse(storedUserDetails);
+      const userId = parsedDetails?.id;
+      if (userId) {
+        try {
+          const response = await fetch(`http://localhost:5002/api/user/${userId}`);
+          if (response.status === 200) {
+            const data = await response.json();
+            setUserDetails(data);
+          }
+        } catch (err) {
+          console.error('Error fetching user details:', err);
+        }
+      }
+    };
+    fetchUserDetails();
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -34,6 +56,24 @@ const Navbar = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isUserMenuOpen]);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setIsUserMenuOpen(false);
+      }
+    };
+    if (isUserMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isUserMenuOpen]);
+
+  
 
   return (
     <div>
@@ -91,18 +131,6 @@ const Navbar = () => {
                 </Link>
               </div>
               <div className="flex items-center space-x-4 ml-auto">
-                <Link href="/customer/favorites" className="text-gray-600 cursor-pointer">
-                  <HeartIcon className="w-6 h-6" />
-                </Link>
-                <Link href="/customer/bidnotification" className="text-gray-600 cursor-pointer">
-                  <BellIcon className="w-6 h-6" />
-                </Link>
-                <Link href="/customer/profile" className="text-gray-600 cursor-pointer">
-                  <UserIcon className="w-6 h-6" />
-                </Link>
-                <Link href="/customer/signin" className="text-purple-800 font-bold text-lg flex items-center space-x-2 italic">
-                  <LogoutIcon className="w-6 h-6" />
-                </Link>
               </div>
             </div>
             <nav className="flex space-x-4 items-center   justify-between"></nav>
@@ -123,7 +151,7 @@ const Navbar = () => {
                   overflow: 'hidden',
                 }}>
                   <Image
-                    src="http://localhost:5002/uploads/suthu17@gmail.com-profile.png"
+                    src={userDetails.profileimage || "/images/default-avatar.png"} // Use user's profile image or default avatar
                     alt="Profile"
                     width={80}
                     height={80}

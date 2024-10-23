@@ -5,10 +5,10 @@ import axios from 'axios';
 import Link from "next/link";
 import Image from "next/image";
 import { FaRegCalendarAlt } from "react-icons/fa";
-import '../styles/home.css';
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
-import Loading from "../components/Loading";
+import '../../styles/home.css';
+import Sidebar from "../../components/Sidebar";
+import Navbar from "../../components/Navbar";
+import Loading from "../../components/Loading";
 import { IoIosCloseCircle } from "react-icons/io";
 
 

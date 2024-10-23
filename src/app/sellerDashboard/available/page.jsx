@@ -5,10 +5,10 @@ import axios from 'axios';
 import Link from "next/link";
 import Image from "next/image";
 import available from '../images/available.png';
-import '../styles/home.css';
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
-import Loading from "../components/Loading";
+import '../../styles/home.css';
+import Sidebar from "../../components/Sidebar";
+import Navbar from "../../components/Navbar";
+import Loading from "../../components/Loading";
 
 
 export default function Page() {

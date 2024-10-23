@@ -2,7 +2,8 @@
 import { useState } from "react";
 import axios from 'axios';
 import Link from "next/link";
-import '../styles/home.css';
+import '../../styles/home.css';
+
 
 
 export default function Page() {

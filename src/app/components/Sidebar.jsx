@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import dp from '../images/dp.jpg';
+import dp from '../../../public/images/dp.jpg';
 
 import { AiFillDingtalkCircle } from "react-icons/ai";
 import { IoReceiptOutline } from "react-icons/io5";
@@ -25,23 +25,27 @@ export default function Sidebar() {
 
                 <nav className="space-y-2 p-2 pl-6">
 
-                    <Link href={'/home'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300">
+                    <Link href={'/sellerDashboard/home'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300">
                         <AiFillDingtalkCircle size={22} className="mr-2" />
                         My Bids
                     </Link>
-                    <Link href={'/receipt'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300">
+                    <Link href={'/sellerDashboard/receipt'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300">
                         <IoReceiptOutline size={21} className="mr-2" />
                         Customer Receipts
                     </Link>
-                    <Link href={'/order'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300">
+                    <Link href={'/sellerDashboard/order'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300">
                         <BsCartPlusFill size={21} className="mr-2" />
                         Completed Orders
                     </Link>
-                    <Link href={'/available'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300">
+                    <Link href={'/sellerDashboard/available'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300">
                         <BsClipboardPulse size={21} className="mr-2" />
                         Available Products
                     </Link>
-                    <Link href={'/report'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300">
+                    <Link href={'/sellerDashboard/sellernotification'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300">
+                        <BsJournalCheck size={21} className="mr-2" />
+                        Notification
+                    </Link>
+                    <Link href={'/sellerDashboard/report'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300">
                         <BsJournalCheck size={21} className="mr-2" />
                         Sales Reports
                     </Link>

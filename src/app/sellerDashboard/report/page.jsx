@@ -9,12 +9,13 @@ import washing from '../images/washing.webp';
 import lap from '../images/lap.jpg';
 import { FaRegCalendarAlt } from "react-icons/fa";
 
-import '../styles/home.css';
+import '../../styles/home.css';
 
-import Sidebar from "../components/Sidebar";
-import Navbar from "../components/Navbar";
-import BarChart from "../components/BarChart";
-import LineChart from "../components/LineChart";
+
+import Sidebar from "../../components/Sidebar";
+import Navbar from "../../components/Navbar";
+import BarChart from "../../components/BarChart";
+import LineChart from "../../components/LineChart";
 
 
 export default function Page() {

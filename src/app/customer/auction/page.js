@@ -63,6 +63,8 @@ const AuctionModal = ({ setShowModal, product }) => {
             if (res?.status >= 200 && res?.status < 300) {
                 setsucess("Successfully added");
                 setIsButtonDisabled(true);
+                setShowModal(false);
+
 
                 // Reset success message after 3 seconds
                 setTimeout(() => {

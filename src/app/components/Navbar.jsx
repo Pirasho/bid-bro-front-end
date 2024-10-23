@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import icon from '../images/logo.png';
+import icon from '../../../public/images/logo.png';
 import '../styles/home.css';
 import { AiFillHome } from "react-icons/ai";
 import { IoMdNotifications } from "react-icons/io";
@@ -18,13 +18,13 @@ export default function Navbar() {
       </div>
 
       <div className="flex" style={{alignItems:'center'}}>
-        <Link className="text-black font-bold" href={"/home"}>
+        <Link className="text-black font-bold" href={"/sellerDashboard/home"}>
           <AiFillHome size={22} className="mr-2" color="#031520" />
         </Link>
-        <Link className="text-black font-bold" href={"/home"}>
+        <Link className="text-black font-bold" href={"/sellerDashboard/home"}>
           <IoMdNotifications size={24} className="mr-2" color="#031520" />
         </Link>
-        <Link className="text-black font-bold" href={"/home"}>
+        <Link className="text-black font-bold" href={"/sellerDashboard/home"}>
           <BiSolidMessageRounded size={22} className="mr-2" color="#031520" />
         </Link>
         <Link className="text-black font-bold" href={"/"}>

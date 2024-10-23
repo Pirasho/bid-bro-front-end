@@ -16,6 +16,7 @@ import '../../../../../../public/styles.css';
 import { CheckoutParams, CurrencyType, Customer, PayhereCheckout } from '@payhere-js-sdk/client';
 import axios from 'axios';
 import { Payhere, AccountCategory } from '@payhere-js-sdk/client';
+import NoResult from '../../../../components/NoResult';
 
 
 function Pages() {
@@ -53,7 +54,7 @@ function Pages() {
       try {
         
           setLoading(true); // Set loading to true before fetching data
-          GetReviewrate( (response) => {
+          GetReviewrate(seller_id, (response) => {
             if (response.status === 200) {
               setReview(response.data);
             } else {
@@ -273,7 +274,7 @@ function Pages() {
                   </div>
                 </div>
                 <hr />
-                {(
+                {review.length===0 ? <NoResult title='NO REVIEW Yet!'/> :(
                   review.map((revi, index) => (
                     <div key={index} className='col-12 col-md-6 col-lg-4 mb-4'>
                       <div className="p-5 d-flex flex-column align-items-center justify-center bg-white rounded-3xl shadow-xl w-72" style={{ borderBottom: '6px solid #8006be' }}>
@@ -290,6 +291,7 @@ function Pages() {
                     </div>
                   ))
                 )}
+              
               </div>
             </div>
           </div>

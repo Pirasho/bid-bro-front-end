@@ -1,19 +1,17 @@
 "use client";
 
 import Navbar from '../../widgets/navbar/navbar';
-// import Footer from '@/app/widgets/footer/footer';
+import Footer from '../../widgets/footer/footer';
 import Chatbot from '../../widgets/chatbot/page';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
-// import { GetProductDetails } from '../../../../../redux/action/product';
+
 
 import { GetProductDetails } from '../../../../redux/action/product'; // Import API function
 
 
-// export const GetProductDetails = () => {
-//     return axios.get('http://localhost:5000/api/products');  // Return the axios promise
-//   };
+
 function HomePage2() {
     const router = useRouter();
     const [product, setProduct] = useState([]);
@@ -105,7 +103,7 @@ function HomePage2() {
                     </div>
                 </div>
             </div>
-            {/* <Footer /> */}
+            <Footer />
         </div>
     );
 }

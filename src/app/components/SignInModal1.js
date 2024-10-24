@@ -3,13 +3,13 @@ import { useState } from 'react';
 import { FaEnvelope, FaLock } from 'react-icons/fa'; // Importing icons
 import { useRouter } from 'next/navigation'; // Import useRouter for navigation
 
-const SignInModal = ({ isOpen, onClose }) => {
-  const router = useRouter(); // Initialize useRouter
+const SignInModal = ({ isOpen, onClose, setRegisterModalOpen }) => {
+  const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [loading, setLoading] = useState(false); // Loading state
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +35,6 @@ const SignInModal = ({ isOpen, onClose }) => {
       if (!response.ok) {
         const errorData = await response.json();
         setError(errorData.error || 'Sign-in failed');
-        setLoading(false);
         return;
       }
 
@@ -62,9 +61,13 @@ const SignInModal = ({ isOpen, onClose }) => {
   if (!isOpen) return null; // If the modal is not open, don't render anything
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60"> {/* Dark background for overlay */}
-      <div className="bg-white bg-opacity-80 rounded-lg shadow-lg p-6 max-w-md w-full"> {/* Semi-transparent modal background */}
-        <button onClick={onClose} className="absolute top-2 right-2 text-gray-600 hover:text-gray-900">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60">
+      <div className="relative bg-white bg-opacity-80 rounded-lg shadow-lg p-6 max-w-md w-full">
+        {/* Close Button */}
+        <button 
+          onClick={onClose} 
+          className="absolute top-2 right-2 bg-gray-300 hover:bg-gray-400 text-black font-bold rounded-full h-8 w-8 flex items-center justify-center"
+        >
           &times; {/* Close icon */}
         </button>
         <h2 className="text-3xl font-bold mb-4 text-center">Sign In</h2>
@@ -98,7 +101,15 @@ const SignInModal = ({ isOpen, onClose }) => {
           </button>
         </form>
         <div className="text-center mt-4">
-          <p className="text-sm">Don't have an account? <a href="/components/RegistrationModel" className="text-blue-500 hover:underline">Register</a></p>
+          <p className="text-sm">
+            Don’t have an account? 
+            <button onClick={() => {
+              onClose(); // Close sign-in modal
+              setRegisterModalOpen(true); // Open register modal
+            }} className="text-blue-500 font-bold hover:underline">
+              Register
+            </button>
+          </p>
           <p className="text-sm"><a href="#" className="text-blue-500 hover:underline">Forgot password?</a></p>
         </div>
       </div>

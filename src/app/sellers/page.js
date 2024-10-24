@@ -70,15 +70,15 @@ export default function SellerList({ children }) {
     return (
         <>
             <Header />
-            <div className="container mx-auto px-4 py-6 bg-blue-100 min-h-screen">
+            {/* <div className="container mx-auto px-4 py-6 bg-blue-50 min-h-screen"> Updated to light purple */}
                 <div>{children}</div>
-                <h1 className="font-bold text-2xl text-blue-900 mb-6">Sellers Details</h1>
+                <h1 className="font-bold text-2xl text-purple-900 mb-6">Sellers Details</h1> {/* Updated to dark purple */}
                 
                 <div className="text-right mb-4 relative">
                     <input
                         type="text"
                         placeholder="Search..."
-                        className="px-4 py-2 border rounded-lg pl-10 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="px-4 py-2 border border-purple-800 rounded-lg pl-10 shadow-md focus:outline-none focus:ring-2 focus:ring-purple-500" // Updated to purple
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                     />
@@ -87,7 +87,7 @@ export default function SellerList({ children }) {
                 
                 <div className="overflow-x-auto rounded-lg shadow-lg mb-6">
                     <table className="table w-full bg-white rounded-lg">
-                        <thead className="bg-blue-200">
+                        <thead>
                             <tr>
                                 <th className="p-3"></th>
                                 <th className="p-3">RegNo</th>
@@ -115,13 +115,8 @@ export default function SellerList({ children }) {
                                         <td className="p-3">{seller.address}</td>
                                         <td className="p-3">{seller.nic}</td>
                                         <td className="p-3">
-                                            {/* <Link href={`/editSeller/${seller._id}`}>
-                                                <button className="px-4 py-2 bg-blue-900 text-white font-bold rounded shadow hover:bg-blue-700 transition duration-200">
-                                                    Edit
-                                                </button>
-                                            </Link> */}
                                             <button 
-                                                className="ml-2 px-4 py-2 bg-purple-950 text-white font-bold rounded shadow hover:bg-red-500 transition duration-200"
+                                                className="ml-2 px-4 py-2 bg-purple-700 text-white font-bold rounded shadow hover:bg-red-500 transition duration-200" // Updated to purple
                                                 onClick={() => blockSeller(seller._id)}
                                             >
                                                 Block
@@ -138,7 +133,7 @@ export default function SellerList({ children }) {
                             )}
                         </tbody>
                     </table>
-                </div>
+                {/* </div> */}
                 
                 {/* Footer */}
                 <footer className="bg-gray-900 text-white text-center py-4 mt-6 rounded-lg shadow-md">

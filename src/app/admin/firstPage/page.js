@@ -8,14 +8,29 @@ const Home = () => {
   const [isRegisterModalOpen, setRegisterModalOpen] = useState(false);
   const [isSignInModalOpen, setSignInModalOpen] = useState(false); // State for Sign In modal
 
+  const openRegister = () => {
+    setRegisterModalOpen(true);
+    setSignInModalOpen(false); // Close Sign In modal
+  };
+
+  const openSignIn = () => {
+    setSignInModalOpen(true);
+    setRegisterModalOpen(false); // Close Register modal
+  };
+
+  const closeModal = () => {
+    setSignInModalOpen(false);
+    setRegisterModalOpen(false);
+  };
+
   // Sample data for products
   const products = [
     { id: 1, name: 'Smartphone Pro', price: '99990 RS', image: '/images/New-i.jpg' },
-    { id: 2, name: 'Ultra HD Smart TV', price: '1,2000 RS', image: '/images/tab.jpg' },
-    { id: 3, name: 'High-Performance Laptop', price: '1,5000 RS', image: '/images/hp.jpg' },
-    { id: 4, name: 'Noise Cancelling Headphones', price: '300000 Rs', image: '/images/headphone.jpg' },
-    { id: 5, name: '4K Action Camera', price: '450000 Rs', image: '/images/lap.jpg' },
-    { id: 6, name: 'iPhone 14', price: '750000 Rs', image: '/images/huwa.jpg' },
+    { id: 2, name: 'Ultra HD Smart TV', price: '120000 RS', image: '/images/tab.jpg' },
+    { id: 3, name: 'High-Performance Laptop', price: '150000 RS', image: '/images/hp.jpg' },
+    { id: 4, name: 'Noise Cancelling Headphones', price: '30000 Rs', image: '/images/headphone.jpg' },
+    { id: 5, name: '4K Action Camera', price: '45000 Rs', image: '/images/lap.jpg' },
+    { id: 6, name: 'iPhone 14', price: '75000 Rs', image: '/images/huwa.jpg' },
   ];
 
   return (
@@ -24,10 +39,10 @@ const Home = () => {
       <header className="relative bg-gray-900 text-white">
         {/* Sign In / Register Links */}
         <div className="absolute top-4 right-4 flex space-x-4 z-20">
-          <button onClick={() => setSignInModalOpen(true)} className="text-white font-bold hover:underline">
+          <button onClick={openSignIn} className="text-white font-bold hover:underline">
             Sign In
           </button>
-          <button onClick={() => setRegisterModalOpen(true)} className="text-white font-bold hover:underline">
+          <button onClick={openRegister} className="text-white font-bold hover:underline">
             Register
           </button>
         </div>
@@ -38,7 +53,7 @@ const Home = () => {
         <div className="relative z-10 flex flex-col items-center justify-center h-[600px] text-center">
           <h1 className="text-5xl font-bold">Welcome Back</h1>
           <h2 className="text-5xl font-bold">Bid Broo</h2>
-          
+
           <button className="mt-6 bg-white text-purple-700 font-semibold py-2 px-4 rounded">
             Shop Now
           </button>
@@ -70,9 +85,20 @@ const Home = () => {
       </footer>
 
       {/* Register Modal */}
-      <RegisterCustomer isOpen={isRegisterModalOpen} onClose={() => setRegisterModalOpen(false)} />
+      {isRegisterModalOpen && (
+        <RegisterCustomer
+          isOpen={isRegisterModalOpen}
+          onClose={closeModal} // Close both modals
+        />
+      )}
+
       {/* Sign In Modal */}
-      <SignInModal isOpen={isSignInModalOpen} onClose={() => setSignInModalOpen(false)} />
+      {isSignInModalOpen && (
+        <SignInModal
+          isOpen={isSignInModalOpen}
+          onClose={closeModal} // Close both modals
+        />
+      )}
     </div>
   );
 };

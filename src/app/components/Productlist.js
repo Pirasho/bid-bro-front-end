@@ -116,13 +116,15 @@ export default function ProductList() {
           Add Product
         </button>
         <input
-          type="text"
-          placeholder="Search..."
-          className="px-4 py-2 border rounded-lg ml-4"
-          value={searchQuery}
-          onChange={handleSearch}
-          style={{ flex: "0 0 300px" }}
-        />
+  type="text"
+  placeholder="Search..."
+  className="px-4 py-2 border border-black-800 rounded-lg ml-4" // Added border-purple-800 for dark purple border
+  value={searchQuery}
+  onChange={handleSearch}
+  style={{ flex: "0 0 300px" }}
+/>
+
+
       </div>
 
       {/* Products Table */}

@@ -5,7 +5,11 @@
 }
 .sidebar{
     /* background-color: #073857; */
-    background-color: rgb(44, 1, 44);
+    background-color: rgb(128,6,190);
+  
+        height: 100vh; /* Full viewport height */
+        position: fixed; /* Keeps sidebar in place while scrolling the rest */
+
 }
 .container {
     flex-wrap: wrap;

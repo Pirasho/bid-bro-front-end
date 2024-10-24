@@ -10,6 +10,8 @@ import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import Loading from "../../components/Loading";
 import { IoIosCloseCircle } from "react-icons/io";
+import '../../../../public/styles.css'
+import { AiFillDingtalkCircle } from "react-icons/ai";
 
 
 export default function Home() {
@@ -37,7 +39,7 @@ export default function Home() {
     const fetchData = async () => {
       try {
 
-        const res = await axios.get('http://localhost:8000/api/seller/getBid');
+        const res = await axios.get('http://localhost:8000/api/seller/get');
         const resdata = await res.data;
         setFetchArray(resdata);
         setLoading(false);
@@ -128,16 +130,16 @@ export default function Home() {
         <Sidebar />
       </div>
 
-      <div className="flex-grow maincontent" style={{ backgroundColor: 'rgba(62, 98, 151, 0.103)' }}>
+      <div className="flex-grow maincontent" style={{ backgroundColor: 'rgba(62, 98, 151, 0.103)' ,marginLeft:'16rem'}}>
         <Navbar />
 
-        <div className="p-5" style={{ backgroundColor: 'rgb(94, 16, 94)' }}>
-        </div>
+       <div className="mx-2">
+       <div className="heading-bar-seller " > <AiFillDingtalkCircle size={22} className="mr-2" /> My Bids</div>
+       </div>
 
         {!modalshow && (
           <div className="flex flex-col items-center justify-center p-6">
 
-            <h2 className="font-bold mb-3 text-center text-[rgb(62 97 151)]" style={{ fontSize: '1.2rem' }}>BIDDING LIST</h2>
 
             {!loading && (
               <div className="container flex sm:flex-row">
@@ -173,7 +175,7 @@ export default function Home() {
                         </h3>
 
                         <Link href={''}>
-                          <div style={{ backgroundColor: 'rgb(94, 16, 94)', marginTop: '0.5rem', padding: '0.3rem' }} onClick={(e) => show(e, item)}>
+                          <div style={{ backgroundColor: 'rgb(128,6,190)', marginTop: '0.5rem', padding: '0.3rem' }} onClick={(e) => show(e, item)}>
                             <h3 className="font-bold text-center" style={{ fontSize: '1rem', color: 'white' }}>RESPOND</h3>
                           </div>
                         </Link>
@@ -230,7 +232,7 @@ export default function Home() {
                     <h3 className="font-bold text-center" style={{ fontSize: '0.9rem', marginTop: '0.5rem', color: 'gray' }}>MODEL - {mmodel}</h3>
                     <h3 className="font-bold text-center" style={{ fontSize: '0.7rem', color: 'rgb(117, 102, 6)', textTransform: 'uppercase' }}>VERSION {mversion} - {mcolor} COLOR</h3>
 
-                    <div style={{ backgroundColor: 'rgb(94, 16, 94)', padding: '0.3rem', color: 'white', marginTop: '1rem' }}>
+                    <div style={{ backgroundColor: 'rgb(128,6,190)', padding: '0.3rem', color: 'white', marginTop: '1rem' }}>
                       <h3 className="text-center">MRP Price - LKR. {mmrp}</h3>
                     </div>
 

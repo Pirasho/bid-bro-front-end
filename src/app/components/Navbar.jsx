@@ -6,6 +6,7 @@ import { AiFillHome } from "react-icons/ai";
 import { IoMdNotifications } from "react-icons/io";
 import { BiSolidMessageRounded } from "react-icons/bi";
 import { FaSignOutAlt } from "react-icons/fa";
+import '../../../public/styles.css'
 
 export default function Navbar() {
   return (
@@ -27,7 +28,7 @@ export default function Navbar() {
         <Link className="text-black font-bold" href={"/sellerDashboard/home"}>
           <BiSolidMessageRounded size={22} className="mr-2" color="#031520" />
         </Link>
-        <Link className="text-black font-bold" href={"/"}>
+        <Link className="text-black font-bold" onClick={()=>{localStorage.removeItem('sellerDetails');}} href={"/sellerDashboard/auth/signin"}>
           <FaSignOutAlt size={22} className="mr-2" color="#031520" />
         </Link>
       </div>

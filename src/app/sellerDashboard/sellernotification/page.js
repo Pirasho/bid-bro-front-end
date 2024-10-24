@@ -66,6 +66,7 @@ function Pages() {
         setIsModalOpen(!isModalOpen);
         // Toggle modal state
     };
+  
 
     return (
         <div className="flex bg-white body">

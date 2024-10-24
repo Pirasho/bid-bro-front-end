@@ -1,7 +1,8 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { AcceptSellerbids, GetSellerbidsById } from '../../../../../../redux/action/bidding_details';
+import { Accepbids, AcceptSellerbids, GetAuctionFullDetails, GetSellerbidsById, GetSellerDetail } from '../../../../../../redux/action/bidding_details';
+
 import { GetReviewrate } from '../../../../../../redux/action/ratingform';
 import { GetProductDetails } from '../../../../../../redux/action/product';
 import { useParams, useRouter } from 'next/navigation';
@@ -31,6 +32,9 @@ function Pages() {
   const [pay, setPay] = useState(false)
   const router = useRouter();
   const [review, setReview] = useState([]);
+  const [auth, setAuth] = useState({});
+  const [bid, setbid] = useState({});
+  const [sellerDeatil, setsellerDeatil] = useState({});
 
 
   Payhere.init(1227920, AccountCategory.SANDBOX);
@@ -188,6 +192,84 @@ function Pages() {
       console.log(err);
     }
   }
+
+  
+  useEffect(() => {
+    
+
+
+    console.log('auction_idaasss' + auction_id);
+    // Extract 'auction_id' from query params
+    const fetchData = async () => {
+      try {
+       
+        if ( auction_id) {
+          GetAuctionFullDetails(auction_id, (response) => {
+            if (response.status === 200) {
+              setAuth(response.data)
+              response.data.bids.map((bid) => {
+                if(bid.sellerId===seller_id){
+                  setbid(bid)
+                  console.log('bass'+JSON.stringify(bid));
+                }
+              });
+              
+            } else {
+              console.error("Failed to fetch auction details", response);
+            }
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching auction details", error);
+      }
+    };
+
+    fetchData();
+    fetchDatas();
+  }, []);
+
+ 
+  
+    const fetchDatas = async () => {
+      try {
+          GetSellerDetail(seller_id, (response) => {
+            if (response.status === 200) {
+              setsellerDeatil(response.data) 
+            } else {
+              console.error("Failed to fetch auction details", response);
+            }
+          });
+        
+      } catch (error) {
+        console.error("Error fetching auction details", error);
+      }
+    };
+
+    const handlleUpdate = async () => {
+      try {
+          Accepbids(auction_id,seller_id, (response) => {
+            if (response.status === 200) {
+              console.log(response.data);
+            } else {
+              console.error("Failed to fetch auction details", response);
+            }
+          });
+        
+      } catch (error) {
+        console.error("Error fetching auction details", error);
+      }
+    };
+
+   
+ 
+
+  useEffect(() => {
+  
+  console.log('sellerDeatil'+JSON.stringify(sellerDeatil));
+  
+  }, [sellerDeatil]);
+
+
   return (
     <div className=''>
       <Navbar />
@@ -214,37 +296,38 @@ function Pages() {
               </div>
               <div className='grid grid-cols-1 gap-6'>
                 <div className='bg-light p-4 rounded-3xl shadow'>
-                  <div className='font-bold text-lg mb-2 heading-bar'>Seller Details</div>
+                  <div className='font-bold text-lg mb-2 heading-bar'>Bid Details</div>
                   <div className='flex justify-between mt-4'>
-                    <div>SellerName :</div>
-                    <div className='font-bold'>{sellerBids.sellerName}</div>
+                    <div>SellerId :</div>
+                    <div className='font-bold'>{bid.sellerId}</div>
                   </div>
                   <div className='flex justify-between mt-2'>
-                    <div className='font-bold text-xl'>Bid Price :</div>
-                    <div className='font-bold text-xl'>{sellerBids.bidprice}</div>
-                  </div>
-                  <hr/>
-                  <div className='flex justify-between mt-2'>
-                    <div>MRP :</div>
-                    <div className='font-bold'>{sellerBids.mrp}</div>
-                  </div>
-                  <div className='flex justify-between mt-2'>
-                    <div>City :</div>
-                    <div className='font-bold'>{sellerBids.city}</div>
+                    <div className=''>Bid Price :</div>
+                    <div className='font-bold text-xl'>{bid.bidAmount}</div>
                   </div>
                   <div className='flex justify-between mt-2'>
                     <div>Warranty Months :</div>
-                    <div className='font-bold'>{sellerBids.warrantymonths}</div>
-                  </div>
-                  <div className='flex justify-between mt-2'>
-                    <div>Total Amount :</div>
-                    <div className='font-bold'>{sellerBids.total}</div>
+                    <div className='font-bold'>{bid.warrantymonths}</div>
                   </div>
                   <div className='flex justify-between mt-2'>
                     <div>Special note :</div>
-                    <div className='font-bold'>{sellerBids.specialnote}</div>
+                    <div className='font-bold'>{bid.specialnote}</div>
                   </div>
-                  <button className='btn p-2 rounded-full border-dark rounded-pill btn-primary mt-2' onClick={() => setShowModal(true)}>
+                  <hr/>
+                  <div className='font-bold text-lg mb-2 heading-bar'>Seller Details</div>
+                  <div className='flex justify-between mt-4'>
+                    <div>SellerName :</div>
+                    <div className='font-bold'>{sellerDeatil.name}</div>
+                  </div>
+                  <div className='flex justify-between mt-2'>
+                    <div className=''>ShopName:</div>
+                    <div className='font-bold text-xl'>{sellerDeatil.shop_name}</div>
+                  </div>
+                  <div className='flex justify-between mt-2'>
+                    <div>City:</div>
+                    <div className='font-bold'>{sellerDeatil.city}</div>
+                  </div>
+                  <button className='btn p-2 rounded-full border-dark rounded-pill btn-primary mt-2' onClick={()=>{handlleUpdate,setShowModal(true)}}>
                     Accept Bid
                   </button>
                 </div>

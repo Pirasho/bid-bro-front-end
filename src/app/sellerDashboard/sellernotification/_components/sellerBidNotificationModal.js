@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {postAllSellerbid} from "../../../../../redux/action/sellerbid"
 import Cookies from "js-cookie";
 import toast from 'react-hot-toast';
@@ -8,6 +8,7 @@ const SellerBidNotificationModal = ({ isOpen, toggleModal, data }) => {
     const [bidprice, setBid] = useState("");
     const [warrantymonths, setWarrantyMonths] = useState("");
     const [specialnote, setSpecialNote] = useState("");
+    const [sellerDetail, setSellerDetail] = useState({});
 
 
     const resetfield=()=>{
@@ -16,12 +17,20 @@ const SellerBidNotificationModal = ({ isOpen, toggleModal, data }) => {
         setSpecialNote("");
     }
 
-    
+    useEffect(()=>{
+        const sellerDetails = localStorage.getItem('sellerDetails');
+        const userDetails = JSON.parse(sellerDetails);
+        setSellerDetail((userDetails))
 
-    const sellerDetails = Cookies.get('sellerDetails');
-    const seller = sellerDetails ? JSON.parse(sellerDetails) : null;
-    console.log(sellerDetails,"sellll")
-    const sellerName = seller?.name || "pirasoban"; 
+
+
+    },[])
+    
+ 
+
+
+
+  
 
 
     const handleSubmit = () => {
@@ -31,8 +40,10 @@ const SellerBidNotificationModal = ({ isOpen, toggleModal, data }) => {
             bidprice,
             warrantymonths,
             specialnote,
-            sellerName:sellerName
+            sellerid:sellerDetail.id
         };
+        console.log('bidData'+JSON.stringify(bidData));
+        
 
         // Call postAllSellerbid with the bidData
         postAllSellerbid(bidData,(response) => {

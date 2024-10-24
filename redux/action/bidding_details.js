@@ -57,9 +57,56 @@ export const GetAuctionFullDetails = (id,callback) => {
       }
   }
 };
+export const GetSellerDetail = (id,callback) => {
+    console.log('id'+id);
+    
+    const endpoint = `${process.env.api_base_url}/seller/id/${id}`;
+    try {
+        http
+            .get(endpoint)
+            .then((response) => {
+                if (typeof callback === "function") {
+                    callback(response);
+                } else {
+                    console.error("Callback is not a function");
+                }
+            })
+            .catch((error) => {
+                if (typeof callback === "function") {
+                    callback(error.response);
+                } else {
+                    console.error("Callback is not a function");
+                }
+            });
+    } catch (error) {
+        if (typeof callback === "function") {
+            callback(error.response);
+        } else {
+            console.error("Callback is not a function");
+        }
+    }
+  };
+
+  
+export const Accepbids = (auction_id,sellerId, callback) => {
+    const endpoint = `${process.env.api_base_url}/auction/update/auction/${auction_id}/${sellerId}`; // Define the endpoint
+  
+    try {
+      http
+        .put(endpoint) // Send a POST request
+        .then((response) => {
+          callback(null, response); // Call the callback with the response if successful
+        })
+        .catch((error) => {
+          callback(error.response ? error.response : error); // Call the callback with the error if failed
+        });
+    } catch (error) {
+      callback(error); // Call the callback with any unexpected errors
+    }
+  };
 
 export const GetSellerbids = (id,callback) => {
-  const endpoint = `${process.env.api_base_url}/sellerbid/auction/${id}`;
+  const endpoint = `${process.env.api_base_url}/auction/auctionget/${id}`;
   try {
     http
         .get(endpoint)
@@ -174,8 +221,8 @@ export const getOrderHistory = (id, callback) => {
 }
 };
 
-export const getOrderHistoryOne = (id, callback) => {
-  const endpoint = `${process.env.api_base_url}/sellerbid/orderhistoryone/${id}`;
+export const getOrderHistoryOne = (id,seller_id, callback) => {
+  const endpoint = `${process.env.api_base_url}/sellerbid/orderhistoryone/${id}/${seller_id}`;
   try {
     http
         .get(endpoint)

@@ -16,6 +16,7 @@ function Pages() {
     const [auction, setAuction] = useState([]);
     const [loading, setLoading] = useState(true);
 
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -24,6 +25,8 @@ function Pages() {
                     setLoading(true);
                     getOrderHistory(userId, (response) => {
                         if (response.status === 200) {
+                            console.log('dei'+JSON.stringify(response.data));
+                            
                             setAuction(response.data);
                         } else {
                             console.error("Failed to fetch seller bids", response);
@@ -63,34 +66,35 @@ function Pages() {
                         <div className="text-center">
                             <NoResult />
                         </div>
-                    ) : (
-                        auction.map((item, index) => (
-                            <div key={index} className='rounded-3xl col-12 col-md-6 col-lg-4 mb-4'>
-                                <div className="p-5 bg-white rounded-3xl shadow-xl" style={{ borderBottom: '6px solid  #8006be' }}>
-                                    <div className='flex justify-center fw-bold fs-2'>
-                                        <div>{item.auctionDetails?.productName}</div>
-                                    </div>
-                                    <div className='flex justify-start gap-2'>
-                                        <div className='font-bold'>No of Units :</div>
-                                        <div>{item.auctionDetails?.noOfUnits}</div>
-                                    </div>
-                                    <div className='flex justify-start gap-2'>
-                                        <div className='font-bold'>Total Amount:</div>
-                                        <div>{item.total}</div>
-                                    </div>
+                    ) : auction.map((item, index) => (
+                        <div key={index} className='rounded-3xl col-12 col-md-6 col-lg-4 mb-4'>
+                            <div className="p-5 bg-white rounded-3xl shadow-xl" style={{ borderBottom: '6px solid  #8006be' }}>
+                                <div className='flex justify-center fw-bold fs-2'>
+                                    <div>{item.productName}</div>
+                                </div>
+                                <div className='flex justify-start gap-2'>
+                                    <div className='font-bold'>No of Units :</div>
+                                    <div>{item.noOfUnits}</div>
+                                </div>
+                                <div className='flex justify-start gap-2'>
+                                    <div className='font-bold'>Expected Price:</div>
+                                    <div>{item.expectedPrice}</div>
+                                </div>
+                                {/* Display the first bid's seller name */}
+                                {item.bids.length > 0 && (
                                     <div className='flex justify-start gap-2'>
                                         <div className='font-bold'>Seller Name :</div>
-                                        <div>{item.sellerName}</div>
+                                        <div>{item.bids[0].sellerName}</div> {/* Accessing the first bid's seller name */}
                                     </div>
-                                    <div className="d-flex justify-center mt-4">
-                                        <div className="btn btn-primary" onClick={() => { router.push(`/customer/trackingorder/${item._id}`) }}>
-                                            Track Order
-                                        </div>
+                                )}
+                                <div className="d-flex justify-center mt-4">
+                                    <div className="btn btn-primary" onClick={() => { router.push(`/customer/trackingorder/${item._id}/${item.bids[0].sellerId}`) }}>
+                                        Track Order
                                     </div>
                                 </div>
                             </div>
-                        ))
-                    )}
+                        </div>
+                    ))}
                 </div>
             </div>
             <Footer />

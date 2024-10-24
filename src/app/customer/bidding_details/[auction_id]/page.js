@@ -36,7 +36,12 @@ function Pages() {
         if (userId && auction_id) {
           GetAuctionFullDetails(auction_id, (response) => {
             if (response.status === 200) {
-              setAuction('Auction Data:', response.data);
+            
+              
+              setAuction( response.data);
+              console.log('SELLER BIDDING LIST'+JSON.stringify(response.data));
+              setSellerBids(response.data.bids)
+              
             } else {
               console.error("Failed to fetch auction details", response);
             }
@@ -72,15 +77,7 @@ function Pages() {
     return userDetails?.id;
   };
 
-  useEffect(() => {
-    GetSellerbids(auction_id, (response) => {
-      if (response.status === 200) {
-        setSellerBids(response.data);
-      } else {
-        console.error("Failed to fetch seller bids", response);
-      }
-    });
-  }, []);
+
 
   return (
     <div className='h-full w-full'>
@@ -135,18 +132,24 @@ function Pages() {
                 {
                   sellerBids.map((bid, index) => (
                     <div key={index} className='bg-light p-4 rounded-3xl shadow' style={{ borderBottom: '6px solid #8006be' }}>
-                      <div className='font-bold text-lg mb-2'>{bid.sellerName}</div>
-                      <div className='font-bold text-lg'>Rs.{bid.bidprice}</div>
                       <div className='flex justify-between mt-2'>
-                        <div>MRP:</div>
-                        <div className='font-bold'>Rs.{bid.mrp}</div>
+                        <div>Seller_id</div>
+                        <div className='font-bold'>{bid.sellerId}</div>
                       </div>
                       <div className='flex justify-between mt-2'>
+                        <div>BidAmount</div>
+                        <div className='font-bold'>{bid.bidAmount}</div>
+                      </div>
+                      <div className='flex justify-between mt-2'>
+                        <div>warrantymonths:</div>
+                        <div className='font-bold'>{bid.warrantymonths} months</div>
+                      </div>
+                      {/* <div className='flex justify-between mt-2'>
                         <div>You save:</div>
                         <div className='font-bold'>Rs.{bid.saving}</div>
-                      </div>
+                      </div> */}
                       <div className='d-flex justify-center mt-2'>
-                        <button className='btn p-2 btn-primary' onClick={() => router.push(`/customer/place_order/${auction_id}/${bid._id}`)}>
+                        <button className='btn p-2 btn-primary' onClick={() => router.push(`/customer/place_order/${auction_id}/${bid.sellerId}`)}>
                           Show Bid Details
                         </button>
                       </div>

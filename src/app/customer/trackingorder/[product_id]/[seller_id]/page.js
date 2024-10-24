@@ -1,54 +1,101 @@
 "use client";
 import Image from 'next/image';
-import AuctionModal from '../../auction/page'; // Adjust the path as needed
+
 import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; // Import the CSS for react-toastify
-import { GetAuctionDetails, getOrderHistoryOne, GetSellerbids } from '../../../../../redux/action/bidding_details';
-import Navbar from '../../../widgets/navbar/navbar';
-import Chatbot from '../../../widgets/chatbot/page';
-import Footer from '../../../widgets/footer/footer';
-import Step from '../../../components/Ordersteps'
-import '../../../../../public/styles.css'
+import { GetAuctionDetails, getOrderHistory, getOrderHistoryOne, GetSellerbids } from '../../../../../../redux/action/bidding_details';
+import Navbar from '../../../../widgets/navbar/navbar';
+import Chatbot from '../../../../widgets/chatbot/page';
+import Footer from '../../../../widgets/footer/footer';
+import Step from '../../../../components/Ordersteps'
+import '../../../../../../public/styles.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 
 function Pages() {
     const router = useRouter();
-    const { product_id } = useParams();
+    const { product_id,seller_id } = useParams();
     const [showModal, setShowModal] = useState(false);
-    const [sellerBids, setSellerBids] = useState({
-        sellerName: '',
-        deliveryCharge: 0,
-        bidprice: 0,
-        total: 0
-    });
-    const [auction, setAuction] = useState({
-        noOfUnits: 0
-    });
+    const [loading, setLoading] = useState(false);
+    const [data, setData] = useState([]);
+    const [Sellerdata, setSellerdata] = useState({});
+   
+    const [auction, setAuction] = useState({});
     const activeStep = '3'
+
     useEffect(() => {
         if (product_id) {
-            getOrderHistoryOne(product_id, (response) => {
+            getOrderHistoryOne(product_id, seller_id, (response) => {
                 if (response.status === 200) {
                     const sellerBidsData = response.data;
-                    if (sellerBidsData.length > 0) {
-                        setSellerBids(sellerBidsData[sellerBidsData.length - 1]); // Get the latest auction
+                    console.log("Bids:", JSON.stringify(sellerBidsData));
+                    
+                    // Assuming response.data is an array with auction data and bids array inside it
+                    const auctionData = sellerBidsData[0]; 
+                    setData(auctionData);
+    
+                    // Find the bid that matches the seller_id
+                    const matchedBid = auctionData.bids.find((bid) => bid.sellerId === seller_id);
+    
+                    if (matchedBid) {
+                        setSellerdata(matchedBid);
+                    } else {
+                        console.warn("No matching bid found for the seller_id:", seller_id);
                     }
                 } else {
                     console.error("Failed to fetch seller bids", response);
                 }
             });
         }
-    }, [product_id]);
+    }, [product_id, seller_id]); // Added seller_id as a dependency
+    
 
     const handleButtonClick = () => {
         setShowModal(false);
         toast.success('Thank You For Your Confirmation, Enjoy your Day'); // Displays a success message
     };
 
+    useEffect(()=>{
+console.log('Sellerdata'+JSON.stringify(Sellerdata));
+
+    },[Sellerdata])
+    
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const userId = await getUserId();
+    //             if (userId) {
+    //                 setLoading(true);
+    //                 getOrderHistory(userId, (response) => {
+    //                     if (response.status === 200) {
+    //                         console.log('dei'+JSON.stringify(response.data));
+                            
+    //                         setAuction(response.data);
+    //                     } else {
+    //                         console.error("Failed to fetch seller bids", response);
+    //                     }
+    //                     setLoading(false);
+    //                 });
+    //             } else {
+    //                 setLoading(false);
+    //             }
+    //         } catch (error) {
+    //             console.error("Error fetching auction details", error);
+    //             setLoading(false);
+    //         }
+    //     };
+
+    //     fetchData();
+    // }, []);
+
+    const getUserId = () => {
+        const storedUserDetails = localStorage.getItem('userDetails');
+        const userDetails = JSON.parse(storedUserDetails);
+        return userDetails?.id;
+    };
     
 
     return (
@@ -62,19 +109,19 @@ function Pages() {
                 <Chatbot />
                 {/* Product Details */}
                 <div className='flex flex-col w-full md:w-1/3 gap-8 items-center'>
-                    <div className='text-3xl font-bold'>{sellerBids.auctionDetails?.productName}</div>
-                     <Image
+                    <div className='text-3xl font-bold'>{data?.productName}</div>
+                     {/* <Image
                             src={
-                                sellerBids.auctionDetails?.productImage && sellerBids.auctionDetails?.productImage.startsWith("http")
-                                ? sellerBids.auctionDetails?.productImage
-                                : `http://localhost:5000/${sellerBids.auctionDetails?.productImage}`
+                                data?.productImage && data?.productImage.startsWith("http")
+                                ? data?.productImage
+                                : `http://localhost:5000/${data?.productImage}`
                             }
-                            alt={sellerBids.auctionDetails?.productImage || "Product Image"}
+                            alt={data?.productImage || "Product Image"}
                             width={80}
                             height={80}
                             className="rounded-lg"
                             objectFit="cover"
-                          />
+                          /> */}
                 </div>
                 {/* Bidding Details */}
                 <div className='flex flex-col w-full md:w-2/3 pt-10'>
@@ -116,58 +163,45 @@ function Pages() {
                                 <hr />
                                 <div className='flex justify-between mt-2'>
                                     <div>Product Name:</div>
-                                    <div className='font-bold'>{sellerBids.auctionDetails?.productName}</div>
+                                    <div className='font-bold'>{data?.productName}</div>
                                 </div>
                                 <div className='flex justify-between mt-2'>
                                     <div>Expected Price:</div>
-                                    <div className='font-bold'>{sellerBids.auctionDetails?.expectedPrice}</div>
+                                    <div className='font-bold'>{data?.expectedPrice}</div>
                                 </div>
                                 <div className='flex justify-between mt-2'>
                                     <div>No Of Unit:</div>
-                                    <div className='font-bold'>{sellerBids.auctionDetails?.noOfUnits}</div>
+                                    <div className='font-bold'>{data?.noOfUnits}</div>
                                 </div>
                                 <div className=' mt-2'>
                                     <div>Description:</div>
-                                    <div className='font-bold'>{sellerBids.auctionDetails?.description}</div>
+                                    <div className='font-bold'>{data?.description}</div>
                                 </div>
                             </div>
                             <div className='bg-light p-4 rounded-3xl shadow'>
                                 <div className='font-bold  text-center'>Seller Deatils</div>
                                 <hr />
                                 <div className='flex justify-between mt-2'>
-                                    <div>Name:</div>
-                                    <div className='font-bold'>{sellerBids.sellerName}</div>
+                                    <div>Id:</div>
+                                    <div className='font-bold'>{Sellerdata.sellerId}</div>
                                 </div>
                                 <div className='flex justify-between mt-2'>
-                                    <div>MRP Price:</div>
-                                    <div className='font-bold'>{sellerBids.mrp || '-'}</div>
-                                </div>
-                                <div className='flex justify-between mt-2'>
-                                    <div>Bid_Price:</div>
-                                    <div className='font-bold'>{sellerBids.bidprice}</div>
-                                </div>
-                                <div className='flex justify-between mt-2'>
-                                    <div>Saving</div>
-                                    <div className='font-bold'>{sellerBids.saving || "-"}</div>
+                                    <div>Bid Price:</div>
+                                    <div className='font-bold'>{Sellerdata.bidAmount || '-'}</div>
                                 </div>
                                 <div className='flex justify-between mt-2'>
                                     <div>Warranty_Months:</div>
-                                    <div className='font-bold'>{sellerBids.warrantymonths}</div>
+                                    <div className='font-bold'>{Sellerdata.warrantymonths}</div>
                                 </div>
                                 <div className='flex justify-between mt-2'>
-                                    <div>Delivery_Charge:</div>
-                                    <div className='font-bold'>{sellerBids.deliveryCharge}.00</div>
+                                    <div>SpecialNote:</div>
+                                    <div className='font-bold'>{Sellerdata.specialnote}.00</div>
                                 </div>
-                                <div className='flex justify-between mt-2'>
-                                    <div>Total amount</div>
-                                    <div className='font-bold'>{sellerBids.total}.00</div>
-                                </div>
-
                             </div>
 
                         </div>
                         <div className=' d-flex justify-center mt-4'>
-                            <button className='btn p-2  btn-primary' onClick={() => router.push(`/customer/ratingform/${sellerBids._id}`)}>
+                            <button className='btn p-2  btn-primary' onClick={() => router.push(`/customer/ratingform/${Sellerdata.sellerId}`)}>
                                 Confirm Received
                             </button>
                         </div>

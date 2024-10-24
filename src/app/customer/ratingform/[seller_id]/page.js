@@ -3,11 +3,12 @@ import React, { useEffect, useState } from 'react';
 import Navbar from '../../../widgets/navbar/navbar';
 import Chatbot from '../../../widgets/chatbot/page';
 import Footer from '../../../widgets/footer/footer';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import {AddReviewrate} from '../../../../../redux/action/ratingform';
 
 const RatingForm = () => {
     const { seller_id } = useParams();
+   const router= useRouter();
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -45,6 +46,7 @@ const RatingForm = () => {
                 setSuccessMessage("Successfully added");
                 setIsButtonDisabled(true);
                 setShowModal(false);
+                router.push('/customer/home')
 
                 // Reset success message after 3 seconds
                 setTimeout(() => {

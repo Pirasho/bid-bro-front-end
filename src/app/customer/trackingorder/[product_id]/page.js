@@ -167,7 +167,7 @@ function Pages() {
 
                         </div>
                         <div className=' d-flex justify-center mt-4'>
-                            <button className='btn p-2  btn-primary' onClick={() => router.push("/customer/ratingform")}>
+                            <button className='btn p-2  btn-primary' onClick={() => router.push(`/customer/ratingform/${sellerBids._id}`)}>
                                 Confirm Received
                             </button>
                         </div>

@@ -8,7 +8,9 @@ import { FaRegCalendarAlt } from "react-icons/fa";
 import '../../styles/home.css';
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
+import '../../../../public/styles.css'
 import Loading from "../../components/Loading";
+import { IoReceiptOutline } from "react-icons/io5";
 
 
 export default function Page() {
@@ -45,15 +47,13 @@ export default function Page() {
         <Sidebar />
       </div>
 
-      <div className="flex-grow" style={{ backgroundColor: 'rgba(62, 98, 151, 0.103)' }}>
+      <div className="flex-grow"style={{ backgroundColor: 'rgba(62, 98, 151, 0.103)' ,marginLeft:'16rem'}}>
         <Navbar />
-
-        <div className="p-5" style={{ backgroundColor: 'rgb(94, 16, 94)' }}>
-        </div>
+        <div className="mx-2">
+        <div className="heading-bar-seller " >  <IoReceiptOutline size={21} className="mr-2" /> Customer Receipts</div>
+      </div>
 
         <div className="flex flex-col items-center justify-center p-6">
-
-          <h2 className="font-bold mb-3 text-center text-[rgb(62 97 151)]" style={{ fontSize: '1.2rem' }}>RECEIPT LIST</h2>
 
           {!loading && (
             <div className="container flex sm:flex-row">

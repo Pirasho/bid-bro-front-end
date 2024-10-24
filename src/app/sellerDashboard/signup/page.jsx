@@ -124,7 +124,7 @@ export default function Page() {
                 <input type="file" style={{ marginTop: '0.3rem' }} onChange={(e) => setDocument(e.target.files[0])} />
               </div>
 
-              <div style={{ backgroundColor: 'rgb(94, 16, 94)', marginTop: '2rem', padding: '0.3rem', cursor:'pointer'}} onClick={signup}>
+              <div style={{ backgroundColor: 'rgb(128,6,190)', marginTop: '2rem', padding: '0.3rem', cursor:'pointer'}} onClick={signup}>
                 <h3 className="font-bold text-center" style={{ fontSize: '1rem', color: 'white' }}>SIGNUP</h3>
               </div>
 

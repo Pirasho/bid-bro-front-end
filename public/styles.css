@@ -185,3 +185,13 @@ rings{
   height: 4px;
   background-color: var(--primary-color);
 }
+
+.heading-bar-seller {
+  width: 100%;
+  background: linear-gradient(to right,#B01FF9, #796FED);
+  border-radius: 4px;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  display: flex;
+}

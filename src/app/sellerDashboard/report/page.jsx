@@ -1,3 +1,4 @@
+"use client"; 
 import Link from "next/link";
 import Image from "next/image";
 
@@ -16,6 +17,7 @@ import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import BarChart from "../../components/BarChart";
 import LineChart from "../../components/LineChart";
+import { BsJournalCheck } from "react-icons/bs";
 
 
 export default function Page() {
@@ -27,15 +29,15 @@ export default function Page() {
         <Sidebar />
       </div>
 
-      <div className="flex-grow" style={{ backgroundColor: 'rgba(62, 98, 151, 0.103)' }}>
+      <div className="flex-grow" style={{ backgroundColor: 'rgba(62, 98, 151, 0.103)' ,marginLeft:'16rem'}}>
         <Navbar />
 
-        <div className="p-5" style={{ backgroundColor: 'rgb(94, 16, 94)' }}>
-        </div>
+        <div className="mx-2">
+        <div className="heading-bar-seller " >      <BsJournalCheck size={21} className="mr-2" /> Sales Reports</div>
+      </div>
 
         <div className="flex flex-col items-center justify-center p-6">
 
-          <h2 className="font-bold mb-3 text-center text-[rgb(62 97 151)]" style={{ fontSize: '1.2rem' }}>SALES REPORT</h2>
 
           <div className="container flex sm:flex-row">
 

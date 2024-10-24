@@ -17,6 +17,9 @@ import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import BarChart from "../../components/BarChart";
 import LineChart from "../../components/LineChart";
+import '../../../../public/styles.css'
+import { BsJournalCheck } from 'react-icons/bs';
+import { IoMdNotificationsOutline } from 'react-icons/io';
 
 
 function Pages() {
@@ -63,13 +66,14 @@ function Pages() {
                 <Sidebar />
             </div>
 
-            <div className="flex-grow" style={{ backgroundColor: 'rgba(62, 98, 151, 0.103)' }}>
+            <div className="flex-grow " style={{ backgroundColor: 'rgba(62, 98, 151, 0.103)' ,marginLeft:'16rem'}}>
                 <Navbar />
+                <div className="mx-2">
+                    <div className="heading-bar-seller " ><IoMdNotificationsOutline size={21} className="mr-2" /> Notification</div>
+                </div>
 
                 <div className='p-8'>
-                    <div>
-                        <div className='text-3xl font-bold '>Notifications</div>
-                    </div>
+
                     {loading ?
                         <div className='d-flex justify-center align-items-center w-full p-5 m-5'>
                             <Commet color="#7231cc" size="medium" text="" textColor="" />

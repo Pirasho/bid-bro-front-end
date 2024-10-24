@@ -181,7 +181,7 @@ const AuctionModal = ({ setShowModal, product }) => {
                                 <input
                                     type="text"
                                     name="description"
-                                    placeholder="Description"
+                                    placeholder="Expectation"
                                     value={formData.description}
                                     onChange={handleInputChange}
                                     className={`block w-full py-1.5 pl-1 text-gray-900 rounded-3xl shadow-xl border ${error.description ? 'bg-danger' : ''}`}

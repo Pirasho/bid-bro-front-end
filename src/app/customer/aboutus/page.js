@@ -8,11 +8,21 @@ import Footer from '../../widgets/footer/footer';
 function Pages() {
     return (
         <div className='h-full w-full' >
-            <Navbar/>
+            <Navbar />
             <div className='flex flex-col  pt-10 gap-5'>
-        <Chatbot/>
+                <Chatbot />
 
                 <div className=' rounded-3xl gap-5 flex flex-col m-3 p-5'>
+                    <div className="flex justify-center items-center">
+                        <Image
+                            src="/images/about.png"
+                            alt="Profile Photo"
+                            width={550}  
+                            height={550}  
+                            className="object-contain"
+                        />
+                    </div>
+
                     <div className='text-2xl  font-bold '>About Us</div>
                     <div className=" p-5 bg-white  rounded-3xl shadow-xl" style={{ borderBottom: '6px solid  #8006be' }}>
                         At Broo, our mission is to revolutionize the way electronic products are bought and sold by introducing a unique reverse auction model. We aim to provide our customers with the best deals on high-margin electronic products, while offering sellers a platform to reach a broader audience and achieve higher sales.
@@ -34,15 +44,15 @@ function Pages() {
                     <div className=" p-5 bg-white  rounded-3xl shadow-xl" style={{ borderBottom: '6px solid  #8006be' }}>
 
                         <ul className="list-disc pl-5 text-[#4B5563]">
-                        <li className="mb-2">Innovation: Continuously improving our platform to enhance user experience.</li>
-                        <li className="mb-2">Integrity: Ensuring fair and transparent transactions for all users.</li>
-                        <li className="mb-2">Customer Focus: Prioritizing the needs and satisfaction of our customers.</li>
-                        <li className="mb-2">Excellence: Delivering high-quality service and support at every step.</li>
-                    </ul>
+                            <li className="mb-2">Innovation: Continuously improving our platform to enhance user experience.</li>
+                            <li className="mb-2">Integrity: Ensuring fair and transparent transactions for all users.</li>
+                            <li className="mb-2">Customer Focus: Prioritizing the needs and satisfaction of our customers.</li>
+                            <li className="mb-2">Excellence: Delivering high-quality service and support at every step.</li>
+                        </ul>
                     </div>
 
-                    
-                    
+
+
                     <div className='text-2xl font-bold'> How can we help you? </div>
 
                     <div className=" p-5 bg-white rounded-3xl shadow-xl" style={{ borderBottom: '6px solid  #8006be' }}>
@@ -81,7 +91,7 @@ function Pages() {
                     </div>
                 </div>
             </div>
-            <Footer/>
+            <Footer />
 
         </div>
     );

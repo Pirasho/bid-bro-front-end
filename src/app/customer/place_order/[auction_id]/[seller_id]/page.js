@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { AcceptSellerbids, GetSellerbidsById } from '../../../../../../redux/action/bidding_details';
 import { GetReviewrate } from '../../../../../../redux/action/ratingform';
+import { GetProductDetails } from '../../../../../../redux/action/product';
 import { useParams, useRouter } from 'next/navigation';
 import { StarIcon } from '@heroicons/react/solid';
 import Navbar from '../../../../widgets/navbar/navbar';
@@ -23,12 +24,14 @@ function Pages() {
   const reviews = { href: '#', average: 4 };
   const classNames = (...classes) => classes.filter(Boolean).join(' ');
   const [sellerBids, setSellerBids] = useState({});
+  const [product, setProduct] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userId, setuserId] = useState('');
   const [pay, setPay] = useState(false)
   const router = useRouter();
   const [review, setReview] = useState([]);
+
 
   Payhere.init(1227920, AccountCategory.SANDBOX);
 
@@ -49,20 +52,36 @@ function Pages() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    const storedUserDetails = localStorage.getItem('userDetails');
+    const userDetails = JSON.parse(storedUserDetails);
+    setuserId(userDetails.id)
+    GetProductDetails( (response) => {
+      if (response.status === 200) {
+        const product = response.data;
+        if (product.length > 0) {
+          setProduct(product[product.length - 1]);
+        }
+      } else {
+        console.error("Failed to fetch seller bids", response);
+      }
+    });
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        
           setLoading(true); // Set loading to true before fetching data
           GetReviewrate(seller_id, (response) => {
             if (response.status === 200) {
               setReview(response.data);
             } else {
-              console.error("Failed to fetch seller bids", response);
+              console.error("Failed to fetch product details", response);
             }
           });
       } catch (error) {
-        console.error("Error fetching auction details", error);
+        console.error("Error fetching product details", error);
       } finally {
         setLoading(false); // Set loading to false after fetching data
       }
@@ -195,26 +214,23 @@ function Pages() {
               </div>
               <div className='grid grid-cols-1 gap-6'>
                 <div className='bg-light p-4 rounded-3xl shadow'>
-                  <div className='font-bold text-lg mb-2 heading-bar'>Price Details</div>
+                  <div className='font-bold text-lg mb-2 heading-bar'>Seller Details</div>
                   <div className='flex justify-between mt-4'>
                     <div>SellerName :</div>
                     <div className='font-bold'>{sellerBids.sellerName}</div>
                   </div>
                   <div className='flex justify-between mt-2'>
+                    <div className='font-bold text-xl'>Bid Price :</div>
+                    <div className='font-bold text-xl'>{sellerBids.bidprice}</div>
+                  </div>
+                  <hr/>
+                  <div className='flex justify-between mt-2'>
                     <div>MRP :</div>
                     <div className='font-bold'>{sellerBids.mrp}</div>
                   </div>
                   <div className='flex justify-between mt-2'>
-                    <div>Bid Price :</div>
-                    <div className='font-bold'>{sellerBids.bidprice}</div>
-                  </div>
-                  <div className='flex justify-between mt-2'>
                     <div>City :</div>
                     <div className='font-bold'>{sellerBids.city}</div>
-                  </div>
-                  <div className='flex justify-between mt-2'>
-                    <div>Delivery Charge :</div>
-                    <div className='font-bold'>{sellerBids.deliveryCharge}</div>
                   </div>
                   <div className='flex justify-between mt-2'>
                     <div>Warranty Months :</div>

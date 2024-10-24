@@ -15,7 +15,7 @@ export default function Navbar() {
 
       <div className="flex" style={{alignItems:'center', padding:'0.5rem'}}>
         <Image src={icon} alt="" className="w-8 h-8" />
-        <h1 className="font-bold" style={{ fontSize: '1.2rem', fontFamily: 'initial', marginLeft: 5, color:'#031520'}}>ELECTRO BID HUB</h1>
+        <h1 className="font-bold" style={{ fontSize: '1.2rem', fontFamily: 'initial', marginLeft: 5, color:'#031520'}}>Bid Broo</h1>
       </div>
 
       <div className="flex" style={{alignItems:'center'}}>

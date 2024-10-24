@@ -11,7 +11,7 @@ export default function Header() {
             <div className="bg-purple-800 text-white py-2">
                 <div className="container mx-auto px-4">
                     <nav className="flex space-x-4 justify-center" style={{ color: '#301934' }}>
-                        <Link href="/home" className="font-semibold text-white ">Welcome to ElectroBidHub</Link>
+                        <Link href="/home" className="font-semibold text-white ">Welcome to Bid Broo</Link>
                     </nav>
                 </div>
             </div>

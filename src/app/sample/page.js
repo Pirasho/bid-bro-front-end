@@ -26,7 +26,7 @@ const Home = () => {
     <div className="bg-gray-100">
       {/* Hero Section */}
       <header className="bg-purple-700 text-white text-center py-20">
-        <h1 className="text-5xl font-bold">Welcome to Electro Bid Hub</h1>
+        <h1 className="text-5xl font-bold">Welcome to Bid Broo</h1>
         <p className="mt-4 text-lg">Discover high-profit margin electronic items!</p>
         <button className="mt-6 bg-white text-purple-700 font-semibold py-2 px-4 rounded">
           Shop Now
@@ -65,7 +65,7 @@ const Home = () => {
 
       {/* Footer */}
       <footer className="bg-purple-700 text-white text-center py-4">
-        <p>&copy; 2024 Electro Bid Hub. All rights reserved.</p>
+        <p>&copy; 2024 Bid Broo. All rights reserved.</p>
       </footer>
     </div>
   );

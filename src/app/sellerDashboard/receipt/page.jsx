@@ -71,7 +71,7 @@ export default function Page() {
 
                     <div style={{ backgroundColor: 'rgb(114, 4, 50)', padding: '0.3rem' }}>
                       <h3 className="font-bold text-center" style={{ fontSize: '1rem', color: 'white' }}>PAY RECEIPT</h3>
-                      <h3 className="text-center" style={{ fontSize: '0.8rem', color: 'gray' }}>ELECTRO BID HUB</h3>
+                      <h3 className="text-center" style={{ fontSize: '0.8rem', color: 'gray' }}>Bid Broo</h3>
                     </div>
 
                     <div style={{ display: 'flex', justifyContent: 'center' }}>

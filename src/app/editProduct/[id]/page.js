@@ -1,6 +1,6 @@
 "use client";
 
-import EditProductForm from '../../components/';
+import EditProductForm from '../../components/EditProductForm';
 // import EditProductForm from '../../components/EditProductForm';
 
 

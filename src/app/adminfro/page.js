@@ -139,7 +139,7 @@ const Dashboard = () => {
         </div>
         {/* Footer */}
       <footer className="bg-gray-900 text-white text-center py-4">
-        <p>&copy; 2024 Electro Bid Hub. All rights reserved.</p>
+        <p>&copy; 2024 Bid Broo. All rights reserved.</p>
       </footer>
       </div>
     </>

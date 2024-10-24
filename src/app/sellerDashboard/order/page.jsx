@@ -71,7 +71,7 @@ export default function Page() {
                     style={{ width: '20rem' }}>
 
                     <div style={{ backgroundColor: 'darkblue', padding: '0.5rem' }}>
-                      <h3 className="text-center font-bold" style={{ fontSize: '0.8rem', color: 'white' }}>ELECTRO BID HUB - SALES</h3>
+                      <h3 className="text-center font-bold" style={{ fontSize: '0.8rem', color: 'white' }}>Bid Broo - SALES</h3>
                     </div>
 
                     <div style={{ paddingLeft: '1rem', paddingRight: '1rem' }}>

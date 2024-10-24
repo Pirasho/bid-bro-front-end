@@ -137,7 +137,7 @@ export default function SellerList({ children }) {
                 
                 {/* Footer */}
                 <footer className="bg-gray-900 text-white text-center py-4 mt-6 rounded-lg shadow-md">
-                    <p>&copy; 2024 Electro Bid Hub. All rights reserved.</p>
+                    <p>&copy; 2024 Bid Broo. All rights reserved.</p>
                 </footer>
             </div>
         </>

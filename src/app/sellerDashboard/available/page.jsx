@@ -9,8 +9,6 @@ import '../../styles/home.css';
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 import Loading from "../../components/Loading";
-import { BsClipboardPulse } from "react-icons/bs";
-import '../../../../public/styles.css'
 
 
 export default function Page() {
@@ -23,7 +21,7 @@ export default function Page() {
     const fetchData = async () => {
       try {
 
-        const res = await axios.get('http://localhost:8000/api/seller/getAvailable');
+        const res = await axios.get('http://localhost:5002/api/sell/seller/getAvailable');
         const resdata = await res.data;
         setFetchArray(resdata);
         setLoading(false);
@@ -46,14 +44,15 @@ export default function Page() {
         <Sidebar />
       </div>
 
-      <div className="flex-grow" style={{ backgroundColor: 'rgba(62, 98, 151, 0.103)' ,marginLeft:'16rem'}}>
+      <div className="flex-grow" style={{ backgroundColor: 'rgba(62, 98, 151, 0.103)' }}>
         <Navbar />
 
-        <div className="mx-2">
-        <div className="heading-bar-seller " >    <BsClipboardPulse size={21} className="mr-2" /> Available Products</div>
-      </div>
+        <div className="p-5" style={{ backgroundColor: 'rgb(94, 16, 94)' }}>
+        </div>
 
         <div className="flex flex-col items-center justify-center p-6">
+
+          <h2 className="font-bold mb-3 text-center text-[rgb(62 97 151)]" style={{ fontSize: '1.2rem' }}>AVAILABLE PRODUCTS</h2>
 
           {!loading && (
             <div className="container flex sm:flex-row">
@@ -77,7 +76,7 @@ export default function Page() {
                     <div style={{ height: '8rem' }}>
                       <h3 className="text-[#073857] text-xl font-bold text-center group-hover:animate-fade-in-up" style={{textTransform: 'uppercase'}}>{item.product}</h3>
 
-                      <div style={{ backgroundColor: 'rgb(128,6,190)', padding: '0.3rem', color: 'white' }}>
+                      <div style={{ backgroundColor: 'rgb(94, 16, 94)', padding: '0.3rem', color: 'white' }}>
                         <h3 className="text-center">MRF Price - LKR. {item.mrp}</h3>
                       </div>
 

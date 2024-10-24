@@ -22,7 +22,7 @@ export default function Page() {
     const fetchData = async () => {
       try {
 
-        const res = await axios.get('http://localhost:8000/api/seller/getReceipt');
+        const res = await axios.get('http://localhost:5002/api/sell/seller/getReceipt');
         const resdata = await res.data;
         setFetchArray(resdata);
         setLoading(false);

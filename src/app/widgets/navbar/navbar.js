@@ -8,10 +8,15 @@ import { HomeIcon, ShoppingCartIcon, UserGroupIcon, SupportIcon, LogoutIcon, Hea
 
 
 const Navbar = () => {
+  const [formData, setFormData] = useState({}); 
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [userDetails, setUserDetails] = useState({});
   const userMenuRef = useRef(null);
+  const [userId, setuserId] = useState('');
+
+
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -20,7 +25,30 @@ const Navbar = () => {
   const toggleUserMenu = () => {
     setIsUserMenuOpen(!isUserMenuOpen);
   };
+  useEffect(() => {
+    const storedUserDetails = localStorage.getItem('userDetails');
+    const userDetails = JSON.parse(storedUserDetails);
+    setuserId(userDetails.id);
+    const fetchUserDetails = async () => {
+      try {
+        const response = await fetch(`http://localhost:5002/api/user/${userId}`);
+        if (response.status === 200) {  // Check if status is 200 OK
+          const data = await response.json();
+          console.log(data);
 
+          setUserDetails(data);  // Set user details if response is 200 OK
+          setFormData(data); // Initialize form data with user details
+        }
+      } catch (err) {
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+    if (userId !== '') {
+      fetchUserDetails();
+    }
+    setLoading(false);
+  }, [userId]);
   useEffect(() => {
     const fetchUserDetails = async () => {
       const storedUserDetails = localStorage.getItem('userDetails');
@@ -73,7 +101,7 @@ const Navbar = () => {
     };
   }, [isUserMenuOpen]);
 
-  
+
 
   return (
     <div>
@@ -90,7 +118,9 @@ const Navbar = () => {
             </div>
           </Link>
           <h1 className="text-2xl text-[#180533] font-bold italic">
-            Welcome,
+            <div className='row mb-3 '>
+              <div className='col-8'> Welcome,{formData.name || '-'}</div>
+            </div>
           </h1>
         </div>
         <div className="flex items-center sm:mr-2 relative"></div>
@@ -106,28 +136,32 @@ const Navbar = () => {
               <div className="flex items-center space-x-4 ml-auto">
                 <Link
                   href="/customer/home"
-                  className="flex items-center space-x-2 mt-4  lg:mt-0 transition-all no-underline hover:bg-[#8006be] duration-300 hover:text-white rounded-md p-1">
+                  className="flex items-center space-x-2 mt-4 lg:mt-0 transition-all no-underline hover:bg-[#8006be] duration-300 hover:text-white rounded-md p-1">
                   <HomeIcon className="w-6 h-6" />
-                  <span>Home</span>
+                  <span className="text-lg font-bold">Home</span>
                 </Link>
+
                 <Link
                   href="/customer/order"
-                  className="flex items-center space-x-2 mt-4  lg:mt-0 transition-all no-underline hover:bg-[#8006be] duration-300 hover:text-white rounded-md p-1">
+                  className="flex items-center space-x-2 mt-4 lg:mt-0 transition-all no-underline hover:bg-[#8006be] duration-300 hover:text-white rounded-md p-1">
+
                   <ShoppingCartIcon className="w-6 h-6" />
-                  <span>Order History</span>
+                  <span className="text-lg font-bold">Order History</span>
                 </Link>
                 <Link
                   href="/customer/bidnotification"
-                  className="flex items-center space-x-2 mt-4  lg:mt-0 transition-all no-underline hover:bg-[#8006be] duration-300 hover:text-white rounded-md p-1">
+                  className="flex items-center space-x-2 mt-4 lg:mt-0 transition-all no-underline hover:bg-[#8006be] duration-300 hover:text-white rounded-md p-1">
+
                   <BellIcon className="w-6 h-6" />
-                  <span>Notification</span>
+                  <span className="text-lg font-bold">Notification</span>
                 </Link>
 
                 <Link
                   href="/customer/aboutus"
-                  className="flex items-center space-x-2 mt-4  lg:mt-0 transition-all no-underline hover:bg-[#8006be] duration-300 hover:text-white rounded-md p-1">
+                  className="flex items-center space-x-2 mt-4 lg:mt-0 transition-all no-underline hover:bg-[#8006be] duration-300 hover:text-white rounded-md p-1">
+
                   <SupportIcon className="w-6 h-6" />
-                  <span>AboutUs</span>
+                  <span className="text-lg font-bold">AboutUs</span>
                 </Link>
               </div>
               <div className="flex items-center space-x-4 ml-auto">
@@ -174,7 +208,7 @@ const Navbar = () => {
                     Profile
                   </Link>
                 </li>
-                <li onClick={()=>{localStorage.removeItem('userDetails');}}>
+                <li onClick={() => { localStorage.removeItem('userDetails'); }}>
                   <Link href="/auth/signin"
                     className="block px-4 py-2 text-sm hover:bg-[#8006be] transition-all duration-300 rounded-md p-1">
                     Sign out

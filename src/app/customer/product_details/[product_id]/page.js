@@ -11,13 +11,11 @@ import Chatbot from '../../../widgets/chatbot/page';
 
 function Pages() {
   const [showModal, setShowModal] = useState(false);
-const router = useRouter();
-
-const handleClick = () => {
-  setShowModal(true);
-  // router.push(`/customer/product_details/${auct._id}`);
-};
-
+  const router = useRouter();
+  const handleClick = () => {
+    setShowModal(true);
+    // router.push(`/customer/product_details/${auct._id}`);
+  };
   const { product_id } = useParams();
   console.log("Product id", product_id);
   const [product, setProduct] = useState(null);
@@ -38,32 +36,32 @@ const handleClick = () => {
     });
   }, [product_id]);
 
-//   ((response) => {
-//     console.log("Full response:", response); // Log the response to see its structure
-//     if ( response && response.status === 200) {
-//         setProduct(response.data);
-//     }
-//      else {
-//         console.error("Unexpected response or status code:", response);
-//     }
-// })
+  //   ((response) => {
+  //     console.log("Full response:", response); // Log the response to see its structure
+  //     if ( response && response.status === 200) {
+  //         setProduct(response.data);
+  //     }
+  //      else {
+  //         console.error("Unexpected response or status code:", response);
+  //     }
+  // })
 
 
   return (
     <div className='h-full w-full' >
-      <Navbar/>
+      <Navbar />
       {product && (
         <div className='p-20  flex'>
-          <Chatbot/>
+          <Chatbot />
           <div className='flex flex-col w-1/3 gap-5 items-center'>
             <div className='text-3xl font-bold'>{product.name}</div>
             <div className='flex shadow-xl rounded-3xl '>
-            <Image
-                            src={
-                              product.image.startsWith("http")
-                                ? product.image
-                                : `http://localhost:5000/${product.image}`
-                            }
+              <Image
+                src={
+                  product.image.startsWith("http")
+                    ? product.image
+                    : `http://localhost:5000/${product.image}`
+                }
                 alt={product.name}
                 width={350}
                 height={350}
@@ -80,12 +78,14 @@ const handleClick = () => {
               </div>
               <div className='p-5 bg-white rounded-3xl shadow-xl border' style={{ borderBottom: '6px solid  #8006be' }}>
                 <div className='flex flex-col justify-center items-center'>
-                  <div className='text-2xl font-bold'>Fast and Free</div>
-                  <div>Delivery</div>
+                  <div className='text-2xl font-bold'>Fast Delivery </div>
+                  <div>&</div>
+                  <div className='text-2xl font-bold'> Fair Pricing</div>
+
                 </div>
               </div>
               <div className='rounded-3xl shadow-xl'>
-                <button  onClick={handleClick} className='btn p-2 rounded-full border-dark rounded-pill btn-primary'>
+                <button onClick={handleClick} className='btn p-2 rounded-full border-dark rounded-pill btn-primary'>
                   Get Best Price
                 </button>
               </div>
@@ -111,8 +111,8 @@ const handleClick = () => {
           </div>
         </div>
       )}
-      {showModal && <AuctionModal showModal={showModal} setShowModal={setShowModal} product={product}/>}
-      <Footer/>
+      {showModal && <AuctionModal showModal={showModal} setShowModal={setShowModal} product={product} />}
+      <Footer />
     </div>
   );
 }

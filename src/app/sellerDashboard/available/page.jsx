@@ -23,7 +23,7 @@ export default function Page() {
     const fetchData = async () => {
       try {
 
-        const res = await axios.get('http://localhost:8000/api/seller/getAvailable');
+        const res = await axios.get('http://localhost:5002/api/available/getAvailable');
         const resdata = await res.data;
         setFetchArray(resdata);
         setLoading(false);

@@ -20,13 +20,16 @@ import LineChart from "../../components/LineChart";
 import '../../../../public/styles.css'
 import { BsJournalCheck } from 'react-icons/bs';
 import { IoMdNotificationsOutline } from 'react-icons/io';
+import SellerBidNotificationModal from './_components/sellerBidNotificationModal'
 
 
 function Pages() {
     const router = useRouter();
     const [auction, setAuction] = useState([]);
     const [userId, setUserId] = useState('');
-    const [loading, setLoading] = useState(true); // Loading state
+    const [loading, setLoading] = useState(true); 
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedData, setSelectedData] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -57,6 +60,11 @@ function Pages() {
         const storedUserDetails = localStorage.getItem('userDetails');
         const userDetails = JSON.parse(storedUserDetails);
         return userDetails?.id;
+    };
+    const toggleModal = (auct) => {
+        setSelectedData(auct) ;
+        setIsModalOpen(!isModalOpen);
+        // Toggle modal state
     };
 
     return (
@@ -91,9 +99,10 @@ function Pages() {
                                                 </div>
                                                 <button
                                                     className='btn text-white p-2'
-                                                    onClick={() => router.push(`/customer/bidding_details/${auct._id}`)}
+                                                    onClick={() => toggleModal(auct)}
+                                                    // onClick={() => router.push(`/customer/bidding_details/${auct._id}`)}
                                                     style={{ backgroundColor: "#031520" }}>
-                                                    SellBid
+                                                    OpenBid
                                                 </button>
                                             </div>
                                         </div>
@@ -106,6 +115,7 @@ function Pages() {
                     }
                 </div>
             </div>
+            <SellerBidNotificationModal isOpen={isModalOpen} toggleModal={toggleModal} data={selectedData}/>
         </div>
     );
 }

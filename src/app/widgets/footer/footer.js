@@ -9,6 +9,7 @@ function Footer() {
     <footer class="py-5">
       <div class="container-fluid p-5 bg-white  rounded-3xl shadow-xl"style={{ borderBottom: '6px solid  #8006be' }}>
         <div class="row">
+
           <div class="col-lg-3 col-md-6 col-sm-6">
             <div class="footer-menu">
             <Image
@@ -17,7 +18,7 @@ function Footer() {
                 width={80}
                 height={80}
               />
-              <div className=' fw-bold fs-3'>BroBid</div>
+              <div className=' fw-bold fs-3'>Bid Broo</div>
             </div>
           </div>
           <div class="col-md-2 col-sm-6">
@@ -112,7 +113,7 @@ function Footer() {
     <div id="footer-bottom">
       <div class="container-fluid">
         <div class=" text-center">
-            <p>© 2024 BroBid. All rights reserved.</p>
+            <p>© 2024 Bid Broo. All rights reserved.</p>
         </div>
       </div>
     </div>

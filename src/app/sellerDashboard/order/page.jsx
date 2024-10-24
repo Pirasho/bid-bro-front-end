@@ -24,7 +24,7 @@ export default function Page() {
     const fetchData = async () => {
       try {
 
-        const res = await axios.get('http://localhost:8000/api/seller/getOrder');
+        const res = await axios.get('http://localhost:5002/api/order/getOrder');
         const resdata = await res.data;
         setFetchArray(resdata);
         setLoading(false);
@@ -61,9 +61,9 @@ export default function Page() {
 
               {fetchArray.map((item) => {
 
-                const base64String = btoa(
-                  String.fromCharCode(...new Uint8Array(item.image.data.data))
-                );
+                // const base64String = btoa(
+                //   String.fromCharCode(...new Uint8Array(item.image.data.data))
+                // );
 
                 return (
 
@@ -82,7 +82,7 @@ export default function Page() {
 
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                       <div style={{ padding: '0.5rem', height: '5rem', width: '5rem', paddingTop: '1rem' }}>
-                        <Image src={`data:image/png;base64,${base64String}`} alt="" className="image" width={0} height={0}  />
+                        {/* <Image src={`data:image/png;base64,${base64String}`} alt="" className="image" width={0} height={0}  /> */}
                       </div>
                       <div style={{ padding: '0.5rem', height: '5rem', width: '5rem', paddingTop: '1rem' }}>
                         <Image src={sold} alt="" className="image" />

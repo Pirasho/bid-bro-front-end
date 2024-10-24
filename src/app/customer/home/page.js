@@ -34,7 +34,7 @@ function HomePage() {
             <Navbar />
             <Chatbot />
             <div className="container mx-auto">
-                <div className="py-8">    
+                <div className="py-8">
                     <div className="flex space-x-4 mb-8">
                         {categories.map((category) => (
                             <button
@@ -56,10 +56,16 @@ function HomePage() {
                             className="px-4 py-2 border rounded-lg w-full md:w-1/3"
                         />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-4 m-9 gap-4">
+                    <div className="grid grid-cols-1 md:grid-cols-4 m-9 gap-4 ">
                         {filteredProducts.map((pro, index) => (
-                            <div key={pro._id} className="flex flex-col items-center justify-center border p-4">
-                                <Image src="/images/product_1.webp" alt={pro.name} width={200} height={200} />
+                            <div key={index} className="flex flex-col items-center justify-center shadow-lg border p-4">
+                                {pro.image && (
+                                    <img
+                                        src={pro.image.startsWith("http") ? pro.image : `http://localhost:5000/${pro.image}`}
+                                        alt={pro.name}
+                                        className="w-full h-64 object-cover"
+                                    />
+                                )}
                                 <h2 className="text-xl font-bold">{pro.name}</h2>
                                 <p className="text-black-500 font-bold">{pro.category}</p>
                                 <p className="text-red-500 font-bold">MRP : {pro.price}</p>
@@ -68,6 +74,13 @@ function HomePage() {
                                     onClick={() => router.push(`/customer/product_details/${pro._id}`)}
                                 >
                                     BiD
+                                </button>
+                                <br />
+                                <button
+                                    className='p-2 bg-white text-[#8006BE] border-2 border-[#8006BE] font-bold rounded-[20px]'
+                                    onClick={() => router.push(`/customer/---/${pro._id}`)}
+                                >
+                                    Add to Card
                                 </button>
                             </div>
                         ))}

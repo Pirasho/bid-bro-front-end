@@ -17,11 +17,11 @@ function Startfooter() {
         </div>
         <div className="container mx-auto px-4 text-center">
           {/* <div className="mb-6">
-            <h2 className="text-2xl font-bold">BroBid</h2>
+            <h2 className="text-2xl font-bold">Bid Broo</h2>
             <p className="text-sm">Empowering every transaction with a touch of innovation</p>
           </div> */}
            <div className="mb-6">
-                    <h2 className="text-2xl text-white font-bold">BroBid</h2>
+                    <h2 className="text-2xl text-white font-bold">Bid Broo</h2>
                     <p className="text-sm text-white">Empowering every transaction with a touch of innovation</p>
                 </div>
           <div className="flex justify-center space-x-6 mb-6">
@@ -30,7 +30,7 @@ function Startfooter() {
             <Link href="/customer/" className="text-white hover:text-gray-300">Privacy Policy</Link>
             <Link href="/customer/custdashboard" className="text-white hover:text-gray-300">Home</Link>
           </div>
-          <p className="text-sm text-white">© {new Date().getFullYear()} BroBid. All rights reserved.</p>
+          <p className="text-sm text-white">© {new Date().getFullYear()} Bid Broo. All rights reserved.</p>
         </div>
       </div>
       <div className="FooterBottom flex justify-center text-purple-50">

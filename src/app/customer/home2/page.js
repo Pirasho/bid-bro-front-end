@@ -84,7 +84,7 @@ function HomePage2() {
                                     <img
                                         src={pro.image.startsWith("http") ? pro.image : `http://localhost:5000/${pro.image}`}
                                         alt={pro.name}
-                                        className="w-full h-64 object-cover"
+                                       className="w-full h-64 object-cover"
                                     />
                                 )}
                                 <div className="p-4">

@@ -17,12 +17,12 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 function Pages() {
     const router = useRouter();
-    const { product_id,seller_id } = useParams();
+    const { product_id, seller_id } = useParams();
     const [showModal, setShowModal] = useState(false);
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState([]);
     const [Sellerdata, setSellerdata] = useState({});
-   
+
     const [auction, setAuction] = useState({});
     const activeStep = '3'
 
@@ -32,14 +32,14 @@ function Pages() {
                 if (response.status === 200) {
                     const sellerBidsData = response.data;
                     console.log("Bids:", JSON.stringify(sellerBidsData));
-                    
+
                     // Assuming response.data is an array with auction data and bids array inside it
-                    const auctionData = sellerBidsData[0]; 
+                    const auctionData = sellerBidsData[0];
                     setData(auctionData);
-    
+
                     // Find the bid that matches the seller_id
                     const matchedBid = auctionData.bids.find((bid) => bid.sellerId === seller_id);
-    
+
                     if (matchedBid) {
                         setSellerdata(matchedBid);
                     } else {
@@ -51,18 +51,18 @@ function Pages() {
             });
         }
     }, [product_id, seller_id]); // Added seller_id as a dependency
-    
+
 
     const handleButtonClick = () => {
         setShowModal(false);
         toast.success('Thank You For Your Confirmation, Enjoy your Day'); // Displays a success message
     };
 
-    useEffect(()=>{
-console.log('Sellerdata'+JSON.stringify(Sellerdata));
+    useEffect(() => {
+        console.log('Sellerdata' + JSON.stringify(Sellerdata));
 
-    },[Sellerdata])
-    
+    }, [Sellerdata])
+
     // useEffect(() => {
     //     const fetchData = async () => {
     //         try {
@@ -72,7 +72,7 @@ console.log('Sellerdata'+JSON.stringify(Sellerdata));
     //                 getOrderHistory(userId, (response) => {
     //                     if (response.status === 200) {
     //                         console.log('dei'+JSON.stringify(response.data));
-                            
+
     //                         setAuction(response.data);
     //                     } else {
     //                         console.error("Failed to fetch seller bids", response);
@@ -96,32 +96,26 @@ console.log('Sellerdata'+JSON.stringify(Sellerdata));
         const userDetails = JSON.parse(storedUserDetails);
         return userDetails?.id;
     };
-    
+
 
     return (
         <div className='h-full w-full'>
             <ToastContainer /> {/* Ensure this is included */}
             <Navbar />
             <div className=' btn  btn-primary ms-4' onClick={() => router.push("/customer/order")}>
-        <FontAwesomeIcon icon={faChevronLeft} /> Back
-        </div>
+                <FontAwesomeIcon icon={faChevronLeft} /> Back
+            </div>
             <div className='p-24 flex flex-col md:flex-row'>
                 <Chatbot />
                 {/* Product Details */}
                 <div className='flex flex-col w-full md:w-1/3 gap-8 items-center'>
                     <div className='text-3xl font-bold'>{data?.productName}</div>
-                     {/* <Image
-                            src={
-                                data?.productImage && data?.productImage.startsWith("http")
-                                ? data?.productImage
-                                : `http://localhost:5000/${data?.productImage}`
-                            }
-                            alt={data?.productImage || "Product Image"}
-                            width={80}
-                            height={80}
-                            className="rounded-lg"
-                            objectFit="cover"
-                          /> */}
+                    <Image
+                        src="/images/iphone15.webp"
+                        alt=""
+                        width={500}
+                        height={500}
+                    />
                 </div>
                 {/* Bidding Details */}
                 <div className='flex flex-col w-full md:w-2/3 pt-10'>
@@ -155,8 +149,8 @@ console.log('Sellerdata'+JSON.stringify(Sellerdata));
 
                     </div>
                     <div className='bg-white p-5 rounded-3xl shadow' style={{ borderBottom: '6px solid #8006be' }}>
-                    <div className='text-2xl font-bold mb-3 heading-bar'>Product Details</div>
-                    
+                        <div className='text-2xl font-bold mb-3 heading-bar'>Product Details</div>
+
                         <div className=' d-flex justify-center gap-5 mt-4'>
                             <div className='bg-light p-4 rounded-3xl shadow'>
                                 <div className='font-bold  text-center'>Your Requiremnets</div>

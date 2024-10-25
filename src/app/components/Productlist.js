@@ -284,7 +284,6 @@ export default function ProductList() {
     <option value="Headphones">Camera</option>
   </select>
 </div>
-
                 <div className="mb-3">
                   <label className="form-label">Description</label>
                   <textarea

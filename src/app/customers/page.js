@@ -40,8 +40,8 @@ export default function CustomerList({ children }) {
         (customer.name && customer.name.toLowerCase().includes(searchQuery.toLowerCase())) ||
         (customer.email && customer.email.toLowerCase().includes(searchQuery.toLowerCase())) ||
         (customer.telephone && customer.telephone.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (customer.address && customer.address.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        (customer.nic && customer.nic.toLowerCase().includes(searchQuery.toLowerCase()))
+        (customer.address && customer.address.toLowerCase().includes(searchQuery.toLowerCase())) 
+
     );
 
     return (
@@ -70,7 +70,7 @@ export default function CustomerList({ children }) {
                             <th className="px-4 py-2 border">Telephone</th>
                             <th className="px-4 py-2 border">Email</th>
                             <th className="px-4 py-2 border">Address</th>
-                            <th className="px-4 py-2 border">NIC</th>
+
                             <th className="px-4 py-2 border">Action</th>
                         </tr>
                     </thead>
@@ -80,10 +80,9 @@ export default function CustomerList({ children }) {
                                 <tr key={customer._id} className="hover:bg-gray-50">
                                     <td className="px-4 py-2 border">{index + 1}</td>
                                     <td className="px-4 py-2 border">{customer.name}</td>
-                                    <td className="px-4 py-2 border">{customer.telephone}</td>
+                                    <td className="px-4 py-2 border">{customer.phone}</td>
                                     <td className="px-4 py-2 border">{customer.email}</td>
                                     <td className="px-4 py-2 border">{customer.address}</td>
-                                    <td className="px-4 py-2 border">{customer.nic}</td>
                                     <td className="px-4 py-2 border">
                                         <button className="px-4 py-2 bg-purple-900 text-white font-bold rounded shadow hover:bg-grey-700 transition duration-200">
                                             Block

@@ -91,11 +91,11 @@ export default function SellerList({ children }) {
                             <tr>
                                 <th className="p-3"></th>
                                 <th className="p-3">RegNo</th>
-                                <th className="p-3">Name</th>
+                                <th className="p-3">Company Name</th>
                                 <th className="p-3">Telephone No</th>
                                 <th className="p-3">Email</th>
-                                <th className="p-3">Address</th>
-                                <th className="p-3">NIC</th>
+                                <th className="p-3">Shop Address</th>
+                                <th className="p-3">City</th>
                                 <th className="p-3"></th>
                             </tr>
                         </thead>
@@ -109,11 +109,11 @@ export default function SellerList({ children }) {
                                             </label>
                                         </td>
                                         <td className="p-3">{index + 1}</td>
-                                        <td className="p-3">{seller.name}</td>
-                                        <td className="p-3">{seller.telephone}</td>
+                                        <td className="p-3">{seller.shop_name}</td>
+                                        <td className="p-3">{seller.phone}</td>
                                         <td className="p-3">{seller.email}</td>
-                                        <td className="p-3">{seller.address}</td>
-                                        <td className="p-3">{seller.nic}</td>
+                                        <td className="p-3">{seller.shop_address}</td>
+                                        <td className="p-3">{seller.city}</td>
                                         <td className="p-3">
                                             <button 
                                                 className="ml-2 px-4 py-2 bg-purple-700 text-white font-bold rounded shadow hover:bg-red-500 transition duration-200" // Updated to purple

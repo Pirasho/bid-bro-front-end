@@ -27,7 +27,7 @@ function HomePage() {
         const matchesSearch = pro.name.toLowerCase().includes(searchTerm.toLowerCase()); // Check if name matches search term
         return matchesCategory && matchesSearch;
     });
-    const categories = ['All', 'Phone', 'Laptop', 'Other'];
+    const categories = ['All', 'SmartPhones', 'Laptop', 'Other'];
 
     return (
         <div className=''>

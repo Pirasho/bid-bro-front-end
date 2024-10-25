@@ -45,7 +45,7 @@ export default function SignIn() {
       
 
       // Redirect or handle successful sign-in here
-      window.location.href = '/sellerDashboard/home'; 
+      window.location.href = '/sellerDashboard/sellernotification'; 
     } catch (error) {
       setError(error.message);
     }

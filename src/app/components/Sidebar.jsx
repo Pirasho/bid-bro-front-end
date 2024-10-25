@@ -38,14 +38,6 @@ export default function Sidebar() {
                 </div>
                 <span style={{ display: 'block', backgroundColor: 'white', height: '2px' }} />
                 <nav className="space-y-2 p-2 pl-6">
-                    <Link href={'/sellerDashboard/home'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300  my-2   no-underline">
-                        <AiFillDingtalkCircle size={22} className="mr-2" />
-                        My Bids
-                    </Link>
-                    <Link href={'/sellerDashboard/receipt'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300  my-2  no-underline">
-                        <IoReceiptOutline size={21} className="mr-2" />
-                        Customer Receipts
-                    </Link>
                     <Link href={'/sellerDashboard/order'} className="flex items-center text-[white] hover:text-[yellow] hover:bg-[#0315206d]  p-2 rounded-lg transition duration-300  my-2  no-underline">
                         <BsFillCartPlusFill size={21} className="mr-2" />
                         Completed Orders

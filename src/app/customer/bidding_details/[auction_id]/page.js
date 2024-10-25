@@ -88,20 +88,13 @@ function Pages() {
       <div className='p-10 flex flex-col md:flex-row'>
         <Chatbot />
         <div className='flex flex-col w-full md:w-1/3 gap-8 items-center'>
-
           <div className='text-3xl font-bold'>{auction.productName}</div>
-
-          {/* <Image
-            src={
-              product.image.startsWith("http")
-                ? product.image
-                : `http://localhost:5000/${product.image}`
-            }
-            alt={product.name}
-            width={350}
-            height={350}
-            className=' '
-          /> */}
+          <Image 
+        src="/images/iphone15.webp"   
+        alt=""
+        width={500} 
+        height={500}          
+      />
         </div>
         <div className='flex flex-col w-full md:w-2/3 pt-10'>
           <div className='rounded-3xl flex flex-col m-3 p-5'>

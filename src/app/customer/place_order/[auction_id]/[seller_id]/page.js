@@ -287,16 +287,12 @@ function Pages() {
           <div className='flex'>
             <div className='w-5/12 flex flex-col gap-5 m-2'>
               <div className='col-5'>
-                <Image
-                  // src={
-                  //   product.image.startsWith("http")
-                  //     ? product.image
-                  //     : `http://localhost:5000/${product.image}`
-                  // }
-                  alt="Profile Photo"
-                  width={250}
-                  height={160}
-                />
+              <Image 
+        src="/images/iphone15.webp"   
+        alt=""
+        width={500} 
+        height={500}          
+      />
               </div>
               <div className='grid grid-cols-1 gap-6'>
                 <div className='bg-light p-4 rounded-3xl shadow'>

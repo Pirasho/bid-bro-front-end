@@ -260,6 +260,10 @@ function Pages() {
       }
     };
 
+    const handelAccept=()=>{
+      handlleUpdate()
+      setShowModal(true)
+    }
    
  
 
@@ -327,7 +331,7 @@ function Pages() {
                     <div>City:</div>
                     <div className='font-bold'>{sellerDeatil.city}</div>
                   </div>
-                  <button className='btn p-2 rounded-full border-dark rounded-pill btn-primary mt-2' onClick={()=>{handlleUpdate,setShowModal(true)}}>
+                  <button className='btn p-2 rounded-full border-dark rounded-pill btn-primary mt-2' onClick={handelAccept}>
                     Accept Bid
                   </button>
                 </div>

@@ -1,0 +1,42 @@
+.body{
+    display: flex;
+    min-height: 100vh;
+    max-height: auto;
+}
+.sidebar{
+    /* background-color: #073857; */
+    background-color: rgb(44, 1, 44);
+}
+.container {
+    flex-wrap: wrap;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.bid {
+    margin: 1rem;
+}
+
+.card {
+    box-shadow: -4px 2px 9px 4px rgba(0, 0, 0, 0.28);
+    -webkit-box-shadow: -4px 2px 9px 4px rgba(0, 0, 0, 0.28);
+    -moz-box-shadow: -4px 2px 9px 4px rgba(0, 0, 0, 0.28);
+}
+
+.headnav {
+    box-shadow: -4px 2px 9px 4px rgba(0, 0, 0, 0.28);
+    -webkit-box-shadow: -4px 2px 9px 4px rgba(0, 0, 0, 0.28);
+    -moz-box-shadow: -4px 2px 9px 4px rgba(0, 0, 0, 0.28);
+}
+
+.image {
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.test {
+    color: rgb(179, 141, 3);
+}
